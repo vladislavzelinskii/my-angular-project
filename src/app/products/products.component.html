@@ -1,0 +1,27 @@
+<ul class="products">
+    <li *ngFor="let product of products" (click)="onSelect(product)">
+        <div class="image">
+            <img src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+        </div>
+        <div class="nameAndDescription">
+            <div>
+                <h3>{{product.name}}</h3>
+            </div>
+            <div>
+                {{product.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}}
+            </div>
+        </div>
+        <div class="price">
+            {{product.price}} $
+        </div>
+    </li>
+</ul>
+
+<div *ngIf="selectedProduct">
+    <h2>{{selectedProduct.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{selectedProduct.id}}</div>
+    <div>
+        <label for="product-name">Product name: </label>
+        <input id="product-name" [(ngModel)]="selectedProduct.name" placeholder="name">
+    </div>
+</div>
