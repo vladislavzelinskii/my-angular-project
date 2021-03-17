@@ -1,0 +1,8 @@
+<form [formGroup]="filtersForm">
+    <div *ngFor="let control of categoriesArray.controls; let i = index" formArrayName='categories'>
+        <input [formControlName]="i" type="checkbox" id="checkbox{{i}}" 
+        (change)="getSelectedCategoriesValue()"
+        value="123">
+        <label for="checkbox{{i}}">{{filters[i]}}</label>
+    </div>
+</form>

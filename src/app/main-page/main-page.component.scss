@@ -7,7 +7,7 @@ aside {
 }
 
 .banner {
-    grid-area: banner
+    grid-area: banner;
 }
 
 .products {
@@ -50,6 +50,33 @@ aside {
 .banner {
     height: 400px;
     background-color: #abc5bc;
+}
+
+ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+li {
+    padding: 5px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #eb8d8d;
+    font-size: 20px;
+}
+
+li:hover {
+    background-color: #285e5e;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+    color: white;
+    background-image: url(https://mobile-review.com/articles/2020/image/echo-102/pic/10.jpg);
+    background-position: 0 -20px;
 }
 
 
