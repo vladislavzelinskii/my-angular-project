@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+.review {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border-bottom: 1px solid rgb(223, 220, 220);
+    min-height: 70px;
+    padding: 10px;
+
+    .userName {
+        padding: 10px;
+    }
+
+    .ratingAndText {
+        .rating {
+            span {
+                color: #cccccc;
+                font-size: 22px;
+            }
+            span:before {
+                content: '★';
+            }
+            span.active {
+                color: #ff4747;
+            }
+        }
+    }
+
+
+}
+
+
+.addReview {
+    margin-top: 20px;
+    form {
+        display: grid;
+        grid-template-columns: 180px 1fr 160px;
+        grid-gap: 20px;
+    }
+    .text {
+        textarea {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 70px;
+            border-radius: 5px;
+        }
+    }
+    .submit {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin: 0 20px 10px;
+        button {
+            height: 25px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            background-color: #ff4747;
+        }
+    }
+}
+
+
+.rating-area {
+	overflow: hidden;
+    margin: 0 auto;
+	width: 160px;
+}
+.rating-area:not(:checked) > input {
+	display: none;
+}
+.rating-area:not(:checked) > label {
+	float: right;
+	width: 28px;
+	padding: 0;
+	cursor: pointer;
+	font-size: 28px;
+	line-height: 28px;
+	color: #cccccc;
+	text-shadow: 1px 1px #bbb;
+}
+.rating-area:not(:checked) > label:before {
+	content: '★';
+}
+.rating-area > input:checked ~ label {
+	color: #ff4747;
+	text-shadow: 1px 1px #c60;
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+	color: #ff4747;
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+	color: #ff4747;
+	text-shadow: 1px 1px goldenrod;
+}
+.rate-area > label:active {
+	position: relative;
+}
+
+
+

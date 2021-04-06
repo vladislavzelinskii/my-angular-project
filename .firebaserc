@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "my-angular-project9465"
+  },
+  "targets": {
+    "my-angular-project9465": {
+      "hosting": {
+        "my-angular-project": [
+          "my-angular-project9465"
+        ]
+      }
+    }
   }
 }

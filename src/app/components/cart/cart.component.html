@@ -1,0 +1,135 @@
+<div class="wrapperBackground">
+
+    <button (click)="goBack()">go back</button>
+
+
+    <div *ngIf="item$ | async as cart" class="wrapper">
+
+        <div class="cartCaptionAndClearCart">
+            <div class="captionAndQuantity">
+                Cart ({{cart.productsInCart.length}})
+            </div>
+            <div class="clearCart">
+                <button (click)="clearCart()">Clear cart</button>
+            </div>
+        </div>
+
+
+        <div class="buy">
+            <div class="totalPriceCaption">
+                Total price
+            </div>
+            <div class="toPayAndAmount">
+                <div class="toPay">
+                    To pay
+                </div>
+                <div class="amount">
+                    {{cart.totalPrice | currency}}
+                </div>
+            </div>
+            <div class="checkoutButton">
+                <a routerLink='/checkoutProcess'>Checkout</a>
+            </div>
+        </div>
+
+
+
+        <div class="productsInCart">
+            <div class="orderListCaption">
+                Order list
+            </div>
+
+            <div *ngFor="let productInCart of cart.productsInCart" class="productInCart">
+                <div class="image">
+                    <a routerLink='/product/{{productInCart.productId}}'>
+                        <img
+                            src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                    </a>
+                </div>
+
+                <div class="nameAndPrice">
+                    <div class="name">
+                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                    </div>
+                    <br>
+                    <div class="priceAndDeleteButton">
+                        <div class="price">
+                            {{productInCart.price | currency}}
+                        </div>
+                        <div class="deleteButton">
+                            <button
+                                (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
+                                Delete product
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priceAndQuantity">
+                    <div class="quantity">
+                        <button
+                            (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                            [disabled]="(productInCart.quantity === 1)">
+                            -
+                        </button>
+                        {{productInCart.quantity}}
+                        <button
+                            (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                            [disabled]="(productInCart.quantity === 10)">
+                            +
+                        </button>
+                    </div>
+                    <div class="priceSubTotal">
+                        {{productInCart.price * productInCart.quantity | currency}}
+                    </div>
+                </div>
+
+
+
+
+                <!-- <div class="nameAndQuantity">
+                    <div class="name">
+                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                    </div>
+                    <div class="quantity">
+                        <button
+                            (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                            [disabled]="(productInCart.quantity === 1)">
+                            -
+                        </button>
+                        {{productInCart.quantity}}
+                        <button
+                            (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                            [disabled]="(productInCart.quantity === 10)">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <div class="priceAndDeleteButton">
+                    <div class="price">
+                        {{productInCart.price | currency}}
+                        {{productInCart.price * productInCart.quantity | currency}}
+                    </div>
+                    <button
+                        (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
+                        Delete product
+                    </button>
+                </div> -->
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+<!-- <h3>{{ item | async | json }}</h3> -->
+
+<!-- <input [(ngModel)]="newContent">
+    <button (click)="updateContent()">Update</button> -->

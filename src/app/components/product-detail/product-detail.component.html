@@ -1,0 +1,49 @@
+<header>
+    <app-header></app-header>
+</header>
+
+<div class="wrapper" *ngIf="item | async as product">
+
+    <div class="image">
+        <img
+            src="{{ (product.imageBig) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+    </div>
+    <div class="nameAndDescription">
+        <div>
+            <h3>{{product.name}}</h3>
+        </div>
+        <div>
+            {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}}
+        </div>
+    </div>
+    <div class="price">
+        <h3>Price: {{product.price}} $</h3>
+    </div>
+    <div class="country">
+        <h4>Country: {{product.country}}</h4>
+    </div>
+    <div class="rating">
+        rating: {{averageRating}} (inDevelopment)
+    </div>
+    <div class="addToCart">
+        <button (click)="addToCart(product.id, product.price, product.name, product.image)" [disabled]="flag">Add to
+            cart</button>
+        <button (click)="removeFromCart(product.id, product.price, product.name, product.image)"
+            [disabled]="!flag">Remove from cart</button>
+    </div>
+    <div class="specs">
+        <table>
+            <caption>Specs:</caption>
+            <tr *ngFor="let spec of product.specs | keyvalue">
+                <td>{{spec.key | format}}</td>
+                <td>{{spec.value}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="reviews">
+        <app-reviews></app-reviews>
+    </div>
+</div>

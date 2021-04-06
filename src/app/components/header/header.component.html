@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <div class="shopName">
+        <a routerLink=''>Shop</a>
+    </div>
+
+    <input class="search" type="text" placeholder="what are you looking for">
+
+    <a routerLink='/cart' class="toCart">
+        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FcartIcon.png?alt=media&token=30d47dc7-d520-45df-b611-34ce723886cd"
+            alt="">
+        <div class="counter">
+            {{item$.length}}
+        </div>
+    </a>
+
+    <a routerLink='/bankCards' class="toBankCards">
+        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FbankCardsIcon.png?alt=media&token=6381d911-ab85-488f-bbdc-b525317328c3"
+            alt="bankCards">
+    </a>
+
+
+</div>

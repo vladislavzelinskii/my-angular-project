@@ -1,0 +1,43 @@
+<div class="wrapper" *ngIf="item | async as product">
+    <h3>Reviews</h3>
+    <div class="review" *ngFor="let review of product.reviews">
+        <div class="userName">
+            {{review.userName}}
+        </div>
+        <div class="ratingAndText">
+            <div class="rating">
+                <span [ngClass]="{'active' : review.rating > 0}"></span>
+                <span [ngClass]="{'active' : review.rating > 1}"></span>
+                <span [ngClass]="{'active' : review.rating > 2}"></span>
+                <span [ngClass]="{'active' : review.rating > 3}"></span>
+                <span [ngClass]="{'active' : review.rating > 4}"></span>
+                {{review.rating}}
+            </div>
+            <div class="text">
+                {{review.text}}
+            </div>
+        </div>
+    </div>
+    <div class="addReview">
+        <form [formGroup]="addReviewForm" (ngSubmit)="addReview(product.id)">
+            <div class="rating-area">
+                <input type="radio" id="star-5" formControlName="rating" value="5">
+                <label for="star-5" title="Rate «5»"></label>
+                <input type="radio" id="star-4" formControlName="rating" value="4">
+                <label for="star-4" title="Rate «4»"></label>
+                <input type="radio" id="star-3" formControlName="rating" value="3">
+                <label for="star-3" title="Rate «3»"></label>
+                <input type="radio" id="star-2" formControlName="rating" value="2">
+                <label for="star-2" title="Rate «2»"></label>
+                <input type="radio" id="star-1" formControlName="rating" value="1">
+                <label for="star-1" title="Rate «1»"></label>
+            </div>
+            <div class="text">
+                <textarea formControlName="text"></textarea>
+            </div>
+            <div class="submit">
+                <button type="submit" [disabled]="!addReviewForm.valid">Add review</button>
+            </div>
+        </form>
+    </div>
+</div>

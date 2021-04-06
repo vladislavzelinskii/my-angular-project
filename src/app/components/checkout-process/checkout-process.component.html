@@ -1,0 +1,98 @@
+
+<div class="wrapperBackground">
+
+    <button (click)="goBack()">Go Back</button>
+
+    <div *ngIf="item | async as user" class="wrapper">
+
+        <div class="deliveryAddress">
+            <div class="addressDetails">
+                <div class="caption">
+                    Delivery address
+                </div>
+                <div class="nameAndPhone">
+                    {{user.surname}} {{user.name}} {{user.phone}}
+                </div>
+                <div class="street">
+                    {{user.address.street}}, {{user.address.house}}-{{user.address.flat}}
+                </div>
+                <div class="city">
+                    {{user.address.city}}, {{user.address.country}}, {{user.address.index}}
+                </div>
+            </div>
+            <div class="addressButtons">
+                <button>Add new address</button>
+                <button>Choose another address</button>
+            </div>
+        </div>
+
+        <div class="paymentDetails">
+            <div class="cardDetails">
+                <div class="caption">
+                    Payment details
+                </div>
+                <div class="cardNumber">
+                    {{user.bankCards[0].cardNumber | creditCardMask}}
+                </div>
+            </div>
+            <div class="cardButtons">
+                <button>Change</button>
+            </div>
+        </div>
+
+        <div class="buy">
+            <div class="totalPriceCaption">
+                Total price
+            </div>
+            <div class="toPayAndAmount">
+                <div class="toPay">
+                    To pay
+                </div>
+                <div *ngIf="totalPrice as totalPrice" class="amount">
+                    {{totalPrice | currency}}
+                </div>
+            </div>
+            <div class="checkoutButton">
+                <button (click)="checkout()">Buy</button>
+            </div>
+        </div>
+
+
+        <div class="productsInCart">
+            <div class="orderListCaption">
+                Order list
+            </div>
+            <div *ngFor="let productInCart of productsInCart" class="productInCart">
+                <div class="image">
+                    <a routerLink='/product/{{productInCart.productId}}'>
+                        <img
+                            src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                    </a>
+                </div>
+                <div class="nameAndPrice">
+                    <div class="name">
+                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                    </div>
+                    <br>
+                    <div class=price>
+                        {{productInCart.price | currency}}
+                    </div>
+                </div>
+                <div class="priceAndQuantity">
+                    <div class="quantity">
+                        Quantity:
+                        {{productInCart.quantity}}
+                    </div>
+                    <div class="priceSubTotal">
+                        {{productInCart.price * productInCart.quantity | currency}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="wrapper">
+
+    <header>
+        <app-header></app-header>
+    </header>
+
+    <aside>
+        <div class="asideCategories">
+            Categories:
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a [routerLink]="['products']" [queryParams]="{'category': 'notebook'}">Notebooks</a>
+                </li>
+                <li>
+                    <a [routerLink]="['products']" [queryParams]="{'category': 'phone'}">Phones</a>
+                </li>
+                <li>
+                    <a [routerLink]="['products']" [queryParams]="{'category': 'printer'}">Printers</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- <div class="banner">
+        <div class="image">
+            <div class="imageText">Bestellers</div>
+        </div>
+    </div> -->
+
+    <div class="banner">
+        <img class="image" src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2Fbestsellers.jpeg?alt=media&token=5eacaa91-e520-420d-a582-afd0ef0af2e2" alt="">
+        <span>Bestsellers</span>
+    </div>
+
+    <div class="products">
+        <app-popular-products></app-popular-products>
+    </div>
+
+</div>

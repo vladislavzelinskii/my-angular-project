@@ -1,0 +1,48 @@
+
+<header>
+    <app-header></app-header>
+</header>
+
+
+<div class="wrapper">
+
+    <aside>
+        <app-filters></app-filters>
+    </aside>
+
+    <div class="products">
+        <ul class="productsContent">
+            <ng-container *ngFor="let product of products | async">
+                <li *ngIf="flag || queryCategory.category.includes(product.category)">
+                    <div class="image">
+                        <a routerLink='/product/{{product.id}}'>
+                            <img
+                                src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                        </a>
+                    </div>
+                    <div class="nameAndDescription">
+                        <div>
+                            <h3><a routerLink='/product/{{product.id}}'>{{product.name}}</a></h3>
+                        </div>
+                        <div class="shortDescription">
+                            {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                            do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                            irure
+                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}}
+                        </div>
+                        <div>
+                            <h5>{{product.country}}</h5>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <h3>{{product.price | currency}}</h3>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+
+
+</div>
