@@ -1,0 +1,139 @@
+
+form {
+    padding: 20px 30px;
+}
+
+.changeCardCaption {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+
+.bankCardsRadioButtons {
+    display: flex;
+    flex-direction: column;
+    label {
+        width: 300px;
+        height: 30px;
+        .cardName {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    }
+}
+
+.newCard {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    .cardFront,
+    .cardBack {
+        width: 338px;
+        height: 214px;
+        background-color: #f2f2f2;
+        border-radius: 8px;
+        margin-right: 20px;
+        div {
+            position: absolute;
+            p {
+                margin: 0;
+                font-size: 10px;
+                color: #999;
+            }
+            input {
+                background: transparent;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+    .cardFront {
+        .cardNumber {
+            top: 75px;
+            left: 40px;
+            input {
+                width: 248px;
+                height: 26px;
+                font-size: 22px;
+            }
+        }
+        .cardHolder {
+            left: 40px;
+            top: 153px;
+            input {
+                width: 120px;
+                height: 17px;
+                font-size: 14px;
+            }
+        }
+        .expires {
+            left: 210px;
+            top: 153px;
+            input {
+                width: 80px;
+                height: 17px;
+                font-size: 14px;
+            }
+        }
+    }
+    .cardBack {
+        position: relative;
+        .cardCVV {
+            width: 67px;
+            top: 87px;
+            left: 270px;
+            input {
+                font-size: 22px;
+                height: 26px;
+                width: 50px;
+            }
+        }
+    }
+}
+
+.addNewCardButton {
+    color: #2e9cc3;
+    background: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.saveThisCard {
+    width: 200px;
+    margin: 10px 0;
+    input {
+        cursor: pointer;
+    }
+}
+
+
+
+.buttons {
+    padding-top: 10px;
+    button {
+        border: none;
+        height: 44px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .submit {
+        background-color: #ff4747;
+        color: #fff;
+        width: 230px;
+        margin-right: 15px;
+        &:disabled {
+            background-color: #ccc;
+        }
+    }
+    .cancel {
+        width: 140px;
+    }
+}
+
+

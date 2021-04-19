@@ -25,18 +25,22 @@ export class FiltersComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    firestore: AngularFirestore,
+    private firestore: AngularFirestore,
   ) {
-    this.filter$ = firestore.collection('filters').valueChanges()
-      .pipe(
-        map(res => {
-          this.filter$ = res;
-          this.filters = this.filter$.map((element: any) => {
-            return element.name;
-          })
+    
+  }
+
+  ngOnInit(): void {
+    this.filter$ = this.firestore.collection('filters').valueChanges()
+    .pipe(
+      map(res => {
+        this.filter$ = res;
+        this.filters = this.filter$.map((element: any) => {
+          return element.name;
         })
-      )
-      .subscribe(x => this.createFiltersForm());
+      })
+    )
+    .subscribe(x => this.createFiltersForm());
   }
 
   createFiltersForm() {
@@ -91,8 +95,6 @@ export class FiltersComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-
-  }
+  
 
 }

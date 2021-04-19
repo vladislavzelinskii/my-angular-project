@@ -1,48 +1,80 @@
+<div class="wrapperBackground" (click)="closeList($event)">
+    <header>
+        <app-header></app-header>
+    </header>
 
-<header>
-    <app-header></app-header>
-</header>
 
+    <div class="wrapper">
 
-<div class="wrapper">
+        <aside>
+            <app-filters></app-filters>
+        </aside>
 
-    <aside>
-        <app-filters></app-filters>
-    </aside>
-
-    <div class="products">
-        <ul class="productsContent">
-            <ng-container *ngFor="let product of products | async">
-                <li *ngIf="flag || queryCategory.category.includes(product.category)">
-                    <div class="image">
-                        <a routerLink='/product/{{product.id}}'>
-                            <img
-                                src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
-                        </a>
-                    </div>
-                    <div class="nameAndDescription">
-                        <div>
-                            <h3><a routerLink='/product/{{product.id}}'>{{product.name}}</a></h3>
+        <div class="products">
+            <!-- <div class="orderBy">
+                <button (click)="changeUrlToOrderBy('id')">Unordered</button>
+                <button (click)="changeUrlToOrderBy('price')">Cheap</button>
+                <button (click)="changeUrlToOrderBy('price', true)">Expensive</button>
+            </div> -->
+            <div class="customSelect">
+                <div class="currentOrder" (click)="openList($event)"><span *ngIf="currentOrder!=='Default'">First </span>{{currentOrder}} &#9660;</div>
+                <ul *ngIf="showListOfSort">
+                    <li (click)="changeUrlToOrderBy('id')"><span *ngIf="currentOrder === 'Default'">&#10003;</span>Default</li>
+                    <li (click)="changeUrlToOrderBy('price')"><span *ngIf="currentOrder === 'cheap'">&#10003;</span>Cheap</li>
+                    <li (click)="changeUrlToOrderBy('price', true)"><span *ngIf="currentOrder === 'expensive'">&#10003;</span>Expensive</li>
+                </ul>
+            </div>
+            <!-- <div class="select">
+            <select name="orderBy" id="orderBy" ngModel="unordered" (ngModelChange)="SELECTchangeUrlToOrderBy($event)">
+                <option value="unordered">Unordered</option>
+                <option value="priceAsc">Cheap</option>
+                <option value="priceDesc">Expensive</option>
+            </select>
+        </div> -->
+            <ul class="productsContent">
+                <ng-container *ngFor="let product of products | async">
+                    <li *ngIf="flagForNoSelectedCategory || queryCategory.category?.includes(product.category)">
+                        <div class="inputCompare">
+                            <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
+                                <input type="checkbox" checked="true" (click)="addToCompare($event, product.id)">
+                            </div>
+                            <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
+                                <input type="checkbox" (click)="addToCompare($event, product.id)">
+                            </div>
                         </div>
-                        <div class="shortDescription">
-                            {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                            do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}}
+                        <div class="image">
+                            <a routerLink='/product/{{product.id}}'>
+                                <img
+                                    src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                            </a>
                         </div>
-                        <div>
-                            <h5>{{product.country}}</h5>
+                        <div class="nameAndDescription">
+                            <div>
+                                <h3><a routerLink='/product/{{product.id}}'>{{product.name}}</a></h3>
+                            </div>
+                            <div class="shortDescription">
+                                {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                sed
+                                do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis
+                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                pariatur.'}}
+                            </div>
+                            <div>
+                                <h5>{{product.country}}</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="price">
-                        <h3>{{product.price | currency}}</h3>
-                    </div>
-                </li>
-            </ng-container>
-        </ul>
+                        <div class="price">
+                            <h3>{{product.price | currency}}</h3>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+
+
     </div>
-
-
 </div>

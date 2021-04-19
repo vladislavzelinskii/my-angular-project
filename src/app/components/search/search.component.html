@@ -1,0 +1,13 @@
+
+
+<input type="text" (keydown)="search($event)" placeholder="search product">
+
+
+
+<div *ngFor="let product of products">
+    <div>{{product?.name}}</div>
+</div>
+
+<div *ngIf="products?.length == 0">
+    no products found
+</div>

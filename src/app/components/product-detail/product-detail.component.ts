@@ -42,13 +42,14 @@ export class ProductDetailComponent implements OnInit {
         // item$[0].reviews.tap((element: any) => {
         //   this.arrayOfStars.push(element.rating);
         // })
-        
         return item$[0];
       }));
   }
 
   arrayOfStars: any[] = [];
   averageRating: number = 5;
+
+  numberOfReviews: any = 0;
 
   items: any;
   itemss: any;
@@ -70,26 +71,26 @@ export class ProductDetailComponent implements OnInit {
     ).subscribe();
 
 
-    this.firestore.collection('products').doc(id.toString()).valueChanges().pipe(
-      first(), tap((res: any) => {
+    // this.firestore.collection('products').doc(id.toString()).valueChanges().pipe(
+    //   first(), tap((res: any) => {
         
-        res.reviews.map((element: any) => {
-            return this.arrayOfStars.push(element.rating);
-          })
+    //     res.reviews.map((element: any) => {
+    //         return this.arrayOfStars.push(element.rating);
+    //       })
           
-      })
-    ).subscribe(x => {
-      let summRating = this.arrayOfStars.reduce((currentValue: any, previousValue: any) => {
-        console.log('previousValue: ' + previousValue);
-        console.log('currentValue: ' + currentValue);
-        return  previousValue + currentValue;
-      })
-      console.log(summRating);
-      this.averageRating = (summRating)/(this.arrayOfStars.length);
-      console.log('this.arrayOfStars.length: ' + this.arrayOfStars.length);
-      console.log(this.averageRating);
+    //   })
+    // ).subscribe(x => {
+    //   let summRating = this.arrayOfStars.reduce((currentValue: any, previousValue: any) => {
+    //     console.log('previousValue: ' + previousValue);
+    //     console.log('currentValue: ' + currentValue);
+    //     return  previousValue + currentValue;
+    //   })
+    //   console.log(summRating);
+    //   this.averageRating = (summRating)/(this.arrayOfStars.length);
+    //   console.log('this.arrayOfStars.length: ' + this.arrayOfStars.length);
+    //   console.log(this.averageRating);
       
-    });
+    // });
 
     
 

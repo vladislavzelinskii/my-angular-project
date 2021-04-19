@@ -17,31 +17,129 @@ export class ProductsComponent implements OnInit {
 
   queryCategory: Params = {};
 
-  flag: boolean = false;
+  flagForNoSelectedCategory: boolean = false;
 
   // flagForAddToCart: boolean = false;
 
-  products: Observable<any[]>;
+  products!: Observable<any[]>;
+
+  checkbox: any = true;
+
+  arrayOfIdForCompare: any;
+
+  showListOfSort: boolean = false;
+
+  currentOrder: string = 'unordered';
 
   constructor(
     private activatedRoute: ActivatedRoute,
     // private productService: ProductService,  
     private firestore: AngularFirestore,
-  ) {
-    this.products = firestore.collection('products').valueChanges();
-  }
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
+
+    this.products = this.firestore.collection('products').valueChanges();
+
+    this.arrayOfIdForCompare = Object.keys(localStorage);
+
     this.activatedRoute.queryParams.subscribe(data => {
       this.queryCategory = data;
 
-      this.flag = true;
-      for (let key in this.queryCategory) {
-        this.flag = false;
+      if (data.order) {
+        if (data.order.indexOf(':desc') === -1) {
+          this.products = this.firestore.collection('products', ref => ref.orderBy(data.order)).valueChanges();
+          this.currentOrder = 'cheap';
+        } else {
+          this.products = this.firestore.collection('products', ref => ref.orderBy(data.order.replace(':desc', ''), 'desc')).valueChanges();
+          this.currentOrder = 'expensive';
+        }
+      } else {
+        this.products = this.firestore.collection('products').valueChanges();
+        this.currentOrder = 'Default';
       }
+
+      this.flagForNoSelectedCategory = true;
+      
+      for (let key in this.queryCategory) {
+        if (key === "category") {
+          this.flagForNoSelectedCategory = false;
+        }
+      }
+
     });
-    // this.getProducts();
+
   }
+  
+  openList($event: any) {
+    $event.stopPropagation();
+    this.showListOfSort = !this.showListOfSort;
+  }
+
+  closeList($event: any) {
+    if (this.showListOfSort) {
+      this.showListOfSort = false;
+    }
+  }
+
+  addToCompare(event: any, productId: number) {
+
+    let keysInLocalStorage = Object.keys(localStorage);
+
+    if (keysInLocalStorage.length > 4 && event.target.checked) {
+      alert("The number of compared items should not be more than 5!");
+      event.preventDefault();
+    } else if (keysInLocalStorage.length > 4 && !event.target.checked) {
+      localStorage.removeItem(productId.toString());
+    } else if (keysInLocalStorage.length < 5) {
+      if (event.target.checked) {
+        localStorage.setItem(productId.toString(), event.target.checked);
+      } else {
+        localStorage.removeItem(productId.toString());
+      }
+    }
+    
+    keysInLocalStorage = Object.keys(localStorage);
+
+  }
+
+  changeUrlToOrderBy(value: string, reverse?: boolean) {
+    if (value === 'id') {
+      this.router.navigate([], {
+        queryParams: {
+          'order': null
+        },
+        queryParamsHandling: 'merge'
+      });
+    } else if (reverse) {
+      this.router.navigate(['/products'], { queryParams: { order: value + ":desc" }, queryParamsHandling: 'merge' });
+    } else {
+      this.router.navigate(['/products'], { queryParams: { order: value }, queryParamsHandling: 'merge' });
+    }
+    
+  }
+
+  // stopEvent(event: any): void {
+  //   event.stopPropagation();
+  //   this.showListOfSort = !this.showListOfSort;
+  // }
+
+  // SELECTchangeUrlToOrderBy($event: any) {
+  //   if ($event === 'unordered') {
+  //     this.router.navigate([], {
+  //       queryParams: {
+  //         'order': null
+  //       },
+  //       queryParamsHandling: 'merge'
+  //     });
+  //   } else if ($event === 'priceAsc') {
+  //     this.router.navigate(['/products'], { queryParams: { order: 'price' }, queryParamsHandling: 'merge' });
+  //   } else if ($event === 'priceDesc') {
+  //     this.router.navigate(['/products'], { queryParams: { order: "price:desc" }, queryParamsHandling: 'merge' });
+  //   }
+  // }
+
 
   // addToCart(productId: number, price: number, name: string, image: string) {
 

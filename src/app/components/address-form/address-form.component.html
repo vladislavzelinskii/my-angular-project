@@ -1,0 +1,38 @@
+
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <div class="changeAddressCaption">
+        Change address
+    </div>
+    <div class="contactCaption">
+        Contact
+    </div>
+    <div class="nameAndPhone">
+        <input type="text" placeholder="Name" formControlName="name">
+        <input type="text" placeholder="Phone Number" formControlName="phone">
+    </div>
+    <div class="exampleName">
+        Example: Ivanov Ivan Ivanovich
+    </div>
+    
+    <div class="addressCaption">
+        Address
+    </div>
+
+    <div class="streetHouseFlat">
+        <input type="text" placeholder="Street" formControlName="street">
+        <input type="text" placeholder="House" formControlName="house">
+        <input type="text" placeholder="Flat" formControlName="flat">
+    </div>
+
+    <div class="countryCityIndex">
+        <input type="text" placeholder="Country" formControlName="country">
+        <input type="text" placeholder="City" formControlName="city">
+        <input type="text" placeholder="Index" formControlName="index">
+    </div>
+
+    <div class="buttons">
+        <button type="submit" [disabled]="!addressForm.valid" class="submit">Save and continue</button>
+        <button (click)="closeForm()" class="cancel">Cancel</button>
+    </div>
+
+</form>

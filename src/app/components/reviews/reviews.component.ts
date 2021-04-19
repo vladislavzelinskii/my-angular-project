@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 import { Review } from 'src/app/models/review';
 import firebase from 'firebase/app';
@@ -43,16 +43,65 @@ export class ReviewsComponent implements OnInit {
   })
 
   addReview(id: number) {
-    this.firestore.collection('products').doc(id.toString()).update({
-      reviews: firebase.firestore.FieldValue.arrayUnion({
-        rating: +this.addReviewForm.value.rating,
-        text: this.addReviewForm.value.text,
-        userId: 0,
-        userName: 'admin',
-      })
-    });
 
-    this.addReviewForm.reset();
+    // this.firestore.collection('products').doc(id.toString()).update({
+    //   reviews: firebase.firestore.FieldValue.arrayUnion({
+    //     rating: +this.addReviewForm.value.rating,
+    //     text: this.addReviewForm.value.text,
+    //     userId: 0,
+    //     userName: 'admin',
+    //   })
+    // });
+
+    // this.firestore.collection('products').doc(id.toString()).update({
+    //   reviews.push({
+    //     rating: +this.addReviewForm.value.rating,
+    //     text: this.addReviewForm.value.text,
+    //     userId: 0,
+    //     userName: 'admin',
+    //   })
+    // });
+
+
+    let averageRating: any;
+    
+    let a = this.firestore.collection('products').valueChanges().pipe(
+      first(), map((products: any) => {
+        products.map((element: any) => {
+          if (element.id == id) {
+            let averageRating = element.averageRating;
+            console.log(averageRating);
+            let arrayOfReviews = element.reviews || [];
+            console.log(+this.addReviewForm.value.rating);
+
+            arrayOfReviews.push({
+              rating: +this.addReviewForm.value.rating,
+              text: this.addReviewForm.value.text,
+              userId: 0,
+              userName: 'admin',
+            });
+
+            let arrayOfRating: any = [];
+            arrayOfReviews.map((review: any) => {
+              arrayOfRating.push(review.rating);
+            });
+            let summRating = arrayOfRating.reduce((currentValue: any, previousValue: any) => {
+                return  previousValue + currentValue;
+              })
+            averageRating = summRating/arrayOfReviews.length;
+            this.firestore.collection('products').doc(id.toString()).update({
+              averageRating: averageRating,
+              reviews: arrayOfReviews,
+            });
+
+            this.addReviewForm.reset();
+
+          }
+          return element;
+        })
+        return products;
+      })
+    ).subscribe();
 
   }
 

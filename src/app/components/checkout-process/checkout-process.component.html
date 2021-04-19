@@ -1,14 +1,25 @@
 
 <div class="wrapperBackground">
 
-    <button (click)="goBack()">Go Back</button>
 
+    <div class="popup" *ngIf="showAddressPopup">
+        <app-address-form (onChanged)="closeAddressFromChildComponent()"></app-address-form>
+    </div>
+    <div class="popupBackground" *ngIf="showAddressPopup" (click)="closeAddress()"></div>
+
+    <div class="popupCard" *ngIf="showCardPopup">
+        <app-bank-card-form (onChanged)="closeCardFromChildComponent()"></app-bank-card-form>
+    </div>
+    <div class="popupBackground" *ngIf="showCardPopup" (click)="closeCard()"></div>
+    
+    <!-- *ngIf="showCardPopup" -->
+    
     <div *ngIf="item | async as user" class="wrapper">
 
         <div class="deliveryAddress">
             <div class="addressDetails">
                 <div class="caption">
-                    Delivery address
+                    Shipping Information
                 </div>
                 <div class="nameAndPhone">
                     {{user.surname}} {{user.name}} {{user.phone}}
@@ -21,32 +32,36 @@
                 </div>
             </div>
             <div class="addressButtons">
-                <button>Add new address</button>
-                <button>Choose another address</button>
+                <button (click)="changeAddress()">Change address</button>
             </div>
         </div>
 
         <div class="paymentDetails">
             <div class="cardDetails">
                 <div class="caption">
-                    Payment details
+                    Payment Methods
                 </div>
-                <div class="cardNumber">
-                    {{user.bankCards[0].cardNumber | creditCardMask}}
+                <div class="cardNumberAndCardName">
+                    <div class="cardNumber">
+                        {{currentBankCard.cardNumber | creditCardMask}}
+                    </div>
+                    <div class="cardName">
+                        {{currentBankCard.cardName}}
+                    </div>
                 </div>
             </div>
             <div class="cardButtons">
-                <button>Change</button>
+                <button (click)="changeCard()">Change</button>
             </div>
         </div>
 
         <div class="buy">
             <div class="totalPriceCaption">
-                Total price
+                Order Summary
             </div>
             <div class="toPayAndAmount">
                 <div class="toPay">
-                    To pay
+                    Total
                 </div>
                 <div *ngIf="totalPrice as totalPrice" class="amount">
                     {{totalPrice | currency}}
@@ -60,7 +75,7 @@
 
         <div class="productsInCart">
             <div class="orderListCaption">
-                Order list
+                Order Review
             </div>
             <div *ngFor="let productInCart of productsInCart" class="productInCart">
                 <div class="image">

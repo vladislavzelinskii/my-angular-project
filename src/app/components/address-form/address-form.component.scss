@@ -1,0 +1,67 @@
+
+form {
+    padding: 20px 30px;
+    input {
+        height: 38px;
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+        padding: 0 12px;
+    }
+}
+
+
+.changeAddressCaption {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+.contactCaption,
+.addressCaption {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.nameAndPhone {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.exampleName {
+    font-size: 12px;
+    height: 12px;
+    margin: 3px 0 20px 15px;
+    color: #cccccc;
+}
+
+.streetHouseFlat,
+.countryCityIndex {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 15px;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    padding-top: 10px;
+
+    button {
+        border: none;
+        height: 44px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .submit {
+        background-color: #ff4747;
+        color: #fff;
+        width: 230px;
+        margin-right: 15px;
+    }
+    .cancel {
+        width: 140px;
+    }
+}

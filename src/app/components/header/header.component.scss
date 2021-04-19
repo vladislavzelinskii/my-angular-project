@@ -1,11 +1,20 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 150px 1fr 80px 80px;
+    background-color: #fff;
+    grid-template-columns: 150px 1fr 80px 80px 80px;
     line-height: 60px;
     height: 60px;
     margin: 0 auto;
     max-width: 1000px;
+    min-width: 630px;
 }
+
+// @media (max-width: 800px) {
+//     .search {
+//         margin-left: 10px;
+//         margin-right: 10px;
+//     }
+// }
 
 .shopName {
     height: 60px;
@@ -20,11 +29,11 @@
 
 .search {
     margin-top: 15px;
-    height: 20px;
-    margin-left: 80px;
-    margin-right: 80px;
+    height: 24px;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-left: 10px;
-    border: 2px solid #ff4747;
+    border: 2px solid #ccc;
     border-radius: 5px;
 }
 
@@ -44,6 +53,20 @@ a {
 .counter {
     position: relative;
     top: -65px;
+    left: 45px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    border-radius: 10px;
+    background-color: #ff4747;
+    text-align: center;
+    color: white;
+}
+
+.counterCompare {
+    position: relative;
+    top: -55px;
     left: 45px;
     width: 20px;
     height: 20px;

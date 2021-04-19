@@ -11,6 +11,8 @@ export class HeaderComponent implements OnInit {
 
   item$: any;
 
+  localStorageLength: any = localStorage.length;
+
   constructor(
     private firebase: AngularFirestore,
   ) {

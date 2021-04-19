@@ -26,7 +26,20 @@
         <h4>Country: {{product.country}}</h4>
     </div>
     <div class="rating">
-        rating: {{averageRating}} (inDevelopment)
+        {{product.averageRating || 'no reviews'}}
+        <ng-container *ngIf="product.averageRating">
+            <span [ngClass]="{'active' : product.averageRating > 0}"></span>
+            <span [ngClass]="{'active' : product.averageRating > 1.5}"></span>
+            <span [ngClass]="{'active' : product.averageRating > 2.5}"></span>
+            <span [ngClass]="{'active' : product.averageRating > 3.5}"></span>
+            <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
+            <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
+        </ng-container>
+        <div *ngIf="product.reviews">
+            {{product.reviews.length}}
+            reviews
+        </div>
+        (inDevelopment)
     </div>
     <div class="addToCart">
         <button (click)="addToCart(product.id, product.price, product.name, product.image)" [disabled]="flag">Add to

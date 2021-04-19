@@ -64,6 +64,10 @@
             cursor: pointer;
             background-color: #ff4747;
         }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: inherit;
+        }
     }
 }
 

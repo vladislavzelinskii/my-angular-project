@@ -1,0 +1,65 @@
+<form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+    <div class="changeCardCaption">
+        Payment Methods
+    </div>
+
+    <ng-container *ngIf="arr && !flagNewCard">
+        <div class="bankCardsRadioButtons">
+            <label *ngFor="let item of arr; let i = index">
+                <input type="radio" [value]="item.id" formControlName="card">
+                <span>{{item.cardNumber | creditCardMask}}</span>
+                <span class="cardName">{{item.cardName}}</span>
+            </label>
+        </div>
+    </ng-container>
+
+    <div class="newCardWrapper" *ngIf="flagNewCard">
+
+        <div class="newCard">
+            <div class="cardFront">
+                <div class="cardNumber">
+                    <p>CARD NUMBER</p>
+                    <input type="text" placeholder="0000 0000 0000 0000" formControlName="cardNumber">
+                </div>
+                <div class="cardHolder">
+                    <p>CARD HOLDER</p>
+                    <input type="text" placeholder="NAME HERE" formControlName="cardHolder">
+                </div>
+                <div class="expires">
+                    <p>EXPIRES</p>
+                    <input type="text" placeholder="MM/YY" formControlName="cardExpires">
+                </div>
+            </div>
+            <div class="cardBack">
+                <div class="cardCVV">
+                    <p>CARD CVV</p>
+                    <input type="text" placeholder="000" formControlName="cardCVV">
+                </div>
+            </div>
+        </div>
+
+        <div class="saveThisCard">
+            <label>
+                <input type="checkbox" formControlName="saveCard">
+                Save this card
+            </label>
+        </div>
+
+        <div *ngIf="cardForm.value.saveCard == true" class="inputCardName">
+            <label>
+                <input type="text" formControlName="cardName">
+                Card name
+            </label>
+        </div>
+
+    </div>
+
+
+    <button class="addNewCardButton" (click)="addNewCard($event)" *ngIf="!flagNewCard">+ Add new card</button>
+
+    <div class="buttons">
+        <button type="submit" [disabled]="!cardForm.valid" class="submit">Continue</button>
+        <button class="cancel" (click)="addNewCard($event)" *ngIf="flagNewCard">Cancel</button>
+    </div>
+
+</form>

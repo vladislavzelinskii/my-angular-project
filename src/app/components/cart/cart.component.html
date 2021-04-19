@@ -7,7 +7,7 @@
 
         <div class="cartCaptionAndClearCart">
             <div class="captionAndQuantity">
-                Cart ({{cart.productsInCart.length}})
+                Shopping Cart ({{cart.productsInCart.length}})
             </div>
             <div class="clearCart">
                 <button (click)="clearCart()">Clear cart</button>
@@ -17,11 +17,11 @@
 
         <div class="buy">
             <div class="totalPriceCaption">
-                Total price
+                Order Summary
             </div>
             <div class="toPayAndAmount">
                 <div class="toPay">
-                    To pay
+                    Total
                 </div>
                 <div class="amount">
                     {{cart.totalPrice | currency}}
@@ -36,7 +36,7 @@
 
         <div class="productsInCart">
             <div class="orderListCaption">
-                Order list
+                Order Summary
             </div>
 
             <div *ngFor="let productInCart of cart.productsInCart" class="productInCart">

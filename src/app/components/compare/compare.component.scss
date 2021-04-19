@@ -1,0 +1,153 @@
+header {
+    width: 100%;
+    background-color: #fff;
+}
+
+
+
+.wrapper {
+    max-width: 1400px;
+    position: relative;
+    margin: 10px auto 0;
+    background-color: #fff;
+    padding: 20px;
+    .comparisonHeader {
+        display: flex;
+        justify-content: space-between;
+        .productComparisonCaption {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .clearComparison {
+            margin-right: 20px;
+            button {
+                font-size: 1.1rem;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+        }
+    }
+    
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    margin-left: 240px;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    tr {
+        td {
+            min-width: 220px;
+        }
+        // display: grid;
+        // grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .specsCaption {
+        height: 40px;
+        line-height: 40px;
+        td {
+            background-color: rgb(228, 228, 228);
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+        }
+    }
+    .specs {
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid rgb(214, 207, 207);
+    }
+    .specs:last-child {
+        border-bottom: none;
+    }
+    td {
+        border-left: 1px solid rgb(214, 214, 214);
+        border-right: 1px solid rgb(214, 214, 214);
+        padding: 0 10px;
+    }
+    td:first-child {
+        border-left: none;
+        position: absolute;
+        left: 20px;
+        top: auto;
+        border-bottom: 1px solid rgb(214, 207, 207);
+    }
+    td:last-child {
+        border-right: none;
+    }
+    tr:first-child,
+    tr:last-child {
+        td:first-child,
+        td:last-child {
+            border-bottom: none;
+        }
+    }
+    .selected {
+        background-color: #ffecc4;
+    }
+
+    .productsForCompare {
+        td {
+            vertical-align: top;
+        }
+        .imageAndDelete {
+            max-height: 160px;
+            display: flex;
+            justify-content: space-between;
+            img {
+                max-height: 160px;
+            }
+            padding-bottom: 10px;
+            .buttonDelete {
+                button {
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    width: 40px;
+                    height: 40px;
+                    background-color: inherit;
+                }
+                button:before {
+                    content: '\00d7';
+                    color: rgb(172, 172, 172);
+                    font-size: 2.3rem;
+                    font-weight: 300;
+                }
+            }
+        }
+        .name {
+            a {
+                color: black;
+                text-decoration: none;
+
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+        .rating {
+            margin: 10px 0;
+            span {
+                color: #cccccc;
+                font-size: 22px;
+            }
+            span:before {
+                content: '★';
+            }
+            span.active {
+                color: #ff4747;
+            }
+        }
+        .price {
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        
+    }
+}

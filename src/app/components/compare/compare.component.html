@@ -1,1 +1,76 @@
-<p>compare works!</p>
+<header>
+    <app-header></app-header>
+</header>
+
+<div class="wrapper">
+    <div class="comparisonHeader">
+        <div class="productComparisonCaption">
+            Product comparison
+        </div>
+        <div class="clearComparison">
+            <button (click)="clearComparison()" >Clear comparison</button>
+        </div>
+    </div>
+    
+    <div class="tableWrapper">
+
+        <table>
+            <tr class="productsForCompare">
+                <td>
+
+                </td>
+                <ng-container *ngFor="let product of item$">
+                    <td class="firstRow">
+                        <div class="imageAndDelete">
+                            <a routerLink='/product/{{product.id}}'>
+                                <img
+                                    src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                            </a>
+                            <div *ngIf="arrayIdOfProductsToCompare.length > 2" class="buttonDelete">
+                                <button (click)="deleteProductFromCompare(product.id)"></button>
+                            </div>
+                        </div>
+
+                        <div class="name">
+                            <a routerLink='/product/{{product.id}}'>{{product.name}}</a>
+                        </div>
+
+                        <div class="rating">
+                            {{product.averageRating || 'no reviews'}}
+                            <ng-container *ngIf="product.averageRating">
+                                <span [ngClass]="{'active' : product.averageRating > 0}"></span>
+                                <span [ngClass]="{'active' : product.averageRating > 1.5}"></span>
+                                <span [ngClass]="{'active' : product.averageRating > 2.5}"></span>
+                                <span [ngClass]="{'active' : product.averageRating > 3.5}"></span>
+                                <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
+                                <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
+                            </ng-container>
+                            <div *ngIf="product.reviews">
+                                {{product.reviews.length}}
+                                reviews
+                            </div>
+                            (inDevelopment)
+                        </div>
+
+                        <div class="price">
+                            {{product.price | currency}}
+                        </div>
+
+                    </td>
+                </ng-container>
+            </tr>
+            <tr class="specsCaption">
+                <td colspan="100">Specs</td>
+            </tr>
+            <tr *ngFor="let item of arrayHeadlines; let i = index" class="specs">
+                <td>
+                    {{item | format}}
+                </td>
+                <td *ngFor="let product of arrayProducts" [ngClass]="{'selected' : product[i].compare === true}">
+                    {{product[i].value}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

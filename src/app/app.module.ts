@@ -22,6 +22,9 @@ import { CheckoutProcessComponent } from './components/checkout-process/checkout
 import { CreditCardMaskPipe } from './pipes/bankCardNumber.pipe';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { AddressFormComponent } from './components/address-form/address-form.component';
+import { BankCardFormComponent } from './components/bank-card-form/bank-card-form.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { CompareComponent } from './components/compare/compare.component';
     CheckoutProcessComponent,
     ReviewsComponent,
     CompareComponent,
+    AddressFormComponent,
+    BankCardFormComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

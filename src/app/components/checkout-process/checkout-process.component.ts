@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -23,8 +22,12 @@ export class CheckoutProcessComponent implements OnInit {
 
   newName!: string;
 
+  showAddressPopup: boolean = false;
+  showCardPopup: boolean = false;
+
+  currentBankCard: any;
+
   constructor(
-    private location: Location,
     private firestore: AngularFirestore,
   ) {
     this.item = firestore.collection('usersDetails', ref => {
@@ -34,6 +37,15 @@ export class CheckoutProcessComponent implements OnInit {
         return item$[0];
       }));
 
+    firestore.collection('cart').valueChanges().pipe(
+      map((res: any) => {
+        res.map((element: any) => {
+          if (element.id === 0) {
+            this.currentBankCard = element.currentCard;
+          }
+        })
+      })
+    ).subscribe();
 
     this.productsInCart = firestore.collection('cart').doc('0').valueChanges()
       .pipe(
@@ -47,16 +59,30 @@ export class CheckoutProcessComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateName() {
-    this.firestore.collection('usersDetails').doc('0').update({ name: this.newName });
+  changeAddress() {
+    this.showAddressPopup = true;
+  }
+  closeAddress() {
+    this.showAddressPopup = false;
+  }
+  closeAddressFromChildComponent(){
+    this.showAddressPopup = false;
+  }
+
+  changeCard() {
+    this.showCardPopup = true;
+  }
+  closeCard() {
+    this.showCardPopup = false;
+  }
+  closeCardFromChildComponent(){
+    this.showCardPopup = false;
   }
 
   checkout() {
     alert("success");
   }
 
-  goBack() {
-    this.location.back()
-  }
+  
 
 }
