@@ -4,7 +4,6 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CartComponent } from './components/cart/cart.component';
-import { BankCardsComponent } from './components/bank-cards/bank-cards.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CompareComponent } from './components/compare/compare.component';
 import { SearchComponent } from './components/search/search.component';
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'bankCards', component: BankCardsComponent},
   { path: 'checkoutProcess', component: CheckoutProcessComponent},
   { path: 'compare', component: CompareComponent },
   { path: 'search', component: SearchComponent}

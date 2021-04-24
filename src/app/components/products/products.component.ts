@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +22,11 @@ export class ProductsComponent implements OnInit {
 
   // flagForAddToCart: boolean = false;
 
-  products!: Observable<any[]>;
+  allProducts: any = [];
+  productsAfterFilter: any = [];
+  currentProductsOnPage: any = [];
+  currentPage: any = 1;
+  itemsPerPage: any = 4;
 
   checkbox: any = true;
 
@@ -29,7 +34,9 @@ export class ProductsComponent implements OnInit {
 
   showListOfSort: boolean = false;
 
-  currentOrder: string = 'unordered';
+  currentOrder: string = 'Default';
+
+  condition: {order?: string, desc?: any} = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -40,36 +47,100 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.products = this.firestore.collection('products').valueChanges();
-
-    this.arrayOfIdForCompare = Object.keys(localStorage);
-
     this.activatedRoute.queryParams.subscribe(data => {
       this.queryCategory = data;
 
+      this.productsAfterFilter = [];
+
+      this.condition = {};
+
       if (data.order) {
         if (data.order.indexOf(':desc') === -1) {
-          this.products = this.firestore.collection('products', ref => ref.orderBy(data.order)).valueChanges();
+          this.condition.order = data.order;
           this.currentOrder = 'cheap';
         } else {
-          this.products = this.firestore.collection('products', ref => ref.orderBy(data.order.replace(':desc', ''), 'desc')).valueChanges();
+          this.condition.order = data.order.replace(':desc', '');
+          this.condition.desc = 'desc';
           this.currentOrder = 'expensive';
         }
       } else {
-        this.products = this.firestore.collection('products').valueChanges();
         this.currentOrder = 'Default';
       }
 
-      this.flagForNoSelectedCategory = true;
-      
-      for (let key in this.queryCategory) {
-        if (key === "category") {
-          this.flagForNoSelectedCategory = false;
+      this.callForProducts(this.condition.order, this.condition.desc);
+
+    })
+
+    this.arrayOfIdForCompare = Object.keys(localStorage);
+
+  }
+
+  callForProducts(order?: any, desc?: any) {
+    if (order) {
+      this.allProducts = this.firestore.collection('products', ref => ref.orderBy(order, desc));
+    } else {
+      this.allProducts = this.firestore.collection('products');
+    }
+    this.allProducts.valueChanges().pipe(
+      tap((products: any) => {
+        this.allProducts = products;
+      })
+    ).subscribe(() => this.productsMap());
+  }
+
+
+  productsMap() {
+
+    this.productsAfterFilter = [];
+    this.allProducts.map((element: any) => {
+      if (this.queryCategory.category) {
+        if (this.queryCategory.category.includes(element.category)) {
+          this.productsAfterFilter.push(element)
         }
+      } else {
+        this.productsAfterFilter.push(element)
       }
+    })
 
-    });
+    console.log(this.productsAfterFilter);
 
+    this.currentProductsOnPage = [];
+    this.currentPage = 1;
+
+    let flag = 0;
+    this.productsAfterFilter.map((element: any) => {
+      if (flag < this.itemsPerPage) {
+        this.currentProductsOnPage.push(element);
+      }
+      flag++;
+      return element;
+    })
+  }
+
+  prevPage() {
+    this.currentProductsOnPage = [];
+    this.currentPage--;
+    let flag = 0;
+    this.productsAfterFilter.map((element: any) => {
+      if ((flag >= this.itemsPerPage*(this.currentPage-1)) && (flag < this.itemsPerPage*this.currentPage)) {
+        this.currentProductsOnPage.push(element);
+      }
+      flag++;
+      return element;
+    })
+  }
+
+  nextPage() {
+    this.currentProductsOnPage = [];
+    this.currentPage++;
+    let flag = 0;
+    this.productsAfterFilter.map((element: any) => {
+      if ((flag >= this.itemsPerPage*(this.currentPage-1)) && (flag < this.itemsPerPage*this.currentPage)) {
+        this.currentProductsOnPage.push(element);
+      }
+      flag++;
+      return element;
+    })
   }
   
   openList($event: any) {
@@ -83,7 +154,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  addToCompare(event: any, productId: number) {
+  addToCompare(event: any, productId: number, category: string) {
 
     let keysInLocalStorage = Object.keys(localStorage);
 
@@ -92,9 +163,18 @@ export class ProductsComponent implements OnInit {
       event.preventDefault();
     } else if (keysInLocalStorage.length > 4 && !event.target.checked) {
       localStorage.removeItem(productId.toString());
+    } else if (keysInLocalStorage.length === 0 && event.target.checked) {
+      localStorage.setItem('category', category);
+      localStorage.setItem(productId.toString(), event.target.checked);
+    } else if (keysInLocalStorage.length === 2 && !event.target.checked) {
+      localStorage.removeItem('category');
+      localStorage.removeItem(productId.toString());
     } else if (keysInLocalStorage.length < 5) {
-      if (event.target.checked) {
+      if (event.target.checked && localStorage.category === category) {
         localStorage.setItem(productId.toString(), event.target.checked);
+      } else if (event.target.checked && localStorage.category !== category) {
+        alert("Select a product of the same category");
+        event.preventDefault();
       } else {
         localStorage.removeItem(productId.toString());
       }

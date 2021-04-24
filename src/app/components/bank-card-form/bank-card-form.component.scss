@@ -93,6 +93,15 @@ form {
     }
 }
 
+.inputCardName {
+    margin-bottom: 20px;
+    input {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid black;
+    }
+}
+
 .addNewCardButton {
     color: #2e9cc3;
     background: #fff;

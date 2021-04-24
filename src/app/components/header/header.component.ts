@@ -11,21 +11,20 @@ export class HeaderComponent implements OnInit {
 
   item$: any;
 
-  localStorageLength: any = localStorage.length;
-
   constructor(
     private firebase: AngularFirestore,
   ) {
-    this.item$ = firebase.collection('cart').doc('0').valueChanges()
+    
+  }
+
+  ngOnInit(): void {
+    this.item$ = this.firebase.collection('cart').doc('0').valueChanges()
       .pipe(
         map((res: any) => {
             this.item$ = res.productsInCart;
           }
         )
       ).subscribe();
-  }
-
-  ngOnInit(): void {
   }
 
 }

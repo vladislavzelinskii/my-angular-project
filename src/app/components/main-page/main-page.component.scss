@@ -49,10 +49,13 @@ ul > li {
     }
 }
 
+header {
+    background-color: #fff;
+}
+
 aside {
-    border: 1px solid black;
-    background-color: #f1f1f1;
-    height: 200px;
+    background-color: #fff;
+    height: fit-content;
 }
 
 .banner {
@@ -100,4 +103,7 @@ li:hover {
     font-size: calc(1rem + 5vw);
 }
 
+.products {
+    background-color: #fff;
+}
 

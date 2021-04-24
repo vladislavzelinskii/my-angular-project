@@ -1,131 +1,136 @@
 <div class="wrapperBackground">
 
-    <button (click)="goBack()">go back</button>
+    <ng-container *ngIf="item$ | async as cart" >
 
-
-    <div *ngIf="item$ | async as cart" class="wrapper">
-
-        <div class="cartCaptionAndClearCart">
-            <div class="captionAndQuantity">
-                Shopping Cart ({{cart.productsInCart.length}})
-            </div>
-            <div class="clearCart">
-                <button (click)="clearCart()">Clear cart</button>
-            </div>
+        <div class="emptyCard" *ngIf="cart.productsInCart.length == 0">
+            <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08" alt="">
+            <div class="emptyCardText">Your card is currently empty.</div>
+            <span>Go to the <a routerLink='/products'>catalog</a> and add products.</span>
+            
         </div>
-
-
-        <div class="buy">
-            <div class="totalPriceCaption">
-                Order Summary
-            </div>
-            <div class="toPayAndAmount">
-                <div class="toPay">
-                    Total
+    
+        <div *ngIf="cart.productsInCart.length > 0" class="wrapper">
+            
+            <div class="cartCaptionAndClearCart">
+                <div class="captionAndQuantity">
+                    Shopping Cart ({{cart.productsInCart.length}})
                 </div>
-                <div class="amount">
-                    {{cart.totalPrice | currency}}
+                <div class="clearCart">
+                    <button (click)="clearCart()">Clear cart</button>
                 </div>
             </div>
-            <div class="checkoutButton">
-                <a routerLink='/checkoutProcess'>Checkout</a>
-            </div>
-        </div>
-
-
-
-        <div class="productsInCart">
-            <div class="orderListCaption">
-                Order Summary
-            </div>
-
-            <div *ngFor="let productInCart of cart.productsInCart" class="productInCart">
-                <div class="image">
-                    <a routerLink='/product/{{productInCart.productId}}'>
-                        <img
-                            src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
-                    </a>
+    
+    
+            <div class="buy">
+                <div class="totalPriceCaption">
+                    Order Summary
                 </div>
-
-                <div class="nameAndPrice">
-                    <div class="name">
-                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                <div class="toPayAndAmount">
+                    <div class="toPay">
+                        Total
                     </div>
-                    <br>
-                    <div class="priceAndDeleteButton">
-                        <div class="price">
-                            {{productInCart.price | currency}}
+                    <div class="amount">
+                        {{cart.totalPrice | currency}}
+                    </div>
+                </div>
+                <div class="checkoutButton">
+                    <a routerLink='/checkoutProcess'>Checkout</a>
+                </div>
+            </div>
+    
+    
+    
+            <div class="productsInCart">
+                <div class="orderListCaption">
+                    Order Summary
+                </div>
+    
+                <div *ngFor="let productInCart of cart.productsInCart" class="productInCart">
+                    <div class="image">
+                        <a routerLink='/product/{{productInCart.productId}}'>
+                            <img
+                                src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                        </a>
+                    </div>
+    
+                    <div class="nameAndPrice">
+                        <div class="name">
+                            <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
                         </div>
-                        <div class="deleteButton">
+                        <br>
+                        <div class="priceAndDeleteButton">
+                            <div class="price">
+                                {{productInCart.price | currency}}
+                            </div>
+                            <div class="deleteButton">
+                                <button
+                                    (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="priceAndQuantity">
+                        <div class="quantity">
                             <button
-                                (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
-                                Delete product
+                                (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                                [disabled]="(productInCart.quantity === 1)">
+                                -
+                            </button>
+                            {{productInCart.quantity}}
+                            <button
+                                (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                                [disabled]="(productInCart.quantity === 10)">
+                                +
+                            </button>
+                        </div>
+                        <div class="priceSubTotal">
+                            {{productInCart.price * productInCart.quantity | currency}}
+                        </div>
+                    </div>
+    
+    
+    
+                    <!-- <div class="nameAndQuantity">
+                        <div class="name">
+                            <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                        </div>
+                        <div class="quantity">
+                            <button
+                                (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                                [disabled]="(productInCart.quantity === 1)">
+                                -
+                            </button>
+                            {{productInCart.quantity}}
+                            <button
+                                (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
+                                [disabled]="(productInCart.quantity === 10)">
+                                +
                             </button>
                         </div>
                     </div>
+                    <div class="priceAndDeleteButton">
+                        <div class="price">
+                            {{productInCart.price | currency}}
+                            {{productInCart.price * productInCart.quantity | currency}}
+                        </div>
+                        <button
+                            (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
+                            Delete product
+                        </button>
+                    </div> -->
+    
+    
+    
+    
                 </div>
-
-                <div class="priceAndQuantity">
-                    <div class="quantity">
-                        <button
-                            (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                            [disabled]="(productInCart.quantity === 1)">
-                            -
-                        </button>
-                        {{productInCart.quantity}}
-                        <button
-                            (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                            [disabled]="(productInCart.quantity === 10)">
-                            +
-                        </button>
-                    </div>
-                    <div class="priceSubTotal">
-                        {{productInCart.price * productInCart.quantity | currency}}
-                    </div>
-                </div>
-
-
-
-
-                <!-- <div class="nameAndQuantity">
-                    <div class="name">
-                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
-                    </div>
-                    <div class="quantity">
-                        <button
-                            (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                            [disabled]="(productInCart.quantity === 1)">
-                            -
-                        </button>
-                        {{productInCart.quantity}}
-                        <button
-                            (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                            [disabled]="(productInCart.quantity === 10)">
-                            +
-                        </button>
-                    </div>
-                </div>
-                <div class="priceAndDeleteButton">
-                    <div class="price">
-                        {{productInCart.price | currency}}
-                        {{productInCart.price * productInCart.quantity | currency}}
-                    </div>
-                    <button
-                        (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
-                        Delete product
-                    </button>
-                </div> -->
-
-
-
-
             </div>
+    
         </div>
+    </ng-container>
 
-
-
-
-    </div>
+    
 
 </div>
 

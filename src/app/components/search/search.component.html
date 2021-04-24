@@ -1,6 +1,47 @@
 
 
-<input type="text" (keydown)="search($event)" placeholder="search product">
+<div class="wrapperBackgroud" (click)="closeSearch($event)" *ngIf="flagShowSearch">
+
+</div>
+
+<div class="wrapper">
+    <input type="text" placeholder="I'm shopping for..." (keyup)="search($event)" (focus)="search($event)">
+
+    <div class="list" *ngIf="flagShowSearch && currentValueSearch !== ''">
+        <ul>
+            <li *ngFor="let product of productsList" class="product" (click)="goToProduct(product.id)">
+                <div class="image">
+                    <img src="{{product.image}}" alt="">
+                </div>
+                <div class="name">
+                    {{product.name}}
+                </div>
+                <div class="priceAndRating">
+                    <div class="price">
+                        {{product.price | currency}}
+                    </div>
+                    <div class="rating">
+                        <span [ngClass]="{'active' : product.averageRating > 0}"></span>
+                        <span [ngClass]="{'active' : product.averageRating > 1}"></span>
+                        <span [ngClass]="{'active' : product.averageRating > 2}"></span>
+                        <span [ngClass]="{'active' : product.averageRating > 3}"></span>
+                        <span [ngClass]="{'active' : product.averageRating > 4}"></span>
+                    </div>
+                </div>
+            </li>
+            <li *ngIf="productsList.length === 0 && currentValueSearch !== ''">No results</li>
+            <!-- <li *ngIf="productsList.length === 0" (click)="notClose($event)">No results</li> -->
+        </ul>
+    </div>
+    
+</div>
+
+<!-- <button (click)="search()">search</button> -->
+
+
+
+
+<!-- <input type="text" (keydown)="search($event)" placeholder="search product">
 
 
 
@@ -10,4 +51,4 @@
 
 <div *ngIf="products?.length == 0">
     no products found
-</div>
+</div> -->

@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
@@ -22,7 +22,7 @@ import firebase from 'firebase/app';
 
 export class ProductDetailComponent implements OnInit {
 
-  item: Observable<Product>;
+  item!: Observable<Product>;
 
   review!: Review;
 
@@ -34,17 +34,10 @@ export class ProductDetailComponent implements OnInit {
     private location: Location,
     private firestore: AngularFirestore,
   ) {
-    const id = +this.route.snapshot.params['id'];
-    this.item = firestore.collection('products', ref => {
-      return ref.where('id', '==', id)
-    }).valueChanges().pipe(
-      map((item$: any): any => {
-        // item$[0].reviews.tap((element: any) => {
-        //   this.arrayOfStars.push(element.rating);
-        // })
-        return item$[0];
-      }));
+
   }
+
+  id!: number;
 
   arrayOfStars: any[] = [];
   averageRating: number = 5;
@@ -56,28 +49,47 @@ export class ProductDetailComponent implements OnInit {
   flag: boolean = false;
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params['id'];
+
+    // this.id = +this.route.snapshot.params['id'];
+    this.route.paramMap.pipe(
+      switchMap(params => params.getAll('id'))
+    )
+      .subscribe(data => {
+        this.id = +data;
+
+        this.item = this.firestore.collection('products', ref => {
+          return ref.where('id', '==', this.id)
+        }).valueChanges().pipe(
+          map((item$: any): any => {
+            // item$[0].reviews.tap((element: any) => {
+            //   this.arrayOfStars.push(element.rating);
+            // })
+            return item$[0];
+          }));
+
+      });
+
     this.firestore.collection('cart').doc('0').valueChanges().pipe(
       map(res => {
         this.items = res;
         this.flag = false;
         this.items.productsInCart.map((element: any) => {
-          if (element.productId === id) {
+          if (element.productId === this.id) {
             this.flag = true
           }
         })
       })
-
     ).subscribe();
+
 
 
     // this.firestore.collection('products').doc(id.toString()).valueChanges().pipe(
     //   first(), tap((res: any) => {
-        
+
     //     res.reviews.map((element: any) => {
     //         return this.arrayOfStars.push(element.rating);
     //       })
-          
+
     //   })
     // ).subscribe(x => {
     //   let summRating = this.arrayOfStars.reduce((currentValue: any, previousValue: any) => {
@@ -89,12 +101,12 @@ export class ProductDetailComponent implements OnInit {
     //   this.averageRating = (summRating)/(this.arrayOfStars.length);
     //   console.log('this.arrayOfStars.length: ' + this.arrayOfStars.length);
     //   console.log(this.averageRating);
-      
+
     // });
 
-    
 
-    
+
+
 
   }
 
@@ -125,7 +137,7 @@ export class ProductDetailComponent implements OnInit {
         })
 
         document.update({
-          totalPrice: firebase.firestore.FieldValue.increment(-(price*quantity)),
+          totalPrice: firebase.firestore.FieldValue.increment(-(price * quantity)),
           productsInCart: firebase.firestore.FieldValue.arrayRemove({
             productId: productId,
             price: price,

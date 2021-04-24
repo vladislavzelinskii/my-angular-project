@@ -16,6 +16,12 @@ img {
 
 .name {
     height: 100px;
+    a {
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 }
 
 .name > h3 > a {

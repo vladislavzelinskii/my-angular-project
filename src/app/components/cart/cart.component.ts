@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Cart } from 'src/app/models/cart';
 import { ProductInCart } from 'src/app/models/productInCart';
 import firebase from 'firebase/app';
-import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -15,7 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class CartComponent implements OnInit {
 
-  item$: Observable<any>;
+  item$!: Observable<any>;
   items: any;
   itemss: any;
 
@@ -24,11 +23,15 @@ export class CartComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore,
-    private location: Location,
-  ) {
-    this.item$ = firestore.collection('cart').doc('0').valueChanges();
+  ) {}
+
+  ngOnInit(): void {
+    this.item$ = this.firestore.collection('cart').doc('0').valueChanges();
+    console.log(this.item$);
+    
   }
 
+  
   quantityMinus(productId: number, quantity: number, productsInCart: ProductInCart[], price: number) {
     this.firestore.collection('cart').doc('0').update({
       totalPrice: firebase.firestore.FieldValue.increment(-price),
@@ -73,11 +76,5 @@ export class CartComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
 
 }

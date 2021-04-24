@@ -17,7 +17,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
-import { BankCardsComponent } from './components/bank-cards/bank-cards.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CreditCardMaskPipe } from './pipes/bankCardNumber.pipe';
 import { ReviewsComponent } from './components/reviews/reviews.component';
@@ -38,7 +37,6 @@ import { SearchComponent } from './components/search/search.component';
     CreditCardMaskPipe,
     CartComponent,
     HeaderComponent,
-    BankCardsComponent,
     CheckoutProcessComponent,
     ReviewsComponent,
     CompareComponent,

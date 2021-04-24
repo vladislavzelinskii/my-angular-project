@@ -15,6 +15,13 @@
 
     <div class="newCardWrapper" *ngIf="flagNewCard">
 
+        <div *ngIf="cardForm.value.saveCard == true" class="inputCardName">
+            <label>
+                Card name
+                <input type="text" formControlName="cardName" placeholder="My work card">
+            </label>
+        </div>
+
         <div class="newCard">
             <div class="cardFront">
                 <div class="cardNumber">
@@ -42,13 +49,6 @@
             <label>
                 <input type="checkbox" formControlName="saveCard">
                 Save this card
-            </label>
-        </div>
-
-        <div *ngIf="cardForm.value.saveCard == true" class="inputCardName">
-            <label>
-                <input type="text" formControlName="cardName">
-                Card name
             </label>
         </div>
 

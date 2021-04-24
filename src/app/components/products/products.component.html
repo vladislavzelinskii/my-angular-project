@@ -32,15 +32,31 @@
             </select>
         </div> -->
             <ul class="productsContent">
-                <ng-container *ngFor="let product of products | async">
-                    <li *ngIf="flagForNoSelectedCategory || queryCategory.category?.includes(product.category)">
+                <ng-container *ngFor="let product of currentProductsOnPage">
+                    <!-- <li *ngIf="flagForNoSelectedCategory || queryCategory.category?.includes(product.category)"> -->
+                    <li>
                         <div class="inputCompare">
+
                             <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
-                                <input type="checkbox" checked="true" (click)="addToCompare($event, product.id)">
+                                <input type="checkbox" checked="true" (click)="addToCompare($event, product.id, product.category)">
                             </div>
                             <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
-                                <input type="checkbox" (click)="addToCompare($event, product.id)">
+                                <input type="checkbox" (click)="addToCompare($event, product.id, product.category)">
                             </div>
+
+                            <!-- <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" checked="true" (click)="addToCompare($event, product.id)">
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" (click)="addToCompare($event, product.id)">
+                                    <span></span>
+                                </label>
+                            </div> -->
+
                         </div>
                         <div class="image">
                             <a routerLink='/product/{{product.id}}'>
@@ -73,6 +89,12 @@
                     </li>
                 </ng-container>
             </ul>
+
+            <div class="pagination">
+                <button class="prevPage" (click)="prevPage()" [disabled]="currentPage===1">PREV</button>
+                <button class="nextPage" (click)="nextPage()" [disabled]="currentPage>=(productsAfterFilter.length/itemsPerPage)">NEXT</button>
+            </div>
+
         </div>
 
 
