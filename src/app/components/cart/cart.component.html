@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="checkoutButton">
-                    <a routerLink='/checkoutProcess'>Checkout</a>
+                    <a routerLink='/checkout'>Checkout</a>
                 </div>
             </div>
     
@@ -58,20 +58,21 @@
                             <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
                         </div>
                         <br>
-                        <div class="priceAndDeleteButton">
+                        <div class="price">
                             <div class="price">
                                 {{productInCart.price | currency}}
-                            </div>
-                            <div class="deleteButton">
-                                <button
-                                    (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="delete">
-                                </button>
                             </div>
                         </div>
                     </div>
     
-                    <div class="priceAndQuantity">
+                    <div class="priceAndQuantityAndDelete">
+                        <div class="deleteButton">
+                            <button
+                                (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
+                                DELETE
+                                <!-- <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="delete"> -->
+                            </button>
+                        </div>
                         <div class="quantity">
                             <button
                                 (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"

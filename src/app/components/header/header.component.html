@@ -5,17 +5,10 @@
 
     <app-search></app-search>
 
-    <a routerLink='/compare' class="compare">
-        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FcompareIcon.png?alt=media&token=f39d72c3-4532-46a9-880b-3a84773ee84d" alt="compare">
-        <!-- <div class="counterCompare">
-            {{localStorageLength}}
-        </div> -->
-    </a>
-
     <a routerLink='/cart' class="toCart">
         <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FcartIcon.png?alt=media&token=30d47dc7-d520-45df-b611-34ce723886cd"
             alt="">
-        <div class="counter" *ngIf="item$.length!==0">
+        <div class="counterCart" *ngIf="item$.length!==0">
             {{item$.length}}
         </div>
     </a>

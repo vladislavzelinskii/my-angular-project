@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
     background-color: #fff;
-    grid-template-columns: 180px 1fr 70px 70px 70px;
+    grid-template-columns: 180px 1fr 70px 70px;
     line-height: 60px;
     height: 60px;
     margin: 0 auto;
@@ -18,11 +18,13 @@
 
 .shopName {
     height: 60px;
-    font-size: 3rem;
+    font-size: 2.8rem;
+    font-weight: 900;
     padding-left: 20px;
     padding-right: 10px;
     a {
         color: #ff4747;
+        text-decoration: none;
     }
 }
 
@@ -38,43 +40,30 @@
 // }
 
 
-img {
-    padding-top: 10px;
-    padding-left: 15px;
-    height: 40px;
-    width: 40px;
-}
-
-a {
+.toCart,
+.toBankCards {
     height: 60px;
     text-decoration: none;
     color: black;
+    img {
+        padding-top: 10px;
+        padding-left: 15px;
+        height: 40px;
+        width: 40px;
+    }
+    .counterCart {
+        position: relative;
+        top: -65px;
+        left: 45px;
+        width: 20px;
+        height: 20px;
+        font-size: 18px;
+        line-height: 20px;
+        border-radius: 10px;
+        background-color: #ff4747;
+        text-align: center;
+        color: white;
+    }
 }
 
-.counter {
-    position: relative;
-    top: -65px;
-    left: 45px;
-    width: 20px;
-    height: 20px;
-    font-size: 18px;
-    line-height: 20px;
-    border-radius: 10px;
-    background-color: #ff4747;
-    text-align: center;
-    color: white;
-}
 
-.counterCompare {
-    position: relative;
-    top: -55px;
-    left: 45px;
-    width: 20px;
-    height: 20px;
-    font-size: 20px;
-    line-height: 20px;
-    border-radius: 10px;
-    background-color: #ff4747;
-    text-align: center;
-    color: white;
-}

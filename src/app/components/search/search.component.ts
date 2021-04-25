@@ -38,12 +38,7 @@ export class SearchComponent implements OnInit {
           this.products.push(element);
         })
       })
-    ).subscribe()
-
-    this.route.paramMap.pipe(
-      switchMap(params => params.getAll('id'))
-    )
-    .subscribe(data=> this.id = +data);
+    ).subscribe();
   }
   
 

@@ -13,9 +13,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private firebase: AngularFirestore,
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit(): void {
     this.item$ = this.firebase.collection('cart').doc('0').valueChanges()

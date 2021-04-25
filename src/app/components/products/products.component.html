@@ -10,7 +10,7 @@
             <app-filters></app-filters>
         </aside>
 
-        <div class="products">
+        <div class="products" *ngIf="flagForLoader">
             <!-- <div class="orderBy">
                 <button (click)="changeUrlToOrderBy('id')">Unordered</button>
                 <button (click)="changeUrlToOrderBy('price')">Cheap</button>
@@ -35,14 +35,14 @@
                 <ng-container *ngFor="let product of currentProductsOnPage">
                     <!-- <li *ngIf="flagForNoSelectedCategory || queryCategory.category?.includes(product.category)"> -->
                     <li>
-                        <div class="inputCompare">
+                        <!-- <div class="inputCompare">
 
                             <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
                                 <input type="checkbox" checked="true" (click)="addToCompare($event, product.id, product.category)">
                             </div>
                             <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
                                 <input type="checkbox" (click)="addToCompare($event, product.id, product.category)">
-                            </div>
+                            </div> -->
 
                             <!-- <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
                                 <label class="custom-checkbox">
@@ -57,7 +57,7 @@
                                 </label>
                             </div> -->
 
-                        </div>
+                        <!-- </div> -->
                         <div class="image">
                             <a routerLink='/product/{{product.id}}'>
                                 <img
@@ -79,8 +79,8 @@
                                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                                 pariatur.'}}
                             </div>
-                            <div>
-                                <h5>{{product.country}}</h5>
+                            <div class="addToCompare">
+                                <input type="checkbox" (click)="addToCompare(product.id, product.category)">
                             </div>
                         </div>
                         <div class="price">
@@ -97,6 +97,20 @@
 
         </div>
 
+
+        <div class="toCompare" *ngIf="compareCounter > 0">
+            <div class="counterCompare" *ngIf="!flagForClearComparison">
+                <button (click)="goToCompare()" [disabled]="compareCounter < 2">
+                    {{compareCounter}} items in comparison
+                </button>
+            </div>
+            <div [className]="flagForClearComparison ? 'clearCompareConfirm' : 'clearCompare'">
+                <button (click)="clearCompare()">
+                    <p *ngIf="flagForClearComparison">Clear comparison list</p>
+                    <img *ngIf="!flagForClearComparison" src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="">
+                </button>
+            </div>
+        </div>
 
     </div>
 </div>

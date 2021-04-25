@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    .image {
+
+    }
+    .text {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+}

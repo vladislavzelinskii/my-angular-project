@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { CompareCounterService } from 'src/app/services/compare-counter.service';
 
 @Component({
   selector: 'app-products',
@@ -38,14 +39,24 @@ export class ProductsComponent implements OnInit {
 
   condition: {order?: string, desc?: any} = {};
 
+  flagForLoader: boolean = false;
+
+  compareCounter!: number;
+  flagForClearComparison: boolean = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     // private productService: ProductService,  
     private firestore: AngularFirestore,
     private router: Router,
+    private counterService: CompareCounterService,
   ) {}
 
   ngOnInit(): void {
+
+    this.counterService.subject.subscribe((nextValue: any) => {
+      this.compareCounter = nextValue;
+    });
 
     this.activatedRoute.queryParams.subscribe(data => {
       this.queryCategory = data;
@@ -102,7 +113,7 @@ export class ProductsComponent implements OnInit {
       }
     })
 
-    console.log(this.productsAfterFilter);
+    // console.log(this.productsAfterFilter);
 
     this.currentProductsOnPage = [];
     this.currentPage = 1;
@@ -115,6 +126,7 @@ export class ProductsComponent implements OnInit {
       flag++;
       return element;
     })
+    this.flagForLoader = true;
   }
 
   prevPage() {
@@ -154,33 +166,70 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  addToCompare(event: any, productId: number, category: string) {
+  addToCompare(productId: number, category: string) {
 
-    let keysInLocalStorage = Object.keys(localStorage);
+    let compareValue: { category: string, items: Array<number> } = {
+      category: '',
+      items: []
+    };
 
-    if (keysInLocalStorage.length > 4 && event.target.checked) {
-      alert("The number of compared items should not be more than 5!");
-      event.preventDefault();
-    } else if (keysInLocalStorage.length > 4 && !event.target.checked) {
-      localStorage.removeItem(productId.toString());
-    } else if (keysInLocalStorage.length === 0 && event.target.checked) {
-      localStorage.setItem('category', category);
-      localStorage.setItem(productId.toString(), event.target.checked);
-    } else if (keysInLocalStorage.length === 2 && !event.target.checked) {
-      localStorage.removeItem('category');
-      localStorage.removeItem(productId.toString());
-    } else if (keysInLocalStorage.length < 5) {
-      if (event.target.checked && localStorage.category === category) {
-        localStorage.setItem(productId.toString(), event.target.checked);
-      } else if (event.target.checked && localStorage.category !== category) {
-        alert("Select a product of the same category");
-        event.preventDefault();
+    if (!localStorage.compare) {
+      let compareValue = {
+        category: category,
+        items: [productId],
+      }
+      localStorage.setItem('compare', JSON.stringify(compareValue));
+      this.counterService.subject.next(JSON.parse(localStorage.compare).items.length);
+    } else if (JSON.parse(localStorage.compare).category === category) {
+      if (JSON.parse(localStorage.compare).items.includes(productId)) {
+        compareValue.category = JSON.parse(localStorage.compare).category;
+        compareValue.items = JSON.parse(localStorage.compare).items.filter((id: number) => id !== productId);
+        // console.log(compareValue.items);
+        if (!compareValue.items.length) {
+          localStorage.removeItem('compare');
+          this.counterService.subject.next(0);
+        } else {
+          localStorage.setItem('compare', JSON.stringify(compareValue));
+          this.counterService.subject.next(JSON.parse(localStorage.compare).items.length);
+        }
       } else {
-        localStorage.removeItem(productId.toString());
+        compareValue.category = JSON.parse(localStorage.compare).category;
+        compareValue.items = JSON.parse(localStorage.compare).items;
+        compareValue.items.push(productId);
+        localStorage.setItem('compare', JSON.stringify(compareValue));
+        this.counterService.subject.next(JSON.parse(localStorage.compare).items.length);
       }
     }
+
     
-    keysInLocalStorage = Object.keys(localStorage);
+
+    // console.log(localStorage);
+
+    // let keysInLocalStorage = Object.keys(localStorage);
+
+    // if (keysInLocalStorage.length > 4 && event.target.checked) {
+    //   alert("The number of compared items should not be more than 5!");
+    //   event.preventDefault();
+    // } else if (keysInLocalStorage.length > 4 && !event.target.checked) {
+    //   localStorage.removeItem(productId.toString());
+    // } else if (keysInLocalStorage.length === 0 && event.target.checked) {
+    //   localStorage.setItem('category', category);
+    //   localStorage.setItem(productId.toString(), event.target.checked);
+    // } else if (keysInLocalStorage.length === 2 && !event.target.checked) {
+    //   localStorage.removeItem('category');
+    //   localStorage.removeItem(productId.toString());
+    // } else if (keysInLocalStorage.length < 5) {
+    //   if (event.target.checked && localStorage.category === category) {
+    //     localStorage.setItem(productId.toString(), event.target.checked);
+    //   } else if (event.target.checked && localStorage.category !== category) {
+    //     alert("Select a product of the same category");
+    //     event.preventDefault();
+    //   } else {
+    //     localStorage.removeItem(productId.toString());
+    //   }
+    // }
+    
+    // keysInLocalStorage = Object.keys(localStorage);
 
   }
 
@@ -197,6 +246,25 @@ export class ProductsComponent implements OnInit {
     } else {
       this.router.navigate(['/products'], { queryParams: { order: value }, queryParamsHandling: 'merge' });
     }
+    
+  }
+
+  goToCompare() {
+    this.router.navigateByUrl('/compare');
+  }
+
+  clearCompare() {
+
+    if (this.flagForClearComparison) {
+      localStorage.removeItem('compare');
+      this.counterService.subject.next(0);
+    }
+
+    this.flagForClearComparison = true;
+    setTimeout(() => {
+      this.flagForClearComparison = false;
+    }, 3000);
+
     
   }
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
+import { CompareCounterService } from 'src/app/services/compare-counter.service';
 
 @Component({
   selector: 'app-compare',
@@ -31,12 +32,23 @@ export class CompareComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private router: Router,
+    private counterService: CompareCounterService,
   ) { }
 
   ngOnInit(): void {
+    this.arrayComparison();
+  }
 
-    this.arrayId = Object.keys(localStorage);
-    
+  arrayComparison() {
+    if (localStorage.compare) {
+      this.arrayId = JSON.parse(localStorage.compare).items;
+    }
+
+    this.arrayIdOfProductsToCompare = [];
+    this.item$ = [];
+    this.arrayHeadlines = [];
+    this.arrayProducts = [];
+
     this.arrayId.map((element: any) => {
       this.arrayIdOfProductsToCompare.push(+element);
     })
@@ -46,7 +58,7 @@ export class CompareComponent implements OnInit {
         products.map((element: any) => {
           if (this.arrayIdOfProductsToCompare.includes(element.id)) {
             this.item$.push(element);
-            
+
             Object.keys(element.specs).map((key: any) => {
               if (!this.arrayHeadlines.includes(key)) {
                 this.arrayHeadlines.push(key);
@@ -94,7 +106,7 @@ export class CompareComponent implements OnInit {
         this.arrayProducts.map((product: any) => {
           product.map((element: any, index: any) => {
             console.log(element.compare);
-            
+
             if (element.compare === false) {
               let flag = true;
               let flag2 = true;
@@ -118,13 +130,26 @@ export class CompareComponent implements OnInit {
   }
 
   clearComparison() {
-    localStorage.clear();
+    localStorage.removeItem('compare');
+    this.counterService.subject.next(0);
     this.router.navigateByUrl('/products');
   }
 
   deleteProductFromCompare(productId: number) {
-    localStorage.removeItem(productId.toString());
-    window.location.reload();
+    let compareValue: { category: string, items: Array<number> } = {
+      category: '',
+      items: []
+    };
+    compareValue.category = JSON.parse(localStorage.compare).category;
+    compareValue.items = JSON.parse(localStorage.compare).items.filter((id: number) => id !== productId);
+    localStorage.setItem('compare', JSON.stringify(compareValue));
+    this.counterService.subject.next(JSON.parse(localStorage.compare).items.length);
+
+    this.arrayComparison();
+
+
+    // localStorage.removeItem(productId.toString());
+    // window.location.reload();
   }
 
 }

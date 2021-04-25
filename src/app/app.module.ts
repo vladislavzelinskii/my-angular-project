@@ -24,6 +24,7 @@ import { CompareComponent } from './components/compare/compare.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { BankCardFormComponent } from './components/bank-card-form/bank-card-form.component';
 import { SearchComponent } from './components/search/search.component';
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SearchComponent } from './components/search/search.component';
     AddressFormComponent,
     BankCardFormComponent,
     SearchComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,

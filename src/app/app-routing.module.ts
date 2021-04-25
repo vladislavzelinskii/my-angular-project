@@ -7,15 +7,17 @@ import { CartComponent } from './components/cart/cart.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CompareComponent } from './components/compare/compare.component';
 import { SearchComponent } from './components/search/search.component';
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: '', component: MainPageComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'checkoutProcess', component: CheckoutProcessComponent},
+  { path: 'checkout', component: CheckoutProcessComponent},
   { path: 'compare', component: CompareComponent },
-  { path: 'search', component: SearchComponent}
+  { path: 'search', component: SearchComponent},
+  { path: 'paymentSuccess', component: PaymentSuccessComponent },
 ];
 
 @NgModule({

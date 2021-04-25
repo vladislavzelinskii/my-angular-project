@@ -26,7 +26,7 @@
                                 <img
                                     src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
                             </a>
-                            <div *ngIf="arrayIdOfProductsToCompare.length > 3" class="buttonDelete">
+                            <div *ngIf="arrayIdOfProductsToCompare.length > 2" class="buttonDelete">
                                 <button (click)="deleteProductFromCompare(product.id)"></button>
                             </div>
                         </div>
