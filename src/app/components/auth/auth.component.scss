@@ -1,0 +1,85 @@
+
+
+.wrapper {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+}
+
+.content {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    width: 400px;
+    .buttonsRegisterOrSignIn {
+        text-align: center;
+        button {
+            background-color: inherit;
+            border: none;
+            font-size: 14px;
+            padding: 10px 0 5px;
+            margin: 0 15px;
+            width: 100px;
+            cursor: pointer;
+        }
+        .checked {
+            color: #ff4747;
+            border-bottom: 2px solid #ff4747;
+            font-weight: bold;
+        }
+        .not-checked {
+            color: black;
+            border-bottom: none;
+            font-weight: normal;
+        }
+    }
+    .signIn,
+    .signUp {
+        display: flex;
+        flex-direction: column;
+        input {
+            height: 40px;
+            border: 1px solid #ebebeb;
+            border-radius: 4px;
+            outline: none;
+            padding: 0 16px 0 10px;
+            margin-top: 20px;
+        }
+        input.ng-touched.ng-invalid {
+            border: 1px solid #e62e04;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #ff4747;
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #fff;
+            height: 44px;
+            cursor: pointer;
+        }
+    }
+    .quickAccess {
+        text-align: center;
+        color: #999;
+        margin: 20px 0;
+    }
+    .google {
+        text-align: center;
+        button {
+            background-color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
+}
+
+.inputIncorrect {
+    color: #e62e04;
+}

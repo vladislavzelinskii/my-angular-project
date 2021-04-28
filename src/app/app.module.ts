@@ -25,6 +25,8 @@ import { AddressFormComponent } from './components/address-form/address-form.com
 import { BankCardFormComponent } from './components/bank-card-form/bank-card-form.component';
 import { SearchComponent } from './components/search/search.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
     BankCardFormComponent,
     SearchComponent,
     PaymentSuccessComponent,
+    AuthComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,

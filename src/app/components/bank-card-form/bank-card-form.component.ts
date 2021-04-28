@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first, map } from 'rxjs/operators';
+import { cardCVVValidator, cardExpiresValidator, cardHolderValidator, cardNumberValidator, forbiddenNameValidator } from 'src/app/shared/cardValidators.directive';
 
 @Component({
   selector: 'app-bank-card-form',
@@ -28,10 +29,11 @@ export class BankCardFormComponent implements OnInit {
   ngOnInit(): void {
     this.cardForm = this.fb.group({
       card: [],
-      cardNumber: [],
-      cardHolder: [],
-      cardExpires: [],
-      cardCVV: [],
+      cardNumber: [ , [cardNumberValidator()]],
+      // cardNumber: [],
+      cardHolder: [ , [cardHolderValidator()]],
+      cardExpires: [ , [cardExpiresValidator()]],
+      cardCVV: [ , [cardCVVValidator()]],
       saveCard: [],
       cardName: [],
     });
@@ -129,6 +131,57 @@ export class BankCardFormComponent implements OnInit {
     this.onChanged.emit();
 
   }
+
+  cardInputsOnlyDigits(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
+  cardNameFormat(event: any) {
+    let value = event.target.value;
+    value = value.replace(new RegExp(' ', 'g'), '');
+    value = value.replace(/(\d{4})/g, '$1 ');
+    if (value.length > 19) {
+      value = value.substring(0, value.length - 1);
+    }
+    event.target.value = value;
+  }
+
+  cardExpiresFormat(event: any) {
+    let value = event.target.value;
+    value = value.replace(new RegExp('/', 'g'), '');
+    value = value.replace(/(\d{2})/g, '$1/');
+    if (value.length > 5) {
+      value = value.substring(0, value.length - 1);
+    }
+    event.target.value = value;
+  }
+
+  get cardNumber() {
+    return this.cardForm.get('cardNumber');
+  }
+  get cardHolder() {
+    return this.cardForm.get('cardHolder');
+  }
+  get cardExpires() {
+    return this.cardForm.get('cardExpires');
+  }
+  get cardCVV() {
+    return this.cardForm.get('cardCVV');
+  }
+
+
+  // formatNumber(event: any) {
+  //   let value =  event.target.value || '';
+  //   // if (value = 'a') {
+  //   //   event.preventDefault();
+  //   // }
+  //   value = value.replace(/[^0-9 ]/,'');
+  //   event.target.value = value;
+  // }
 
   // closeForm() {
   //   this.onChanged.emit();

@@ -8,6 +8,8 @@ import { CheckoutProcessComponent } from './components/checkout-process/checkout
 import { CompareComponent } from './components/compare/compare.component';
 import { SearchComponent } from './components/search/search.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'compare', component: CompareComponent },
   { path: 'search', component: SearchComponent},
   { path: 'paymentSuccess', component: PaymentSuccessComponent },
+  { path: 'auth', component: AuthComponent},
+  { path: 'userDetails', component: UserDetailsComponent }
 ];
 
 @NgModule({

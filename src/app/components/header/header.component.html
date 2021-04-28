@@ -13,10 +13,23 @@
         </div>
     </a>
 
-    <a routerLink='/bankCards' class="toBankCards">
-        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FbankCardsIcon.png?alt=media&token=6381d911-ab85-488f-bbdc-b525317328c3"
-            alt="bankCards">
+    <a routerLink='/userDetails' class="toUserDetails">
+        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FuserDetailsIcon.png?alt=media&token=309db636-fd81-4d03-bf8d-ef430c09ccfc"
+            alt="userDetails">
     </a>
+
+    <a *ngIf="!isSignedIn" routerLink='/auth' class="auth">
+        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2Fenter.svg?alt=media&token=4259e2dc-6f77-4ff0-ab73-ed0a8b766a15" alt="">
+        Sign up
+    </a>
+
+    <div *ngIf="isSignedIn" class="logout">
+        <button (click)="logout()">
+            <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2Flogout.ico?alt=media&token=475aaf76-51f1-477a-b104-a88cae3375df" alt="">
+            Logout
+        </button>
+    </div>
+    
 
 
 </div>

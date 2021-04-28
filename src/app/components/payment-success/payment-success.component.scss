@@ -5,10 +5,29 @@
     width: 100vw;
     height: 100vh;
     .image {
-
+        text-align: center;
+        margin-bottom: 10px;
     }
     .text {
         font-weight: bold;
         font-size: 1.2rem;
     }
 }
+
+
+
+#myLine{
+    fill: none;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: dash 1s ease-in forwards;
+}
+@keyframes dash {
+    0% { 
+        stroke-dashoffset: 300;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+} 

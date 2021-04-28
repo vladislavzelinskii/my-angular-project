@@ -1,0 +1,69 @@
+
+<div class="wrapper">
+
+    <header>
+        <app-header></app-header>
+    </header>
+
+    <aside>
+        <nav>
+            <ul>
+                <li [ngClass]="{active : flagContent === 'shipping'}">
+                    <div (click)="changeContent('shipping')">Shipping information</div>
+                </li>
+                <li [ngClass]="{active : flagContent === 'bankCards'}">
+                    <div (click)="changeContent('bankCards')">Bank cards</div>
+                </li>
+                <li [ngClass]="{active : flagContent === 'myOrders'}">
+                    <div (click)="changeContent('myOrders')">My orders</div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+
+    <div class="content" *ngIf="item | async as user">
+
+        <div class="addressDetails" *ngIf="flagContent === 'shipping'">
+            <div *ngIf="!flagForEditAddress">
+                <div class="caption">
+                    My Shipping Address
+                </div>
+                <div class="nameAndPhone">
+                    {{user.displayName}} {{user.phone}}
+                </div>
+                <div class="street">
+                    {{user.address?.street}}, {{user.address?.house}}-{{user.address?.flat}}
+                </div>
+                <div class="city">
+                    {{user.address?.city}}, {{user.address?.country}}, {{user.address?.index}}
+                </div>
+                <button (click)="editAddress()">Edit</button>
+            </div>
+            <app-address-form (onChanged)="closeAddressFromChildComponent()" *ngIf="flagForEditAddress"></app-address-form>
+        </div>
+
+        <div class="paymentMethods" *ngIf="flagContent === 'bankCards'">
+            <div class="caption">
+                Payment Methods
+            </div>
+            <div class="bankCards" *ngFor="let card of user.bankCards">
+                {{card.cardNumber}}
+                <button (click)="removeCard(card.id)">Remove</button>
+            </div>
+            <button (click)="addCard()">Add card</button>
+        </div>
+
+        <div class="myOrders" *ngIf="flagContent === 'myOrders'">
+            my orders
+        </div>
+
+    </div>
+
+    
+    
+
+
+
+
+</div>

@@ -47,6 +47,10 @@ form {
                 outline: none;
                 border-bottom: 1px solid black;
             }
+            input.ng-touched.ng-invalid {
+                color: #e62e04;
+                border-bottom: 1px solid #e62e04;
+            }
         }
     }
     .cardFront {
@@ -146,3 +150,15 @@ form {
 }
 
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+
+.validationErrors {
+    color: #e62e04;
+}

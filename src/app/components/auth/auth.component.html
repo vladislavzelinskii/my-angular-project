@@ -1,0 +1,80 @@
+<h1>Base</h1>
+
+<div *ngIf="authService.user$ | async as user; else login">
+    {{user | json}}
+    234234234
+    <hr>
+    <button (click)="authService.signOut()">Sign Out</button>
+</div>
+
+<ng-template #login>
+    <button (click)="authService.googleSignin()">Login with Google</button>
+</ng-template>
+
+<app-header></app-header>
+
+<div class="wrapper">
+    <div class="content">
+        <div class="buttonsRegisterOrSignIn">
+            <button (click)="changeFlagToSignIn()" [className]="flagForRegisterOfSignIn ? 'checked' : 'not-checked'">REGISTER</button>
+            <button (click)="changeFlagToSignUp()" [className]="flagForRegisterOfSignIn ? 'not-checked' : 'checked'">SIGN IN</button>
+        </div>
+        <form [formGroup]="signUpForm" *ngIf="!isSignedIn && flagForRegisterOfSignIn" class="signUp"
+            (ngSubmit)="onSignup(this.signUpForm.value.emailSignUp, this.signUpForm.value.passwordSignUp)">
+            <input type="text" formControlName="emailSignUp" placeholder="Email address">
+            <div class="inputIncorrect" *ngIf="emailSignUp.invalid && (emailSignUp.dirty || emailSignUp.touched)">
+                <div *ngIf="emailSignUp.errors.emailRequired">
+                    Please, enter email
+                </div>
+                <div *ngIf="emailSignUp.errors.emailIncorrect">
+                    Please, enter correct email
+                </div>
+            </div>
+            <input type="text" formControlName="passwordSignUp" placeholder="Password">
+            <div class="inputIncorrect" *ngIf="passwordSignUp.invalid && (passwordSignUp.dirty || passwordSignUp.touched)">
+                <div *ngIf="passwordSignUp.errors.passwordRequired">
+                    Please, enter password
+                </div>
+                <div *ngIf="passwordSignUp.errors.passwordLength">
+                    Please enter 6 - 20 characters (A-Z, a-z, 0-9 only)
+                </div>
+            </div>
+            <button type="submit" [disabled]="!this.signUpForm.valid">CREATE ACCOUNT</button>
+        </form>
+        <form [formGroup]="signInForm" *ngIf="!isSignedIn && !flagForRegisterOfSignIn" class="signIn"
+            (ngSubmit)="onSignin(this.signInForm.value.emailSignIn, this.signInForm.value.passwordSignIn)">
+            <input type="text" formControlName="emailSignIn" placeholder="Email address">
+            <div class="inputIncorrect" *ngIf="emailSignIn.invalid && (emailSignIn.dirty || emailSignIn.touched)">
+                <div *ngIf="emailSignIn.errors.emailRequired">
+                    Please, enter email
+                </div>
+                <div *ngIf="emailSignIn.errors.emailIncorrect">
+                    Please, enter correct email
+                </div>
+            </div>
+            <input type="text" formControlName="passwordSignIn" placeholder="Password">
+            <div class="inputIncorrect" *ngIf="passwordSignIn.invalid && (passwordSignIn.dirty || passwordSignIn.touched)">
+                <div *ngIf="passwordSignIn.errors.passwordRequired">
+                    Please, enter password
+                </div>
+                <div *ngIf="passwordSignIn.errors.passwordLength">
+                    Please enter 6 - 20 characters (A-Z, a-z, 0-9 only)
+                </div>
+            </div>
+            <button type="submit" [disabled]="!this.signInForm.valid">SIGN IN</button>
+        </form>
+        <!-- <div *ngIf="!isSignedIn && !flagForRegisterOfSignIn" class="signIn">
+            <input type="text" #email placeholder="Email address">
+            <input type="text" #password placeholder="Password">
+            <button (click)="onSignin(email.value, password.value)">SIGN IN</button>
+        </div> -->
+        <div class="quickAccess">
+            Quick access with
+        </div>
+        <div class="google">
+            <button>
+                <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FGoogleLogo.png?alt=media&token=19e21e19-b1ca-4603-ac0f-6f4bdd88c514" alt="">
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
     background-color: #fff;
-    grid-template-columns: 180px 1fr 70px 70px;
+    grid-template-columns: 180px 1fr 70px 70px 100px;
     line-height: 60px;
     height: 60px;
     margin: 0 auto;
@@ -41,7 +41,7 @@
 
 
 .toCart,
-.toBankCards {
+.toUserDetails {
     height: 60px;
     text-decoration: none;
     color: black;
@@ -63,6 +63,32 @@
         background-color: #ff4747;
         text-align: center;
         color: white;
+    }
+}
+
+.auth {
+    text-decoration: none;
+    height: 60px;
+    text-decoration: none;
+    color: black;
+    img {
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.logout {
+    height: 60px;
+    button {
+        height: 60px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        img {
+            height: 20px;
+            width: 20px;
+        }
     }
 }
 

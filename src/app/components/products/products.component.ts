@@ -254,19 +254,28 @@ export class ProductsComponent implements OnInit {
   }
 
   clearCompare() {
-
     if (this.flagForClearComparison) {
       localStorage.removeItem('compare');
       this.counterService.subject.next(0);
     }
-
     this.flagForClearComparison = true;
     setTimeout(() => {
       this.flagForClearComparison = false;
     }, 3000);
-
-    
   }
+
+  checkValue(productId: number) {
+    if (!localStorage.compare) {
+      return false;
+    } else {
+      if (JSON.parse(localStorage.compare).items.includes(productId)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
 
   // stopEvent(event: any): void {
   //   event.stopPropagation();

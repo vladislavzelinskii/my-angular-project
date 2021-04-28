@@ -65,8 +65,8 @@
                             </a>
                         </div>
                         <div class="nameAndDescription">
-                            <div>
-                                <h3><a routerLink='/product/{{product.id}}'>{{product.name}}</a></h3>
+                            <div class="name">
+                                <a routerLink='/product/{{product.id}}'>{{product.name}}</a>
                             </div>
                             <div class="shortDescription">
                                 {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -80,7 +80,8 @@
                                 pariatur.'}}
                             </div>
                             <div class="addToCompare">
-                                <input type="checkbox" (click)="addToCompare(product.id, product.category)">
+                                <!-- <input type="checkbox" [checked]="checkValue(product.id)" (click)="addToCompare(product.id, product.category)"> -->
+                                <button [className]="checkValue(product.id) ? 'buttonCompareChecked' : 'buttonCompare'" (click)="addToCompare(product.id, product.category)"></button>
                             </div>
                         </div>
                         <div class="price">

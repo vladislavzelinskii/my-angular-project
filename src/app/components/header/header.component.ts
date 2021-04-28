@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,11 @@ export class HeaderComponent implements OnInit {
 
   item$: any;
 
+  isSignedIn: boolean = false;
+
   constructor(
     private firebase: AngularFirestore,
+    public authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -23,6 +27,18 @@ export class HeaderComponent implements OnInit {
           }
         )
       ).subscribe();
+
+    if (localStorage.getItem('user') !== null) {
+      this.isSignedIn = true;
+    } else {
+      this.isSignedIn = false;
+    }
+
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isSignedIn = false;
   }
 
 }
