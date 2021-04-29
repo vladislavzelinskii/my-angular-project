@@ -1,6 +1,6 @@
 <div class="wrapperBackground">
 
-    <ng-container *ngIf="item$ | async as cart" >
+    <ng-container *ngIf="cart | async as cart" >
 
         <div class="emptyCard" *ngIf="cart.productsInCart.length == 0">
             <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08" alt="">

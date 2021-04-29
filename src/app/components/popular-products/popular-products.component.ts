@@ -10,15 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class PopularProductsComponent implements OnInit {
 
-  products: Observable<any[]>;
+  products!: Observable<any[]>;
 
-  constructor(firestore: AngularFirestore) {
-    this.products = firestore.collection('products', ref => {
-      return ref.limit(5);
-    }).valueChanges();
-  }
+  constructor(
+    private firestore: AngularFirestore
+  ) {}
 
   ngOnInit(): void {
+    this.products = this.firestore.collection('products', ref => {
+      return ref.limit(5);
+    }).valueChanges();
   }
 
 }

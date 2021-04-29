@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, switchMap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -10,25 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  // startAt = new Subject<string>();
-  // endAt = new Subject<string> ();
-  // products!: Array<Product>;
-
   flagShowSearch: boolean = false;
-
-  item$: any;
   products: Array<string> = [];
-
-  productsList: any = [];
-
-  id!: number;
-
+  productsList: Array<any> = [];
   currentValueSearch: string = '';
 
   constructor(
     private firestore: AngularFirestore,
     private router: Router,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +29,6 @@ export class SearchComponent implements OnInit {
       })
     ).subscribe();
   }
-  
 
   search($event : any) {
     this.flagShowSearch = true;
@@ -55,7 +43,6 @@ export class SearchComponent implements OnInit {
         }
       })
     }
-    
   }
   
   goToProduct(productId: number) {
@@ -66,29 +53,5 @@ export class SearchComponent implements OnInit {
   closeSearch($event: any) {
     this.flagShowSearch = false;
   }
-
-  // notClose($event: any) {
-  //   $event.stopPropagation();
-  //   console.log($event);
-  // 
-  // }
-
-  // ngOnInit(): void {
-  //   this.firequery(this.startAt, this.endAt)
-  //       .subscribe((products: Array<Product>) => this.products = products);
-  // }
-
-  // search($event : any) {  //KeyboardEvent
-  //   let q = $event.target.value;
-  //   this.startAt.next(q);
-  //   this.endAt.next(q + "\uf8ff");
-
-    
-  // }
-
-  // firequery(start: Subject<string>, end: Subject<string>): any {
-  //   console.log(start);
-  //   return this.firestore.collection<any>('products', ref => ref.limit(4).orderBy('name').startAt(start).endAt(end)).valueChanges();
-  // }
 
 }

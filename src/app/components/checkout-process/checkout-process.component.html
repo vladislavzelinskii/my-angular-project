@@ -14,7 +14,7 @@
     
     <!-- *ngIf="showCardPopup" -->
     
-    <div *ngIf="item | async as user" class="wrapper">
+    <div *ngIf="user | async as user" class="wrapper">
 
         <div class="deliveryAddress">
             <div class="addressDetails">
@@ -55,7 +55,8 @@
                 </div>
             </div>
             <div class="cardButtons">
-                <button (click)="changeCard()">Change</button>
+                <button (click)="changeCard()" *ngIf="!currentBankCard" class="addCard">+ Add card</button>
+                <button (click)="changeCard()" *ngIf="currentBankCard">Change</button>
             </div>
         </div>
 

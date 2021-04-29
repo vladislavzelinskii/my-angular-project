@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { first, map } from 'rxjs/operators';
-import { cardCVVValidator, cardExpiresValidator, cardHolderValidator, cardNumberValidator, forbiddenNameValidator } from 'src/app/shared/cardValidators.directive';
+import { BankCard } from 'src/app/models/bankCard';
+import { cardCVVValidator, cardExpiresValidator, cardHolderValidator, cardNumberValidator} from 'src/app/shared/cardValidators.directive';
 
 @Component({
   selector: 'app-bank-card-form',
@@ -13,13 +14,13 @@ export class BankCardFormComponent implements OnInit {
 
   @Output() onChanged = new EventEmitter<boolean>();
 
-  arr: any = [];
+  bankCards: any = [];
 
-  cardForm: any = FormGroup;
+  cardForm!: FormGroup;
 
   flagNewCard: boolean = false;
 
-  currentBankCard: any;
+  currentBankCard!: BankCard;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +31,6 @@ export class BankCardFormComponent implements OnInit {
     this.cardForm = this.fb.group({
       card: [],
       cardNumber: [ , [cardNumberValidator()]],
-      // cardNumber: [],
       cardHolder: [ , [cardHolderValidator()]],
       cardExpires: [ , [cardExpiresValidator()]],
       cardCVV: [ , [cardCVVValidator()]],
@@ -42,8 +42,10 @@ export class BankCardFormComponent implements OnInit {
     this.firestore.collection('users').valueChanges().pipe(
       map((details: any) => {
         details.map((element: any) => {
-          if (element.uid === JSON.parse(localStorage.user).uid) {
-            this.arr = element.bankCards;
+          if (localStorage.user) {
+            if (element.uid === JSON.parse(localStorage.user).uid) {
+              this.bankCards = element.bankCards;
+            }
           }
           return element;
         })
@@ -55,9 +57,11 @@ export class BankCardFormComponent implements OnInit {
       map((res: any) => {
         res.map((element: any) => {
           if (element.id === localStorage.cart) {
-            this.currentBankCard = element.currentCard;
-            if (element.currentCard.id !== 9999) {
-              this.cardForm.controls['card'].setValue(element.currentCard.id);
+            if (element.currentCard) {
+              this.currentBankCard = element.currentCard;
+              if (element.currentCard.id !== 9999) {
+                this.cardForm.controls['card'].setValue(element.currentCard.id);
+              }
             }
           }
         })
@@ -72,7 +76,7 @@ export class BankCardFormComponent implements OnInit {
   }
 
   changeCard() {
-    let card = this.arr.filter((element: any) => element.id === this.cardForm.value.card)[0];
+    let card = this.bankCards.filter((element: any) => element.id === this.cardForm.value.card)[0];
     this.firestore.collection('cart').doc(localStorage.cart).update({
       currentCard: card
     });
@@ -98,12 +102,15 @@ export class BankCardFormComponent implements OnInit {
               if (element.uid === JSON.parse(localStorage.user).uid) {
                 let arrayOfBankCards = element.bankCards || [];
 
-                let lastId = arrayOfBankCards[arrayOfBankCards.length - 1].id;
-                console.log(lastId);
-                
+                let lastId = 0;
+                if (arrayOfBankCards > 0) {
+                  lastId = arrayOfBankCards[arrayOfBankCards.length - 1].id;
+                  lastId++;
+                }
+                  
                 arrayOfBankCards.push({
                   image: 'no image',
-                  id: lastId + 1,
+                  id: lastId,
                   cardNumber: cardNumber,
                   cardMonth: cardMonth,
                   cardYear: cardYear,
@@ -179,19 +186,5 @@ export class BankCardFormComponent implements OnInit {
   get cardCVV() {
     return this.cardForm.get('cardCVV');
   }
-
-
-  // formatNumber(event: any) {
-  //   let value =  event.target.value || '';
-  //   // if (value = 'a') {
-  //   //   event.preventDefault();
-  //   // }
-  //   value = value.replace(/[^0-9 ]/,'');
-  //   event.target.value = value;
-  // }
-
-  // closeForm() {
-  //   this.onChanged.emit();
-  // }
 
 }

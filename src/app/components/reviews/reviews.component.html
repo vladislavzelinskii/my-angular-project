@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="item | async as product">
+<div class="wrapper" *ngIf="product | async as product">
     <h3>Reviews</h3>
     <div class="review" *ngFor="let review of product.reviews">
         <div class="userName">

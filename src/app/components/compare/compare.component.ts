@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
@@ -13,19 +12,14 @@ import { CompareCounterService } from 'src/app/services/compare-counter.service'
 })
 export class CompareComponent implements OnInit {
 
-  products: any;
+  products: Array<Product> = [];
 
-  product: Product | undefined;
-
-  item$: any = [];
-  // specs: any;
-
-  arrayId: Array<string> = [];
+  arrayId: Array<number> = [];
 
   arrayIdOfProductsToCompare: Array<number> = [];
 
-  arrayHeadlines: any = [];
-  arrayProducts: any = [];
+  arrayHeadlines: Array<any> = [];
+  arrayProducts: Array<any> = [];
 
   specsNotToCompare: Array<string> = ['processorModel', 'printTechnology', 'paperSize', 'storageType', 'casingMaterial'];
 
@@ -33,7 +27,7 @@ export class CompareComponent implements OnInit {
     private firestore: AngularFirestore,
     private router: Router,
     private counterService: CompareCounterService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.arrayComparison();
@@ -45,7 +39,7 @@ export class CompareComponent implements OnInit {
     }
 
     this.arrayIdOfProductsToCompare = [];
-    this.item$ = [];
+    this.products = [];
     this.arrayHeadlines = [];
     this.arrayProducts = [];
 
@@ -53,11 +47,11 @@ export class CompareComponent implements OnInit {
       this.arrayIdOfProductsToCompare.push(+element);
     })
 
-    this.products = this.firestore.collection('products').valueChanges().pipe(
+    this.firestore.collection('products').valueChanges().pipe(
       map((products: any): any => {
         products.map((element: any) => {
           if (this.arrayIdOfProductsToCompare.includes(element.id)) {
-            this.item$.push(element);
+            this.products.push(element);
 
             Object.keys(element.specs).map((key: any) => {
               if (!this.arrayHeadlines.includes(key)) {
@@ -101,12 +95,8 @@ export class CompareComponent implements OnInit {
           return element;
         });
 
-        console.log(this.arrayProducts);
-
         this.arrayProducts.map((product: any) => {
           product.map((element: any, index: any) => {
-            console.log(element.compare);
-
             if (element.compare === false) {
               let flag = true;
               let flag2 = true;
@@ -146,10 +136,6 @@ export class CompareComponent implements OnInit {
     this.counterService.subject.next(JSON.parse(localStorage.compare).items.length);
 
     this.arrayComparison();
-
-
-    // localStorage.removeItem(productId.toString());
-    // window.location.reload();
   }
 
 }

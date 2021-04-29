@@ -1,12 +1,5 @@
 import { ValidatorFn, AbstractControl } from "@angular/forms";
 
-
-
-
-
-
-
-
 export function cardNumberValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
         if (!control.value) {
@@ -17,8 +10,6 @@ export function cardNumberValidator(): ValidatorFn {
         return null
     };
 }
-
-
 
 export function cardHolderValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
@@ -60,8 +51,6 @@ export function cardCVVValidator(): ValidatorFn {
         // return !value ? {value: {value: control.value}} : null;
     };
 }
-
-
 
 export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {

@@ -10,18 +10,11 @@ import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import User = firebase.User;
-
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class AuthService {
-  user$!: any;
 
   isLoggedIn: boolean = false;
 
@@ -29,38 +22,31 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-  ) {
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap((user: any) => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.userId}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
-    );
-  }
+  ) {}
 
   async signin(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password)
     .then(res => {
-      this.isLoggedIn = true
+      this.isLoggedIn = true;
       localStorage.setItem('user', JSON.stringify(res.user));
+      console.log(res.user?.uid);
+      
+      // пройти по коллекции cart, найти документ с айдишником res.user.uid, засетать cartId в localStorage
     })
   }
   async signup(email: string, password: string) {
     await this.afAuth.createUserWithEmailAndPassword(email, password)
     .then(res => {
-      this.isLoggedIn = true
-      localStorage.setItem('user', JSON.stringify(res.user));
+      // this.isLoggedIn = true;
+      // localStorage.setItem('user', JSON.stringify(res.user));
       this.updateUserData(res.user);
     })
   }
   logout() {
     this.afAuth.signOut();
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');
   }
-
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
@@ -68,10 +54,10 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-  async signOut() {
-    await this.afAuth.signOut();
-    return this.router.navigate(['/']);
-  }
+  // async signOut() {
+  //   await this.afAuth.signOut();
+  //   return this.router.navigate(['/']);
+  // }
 
   private updateUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user?.uid}`);
@@ -82,6 +68,9 @@ export class AuthService {
       displayName: user?.displayName,
       photoUrl: user?.photoURL,
     };
+
+    this.isLoggedIn = true;
+    localStorage.setItem('user', JSON.stringify(data));
 
     this.afs.collection('cart').add({
       totalPrice: 0,
@@ -97,7 +86,6 @@ export class AuthService {
 
     return userRef.set(data, { merge: true })
   }
-
 
 }
 

@@ -1,8 +1,6 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Cart } from 'src/app/models/cart';
 import { ProductInCart } from 'src/app/models/productInCart';
 import firebase from 'firebase/app';
 
@@ -14,11 +12,7 @@ import firebase from 'firebase/app';
 })
 export class CartComponent implements OnInit {
 
-  item$!: Observable<any>;
-  items: any;
-  itemss: any;
-
-  cart!: Cart;
+  cart!: Observable<any>;
   productInCart!: ProductInCart;
 
   constructor(
@@ -26,11 +20,8 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.item$ = this.firestore.collection('cart').doc(localStorage.cart).valueChanges();
-    console.log(this.item$);
-    
+    this.cart = this.firestore.collection('cart').doc(localStorage.cart).valueChanges();
   }
-
   
   quantityMinus(productId: number, quantity: number, productsInCart: ProductInCart[], price: number) {
     this.firestore.collection('cart').doc(localStorage.cart).update({
@@ -75,6 +66,5 @@ export class CartComponent implements OnInit {
       productsInCart: [],
     });
   }
-
 
 }

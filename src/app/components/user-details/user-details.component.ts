@@ -13,8 +13,8 @@ export class UserDetailsComponent implements OnInit {
 
   item?: Observable<User>;
 
-  userId = JSON.parse(localStorage.user).uid;
-  userEmail = JSON.parse(localStorage.user).email;
+  userId: string = '';
+  userEmail: string = '';
 
   flagForEditAddress: boolean = false;
   flagForEditCard: boolean = false;
@@ -25,6 +25,12 @@ export class UserDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    if (localStorage.user) {
+      this.userId = JSON.parse(localStorage.user).uid;
+      this.userEmail = JSON.parse(localStorage.user).email;
+    }
+
     this.item = this.firestore.collection('users', ref => {
       return ref.where('uid', '==', this.userId)
     }).valueChanges().pipe(
@@ -70,6 +76,5 @@ export class UserDetailsComponent implements OnInit {
       })
     ).subscribe();
   }
-  
 
 }

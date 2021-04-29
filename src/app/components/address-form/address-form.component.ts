@@ -34,13 +34,13 @@ export class AddressFormComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.firestore.collection('users').valueChanges().pipe(
       map((details: any) => {
         details.map((element: any) => {
-          if (element.uid === JSON.parse(localStorage.user).uid) {
+          if (localStorage.user && element.uid === JSON.parse(localStorage.user).uid) {
             if (element.displayName) this.name = element.displayName;
             if (element.phone) this.phone = element.phone;
             if (element.address) {
@@ -81,6 +81,11 @@ export class AddressFormComponent implements OnInit {
         index: this.addressForm.value.index,
       },
     });
+
+    let user = JSON.parse(localStorage.user);
+    user.displayName = this.addressForm.value.name;
+    localStorage.user = JSON.stringify(user);
+
     this.onChanged.emit();
   }
 

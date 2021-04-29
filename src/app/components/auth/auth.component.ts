@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { emailValidator, passwordValidator } from 'src/app/shared/signInSignUpValidators';
@@ -15,16 +15,15 @@ export class AuthComponent implements OnInit {
 
   flagForRegisterOfSignIn: boolean = true;
 
-  signUpForm: any = FormGroup;
-  signInForm: any = FormGroup;
+  signUpForm!: FormGroup;
+  signInForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    public authService: AuthService,
+    private authService: AuthService,
     private router: Router,
-    ) {
+  ) {}
 
-  }
   ngOnInit() {
 
     this.signUpForm = this.fb.group({
@@ -61,6 +60,10 @@ export class AuthComponent implements OnInit {
     this.isSignedIn = false;
   }
 
+  googleSignin() {
+    this.authService.googleSignin();
+  }
+
   changeFlagToSignIn() {
     this.signUpForm = this.fb.group({
       emailSignUp: ['', [emailValidator()]],
@@ -75,7 +78,6 @@ export class AuthComponent implements OnInit {
     });
     this.flagForRegisterOfSignIn = false;
   }
-
 
   get emailSignUp() {
     return this.signUpForm.get('emailSignUp');

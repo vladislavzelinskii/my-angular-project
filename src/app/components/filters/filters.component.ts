@@ -13,34 +13,25 @@ import { map } from 'rxjs/operators';
 export class FiltersComponent implements OnInit {
 
   queryCategory: Params = {};
-
   filters: Array<string> = [];
   selectedCategoriesValues: string[] = [];
-
   filtersForm: any;
-
-  filter$: any;
-  filterss: any;
-
 
   constructor(private router: Router,
     private fb: FormBuilder,
     private firestore: AngularFirestore,
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.filter$ = this.firestore.collection('filters').valueChanges()
+    this.firestore.collection('filters').valueChanges()
     .pipe(
       map(res => {
-        this.filter$ = res;
-        this.filters = this.filter$.map((element: any) => {
+        this.filters = res.map((element: any) => {
           return element.name;
         })
       })
     )
-    .subscribe(x => this.createFiltersForm());
+    .subscribe(() => this.createFiltersForm());
   }
 
   createFiltersForm() {
@@ -48,7 +39,6 @@ export class FiltersComponent implements OnInit {
       categories: this.addCategoriesControl()
     })
   }
-  
 
   addCategoriesControl() {
 
@@ -93,8 +83,5 @@ export class FiltersComponent implements OnInit {
       this.router.navigateByUrl(urlTree);
     }
   }
-
-
-  
 
 }

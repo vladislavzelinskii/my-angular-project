@@ -1,5 +1,6 @@
 export interface BankCard {
     id: number;
+    cardName: string;
     cardNumber: number;
     cardYear: number;
     cardMonth: number;

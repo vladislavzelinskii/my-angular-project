@@ -1,4 +1,4 @@
-
+import { Address } from "./address";
 import { BankCard } from "./bankCard";
 
 export interface User {
@@ -7,13 +7,6 @@ export interface User {
     photoURL?: string;
     displayName?: string;
     phone?: string;
-    address?: {
-        city?: string;
-        country?: string;
-        flat?: number;
-        house?: number;
-        index?: number;
-        street?: string;
-    };
+    address?: Address;
     bankCards?: BankCard[];
 }

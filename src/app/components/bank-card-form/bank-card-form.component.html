@@ -3,9 +3,9 @@
         Payment Methods
     </div>
 
-    <ng-container *ngIf="arr && !flagNewCard">
+    <ng-container *ngIf="bankCards && !flagNewCard">
         <div class="bankCardsRadioButtons">
-            <label *ngFor="let item of arr; let i = index">
+            <label *ngFor="let item of bankCards; let i = index">
                 <input type="radio" [value]="item.id" formControlName="card">
                 <span>{{item.cardNumber | creditCardMask}}</span>
                 <span class="cardName">{{item.cardName}}</span>
@@ -48,38 +48,38 @@
         </div>
 
         <div class="validationErrors">
-            <div *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)">
-                <div *ngIf="cardNumber.errors.cardNameRequired">
+            <div *ngIf="cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)">
+                <div *ngIf="cardNumber?.errors?.cardNameRequired">
                     Please, enter card number
                 </div>
-                <div *ngIf="cardNumber.errors.cardNameLength">
+                <div *ngIf="cardNumber?.errors?.cardNameLength">
                     Please, enter 16 digits in card number
                 </div>
             </div>
-            <div *ngIf="cardHolder.invalid && (cardHolder.dirty || cardHolder.touched)">
-                <div *ngIf="cardHolder.errors.cardHolderRequired">
+            <div *ngIf="cardHolder?.invalid && (cardHolder?.dirty || cardHolder?.touched)">
+                <div *ngIf="cardHolder?.errors?.cardHolderRequired">
                     Please, enter name
                 </div>
-                <div *ngIf="cardHolder.errors.cardHolderSpace">
+                <div *ngIf="cardHolder?.errors?.cardHolderSpace">
                     Dont forget to enter space between first name and last name
                 </div>
             </div>
-            <div *ngIf="cardExpires.invalid && (cardExpires.dirty || cardExpires.touched)">
-                <div *ngIf="cardExpires.errors.cardExpiresRequired">
+            <div *ngIf="cardExpires?.invalid && (cardExpires?.dirty || cardExpires?.touched)">
+                <div *ngIf="cardExpires?.errors?.cardExpiresRequired">
                     Please, enter month and year
                 </div>
-                <div *ngIf="cardExpires.errors.cardMonth">
+                <div *ngIf="cardExpires?.errors?.cardMonth">
                     Please, enter month
                 </div>
-                <div *ngIf="cardExpires.errors.cardYear">
+                <div *ngIf="cardExpires?.errors?.cardYear">
                     This card is not valid
                 </div>
             </div>
-            <div *ngIf="cardCVV.invalid && (cardCVV.dirty || cardCVV.touched)">
-                <div *ngIf="cardCVV.errors.cardCVVRequired">
+            <div *ngIf="cardCVV?.invalid && (cardCVV?.dirty || cardCVV?.touched)">
+                <div *ngIf="cardCVV?.errors?.cardCVVRequired">
                     Please, enter CVV
                 </div>
-                <div *ngIf="cardCVV.errors.cardCVVLength">
+                <div *ngIf="cardCVV?.errors?.cardCVVLength">
                     Please, enter 3 digits in CVV
                 </div>
             </div>

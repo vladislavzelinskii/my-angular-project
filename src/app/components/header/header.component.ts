@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,9 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  item$: any;
   itemsLength: number = 0;
-
   isSignedIn: boolean = false;
 
   constructor(
@@ -21,7 +19,12 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.item$ = this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
+
+    if (localStorage.cart) {
+
+      this.isSignedIn = true;
+
+      this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
       .pipe(
         map((res: any) => {
             if (res.productsInCart) {
@@ -30,9 +33,6 @@ export class HeaderComponent implements OnInit {
           }
         )
       ).subscribe();
-
-    if (localStorage.getItem('user') !== null) {
-      this.isSignedIn = true;
     } else {
       this.isSignedIn = false;
     }

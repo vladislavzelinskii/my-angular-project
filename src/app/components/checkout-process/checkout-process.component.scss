@@ -104,6 +104,11 @@
     }
     .cardButtons {
         margin-top: 50px;
+        .addCard {
+            background-color: inherit;
+            color: #2e9cc3;
+            font-size: 18px;
+        }
     }
     .cardNumberAndCardName {
         display: flex;

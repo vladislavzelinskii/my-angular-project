@@ -5,8 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
-import { Review } from 'src/app/models/review';
-import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-reviews',
@@ -15,17 +13,16 @@ import firebase from 'firebase/app';
 })
 export class ReviewsComponent implements OnInit {
 
-  item: Observable<Product>;
-  review!: Review;
-
-  product: Product | undefined;
+  product!: Observable<Product>;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
-    this.item = firestore.collection('products', ref => {
+    this.product = this.firestore.collection('products', ref => {
       return ref.where('id', '==', id)
     }).valueChanges().pipe(
       map(function (item$: any): any {
@@ -33,35 +30,12 @@ export class ReviewsComponent implements OnInit {
       }));
   }
 
-  ngOnInit(): void {
-  }
-
-
   addReviewForm = new FormGroup({
     rating: new FormControl('', Validators.required),
     text: new FormControl('', Validators.required),
   })
 
   addReview(id: number) {
-
-    // this.firestore.collection('products').doc(id.toString()).update({
-    //   reviews: firebase.firestore.FieldValue.arrayUnion({
-    //     rating: +this.addReviewForm.value.rating,
-    //     text: this.addReviewForm.value.text,
-    //     userId: 0,
-    //     userName: 'admin',
-    //   })
-    // });
-
-    // this.firestore.collection('products').doc(id.toString()).update({
-    //   reviews.push({
-    //     rating: +this.addReviewForm.value.rating,
-    //     text: this.addReviewForm.value.text,
-    //     userId: 0,
-    //     userName: 'admin',
-    //   })
-    // });
-
 
     let averageRating: any;
     
@@ -74,11 +48,23 @@ export class ReviewsComponent implements OnInit {
             let arrayOfReviews = element.reviews || [];
             console.log(+this.addReviewForm.value.rating);
 
+            let userName = '';
+
+            if (localStorage.user) {
+              if (JSON.parse(localStorage.user).displayName) {
+                userName = JSON.parse(localStorage.user).displayName;
+              } else {
+                userName = JSON.parse(localStorage.user).uid;
+              }
+            } else {
+              userName = 'anonim';
+            }
+
             arrayOfReviews.push({
               rating: +this.addReviewForm.value.rating,
               text: this.addReviewForm.value.text,
-              userId: 0,
-              userName: 'admin',
+              userId: JSON.parse(localStorage.user).uid,
+              userName: userName,
             });
 
             let arrayOfRating: any = [];

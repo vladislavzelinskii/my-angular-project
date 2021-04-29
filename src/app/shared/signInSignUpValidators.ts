@@ -1,12 +1,5 @@
 import { ValidatorFn, AbstractControl } from "@angular/forms";
 
-
-
-
-
-
-
-
 export function emailValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;

@@ -8,7 +8,7 @@
     <a routerLink='/cart' class="toCart">
         <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FcartIcon.png?alt=media&token=30d47dc7-d520-45df-b611-34ce723886cd"
             alt="">
-        <div class="counterCart" *ngIf="item$.length!==0">
+        <div class="counterCart" *ngIf="itemsLength">
             {{itemsLength}}
         </div>
     </a>
