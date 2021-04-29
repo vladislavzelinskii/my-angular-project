@@ -21,18 +21,22 @@
                 <div class="caption">
                     Shipping Information
                 </div>
-                <div class="nameAndPhone">
-                    {{user.surname}} {{user.name}} {{user.phone}}
-                </div>
-                <div class="street">
-                    {{user.address.street}}, {{user.address.house}}-{{user.address.flat}}
-                </div>
-                <div class="city">
-                    {{user.address.city}}, {{user.address.country}}, {{user.address.index}}
-                </div>
+                <ng-container *ngIf="user.address">
+                    <div class="nameAndPhone">
+                        {{user.displayName}} {{user.phone}}
+                    </div>
+                    <div class="street">
+                        {{user.address?.street}}, {{user.address?.house}}-{{user.address?.flat}}
+                    </div>
+                    <div class="city">
+                        {{user.address?.city}}, {{user.address?.country}}, {{user.address?.index}}
+                    </div>
+                </ng-container>
+                
             </div>
             <div class="addressButtons">
-                <button (click)="changeAddress()">Change address</button>
+                <button class="addNewAddress" (click)="changeAddress()" *ngIf="!user.address">+ Add new address</button>
+                <button class="editAddress"  (click)="changeAddress()" *ngIf="user.address">Change address</button>
             </div>
         </div>
 
@@ -41,7 +45,7 @@
                 <div class="caption">
                     Payment Methods
                 </div>
-                <div class="cardNumberAndCardName">
+                <div class="cardNumberAndCardName" *ngIf="currentBankCard">
                     <div class="cardNumber">
                         {{currentBankCard.cardNumber | creditCardMask}}
                     </div>

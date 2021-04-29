@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
 
   item$: any;
+  itemsLength: number = 0;
 
   isSignedIn: boolean = false;
 
@@ -20,10 +21,12 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.item$ = this.firebase.collection('cart').doc('0').valueChanges()
+    this.item$ = this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
       .pipe(
         map((res: any) => {
-            this.item$ = res.productsInCart;
+            if (res.productsInCart) {
+              this.itemsLength = res.productsInCart.length;
+            }
           }
         )
       ).subscribe();

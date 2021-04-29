@@ -92,8 +92,14 @@
         flex-direction: column;
         align-items: flex-end;
         margin-top: 85px;
-        button {
-            margin: 5px;
+        .addNewAddress {
+            margin-top: 5px;
+            background-color: inherit;
+            color: #2e9cc3;
+            font-size: 18px;
+        }
+        .editAddress {
+            margin-top: 5px;
         }
     }
     .cardButtons {

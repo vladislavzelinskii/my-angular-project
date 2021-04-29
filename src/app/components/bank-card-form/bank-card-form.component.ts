@@ -39,10 +39,10 @@ export class BankCardFormComponent implements OnInit {
     });
 
 
-    this.firestore.collection('usersDetails').valueChanges().pipe(
+    this.firestore.collection('users').valueChanges().pipe(
       map((details: any) => {
         details.map((element: any) => {
-          if (element.id === 0) {
+          if (element.uid === JSON.parse(localStorage.user).uid) {
             this.arr = element.bankCards;
           }
           return element;
@@ -54,7 +54,7 @@ export class BankCardFormComponent implements OnInit {
     this.firestore.collection('cart').valueChanges().pipe(
       map((res: any) => {
         res.map((element: any) => {
-          if (element.id === 0) {
+          if (element.id === localStorage.cart) {
             this.currentBankCard = element.currentCard;
             if (element.currentCard.id !== 9999) {
               this.cardForm.controls['card'].setValue(element.currentCard.id);
@@ -69,10 +69,17 @@ export class BankCardFormComponent implements OnInit {
   addNewCard(event: any) {
     event.preventDefault();
     this.flagNewCard = !this.flagNewCard;
-  
   }
 
-  onSubmit() {
+  changeCard() {
+    let card = this.arr.filter((element: any) => element.id === this.cardForm.value.card)[0];
+    this.firestore.collection('cart').doc(localStorage.cart).update({
+      currentCard: card
+    });
+    this.onChanged.emit();
+  }
+
+  addNewCardSubmit() {
     let formValue = this.cardForm.value;
 
     if (formValue.cardNumber && formValue.cardExpires && formValue.cardHolder) {
@@ -85,21 +92,25 @@ export class BankCardFormComponent implements OnInit {
 
       if (saveNewCard) {
 
-        this.firestore.collection('usersDetails').valueChanges().pipe(
+        this.firestore.collection('users').valueChanges().pipe(
           first(), map((details: any) => {
             details.map((element: any) => {
-              if (element.id === 0) {
+              if (element.uid === JSON.parse(localStorage.user).uid) {
                 let arrayOfBankCards = element.bankCards || [];
+
+                let lastId = arrayOfBankCards[arrayOfBankCards.length - 1].id;
+                console.log(lastId);
+                
                 arrayOfBankCards.push({
                   image: 'no image',
-                  id: arrayOfBankCards.length,
+                  id: lastId + 1,
                   cardNumber: cardNumber,
                   cardMonth: cardMonth,
                   cardYear: cardYear,
                   cardHolder: cardHolder,
                   cardName: formValue.cardName,
                 });
-                this.firestore.collection('usersDetails').doc('0').update({
+                this.firestore.collection('users').doc(JSON.parse(localStorage.user).uid).update({
                   bankCards: arrayOfBankCards,
                 });
               }
@@ -111,7 +122,7 @@ export class BankCardFormComponent implements OnInit {
 
       }
 
-      this.firestore.collection('cart').doc('0').update({
+      this.firestore.collection('cart').doc(localStorage.cart).update({
         currentCard: {
           image: 'no image',
           id: 9999,
@@ -121,10 +132,6 @@ export class BankCardFormComponent implements OnInit {
           cardHolder: cardHolder,
           cardName: formValue.cardName || null,
         }
-      });
-    } else {
-      this.firestore.collection('cart').doc('0').update({
-        currentCard: this.arr[this.cardForm.value.card]
       });
     }
     

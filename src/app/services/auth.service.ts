@@ -83,8 +83,21 @@ export class AuthService {
       photoUrl: user?.photoURL,
     };
 
+    this.afs.collection('cart').add({
+      totalPrice: 0,
+      userId: user?.uid,
+      productsInCart: [],
+    })
+    .then((docRef) => {
+      localStorage.setItem('cart', docRef.id);
+      this.afs.collection('cart').doc(localStorage.cart).set({
+        id: localStorage.cart,
+      }, { merge: true } )
+    });
+
     return userRef.set(data, { merge: true })
   }
+
 
 }
 

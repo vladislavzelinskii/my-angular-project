@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit {
 
       });
 
-    this.firestore.collection('cart').doc('0').valueChanges().pipe(
+    this.firestore.collection('cart').doc(localStorage.cart).valueChanges().pipe(
       map(res => {
         this.items = res;
         this.flag = false;
@@ -111,7 +111,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(productId: number, price: number, name: string, image: string) {
-    this.firestore.collection('cart').doc('0').update({
+    this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: firebase.firestore.FieldValue.increment(price),
       productsInCart: firebase.firestore.FieldValue.arrayUnion({
         productId: productId,
@@ -124,7 +124,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   removeFromCart(productId: number, price: number, name: string, image: string) {
-    const document: any = this.firestore.collection('cart').doc('0');
+    const document: any = this.firestore.collection('cart').doc(localStorage.cart);
     document.valueChanges().pipe(
       first(), tap((res: any) => {
 

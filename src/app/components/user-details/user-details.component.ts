@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
+import { first, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-details',
@@ -17,6 +17,7 @@ export class UserDetailsComponent implements OnInit {
   userEmail = JSON.parse(localStorage.user).email;
 
   flagForEditAddress: boolean = false;
+  flagForEditCard: boolean = false;
   flagContent: string = 'shipping';
 
   constructor(
@@ -44,13 +45,31 @@ export class UserDetailsComponent implements OnInit {
     this.flagForEditAddress = false;
   }
 
-  removeCard(cardId: number) {
-    alert('remove card ' + cardId);
-  }
-  addCard() {
-    alert('add card');
-  }
+  // addCard() {
+  //   this.flagForEditCard = true;
+  // }
+  // closeCardFromChildComponent(){
+  //   this.flagForEditCard = false;
+  // }
 
+  removeCard(cardId: number) {
+    this.firestore.collection('users').valueChanges().pipe(
+      first(), map((details: any) => {
+        details.map((element: any) => {
+          if (element.uid === JSON.parse(localStorage.user).uid) {
+            let arrayOfBankCards = element.bankCards || [];
+            console.log(arrayOfBankCards);
+            arrayOfBankCards = arrayOfBankCards.filter((element: any) => element.id !== cardId);
+            this.firestore.collection('users').doc(JSON.parse(localStorage.user).uid).update({
+              bankCards: arrayOfBankCards,
+            });
+          }
+          return element;
+        })
+        return details;
+      })
+    ).subscribe();
+  }
   
 
 }

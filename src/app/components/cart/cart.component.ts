@@ -26,14 +26,14 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.item$ = this.firestore.collection('cart').doc('0').valueChanges();
+    this.item$ = this.firestore.collection('cart').doc(localStorage.cart).valueChanges();
     console.log(this.item$);
     
   }
 
   
   quantityMinus(productId: number, quantity: number, productsInCart: ProductInCart[], price: number) {
-    this.firestore.collection('cart').doc('0').update({
+    this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: firebase.firestore.FieldValue.increment(-price),
       productsInCart: productsInCart.map((element: any) => {
         if (element.productId === productId) {
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit {
   }
 
   quantityPlus(productId: number, quantity: number, productsInCart: ProductInCart[], price: number) {
-    this.firestore.collection('cart').doc('0').update({
+    this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: firebase.firestore.FieldValue.increment(price),
       productsInCart: productsInCart.map((element: any) => {
         if (element.productId === productId) {
@@ -57,7 +57,7 @@ export class CartComponent implements OnInit {
   }
 
   deleteProduct(productId: number, price: number, name: string, image: string, quantity: number) {
-    this.firestore.collection('cart').doc('0').update({
+    this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: firebase.firestore.FieldValue.increment( -(price * quantity)),
       productsInCart: firebase.firestore.FieldValue.arrayRemove({
         productId: productId,
@@ -70,9 +70,9 @@ export class CartComponent implements OnInit {
   }
 
   clearCart() {
-    this.firestore.collection('cart').doc('0').update({
+    this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: 0,
-      productsInCart: []
+      productsInCart: [],
     });
   }
 

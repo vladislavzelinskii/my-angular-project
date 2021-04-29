@@ -1,4 +1,4 @@
-<form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="cardForm">
     <div class="changeCardCaption">
         Payment Methods
     </div>
@@ -98,7 +98,8 @@
     <button class="addNewCardButton" (click)="addNewCard($event)" *ngIf="!flagNewCard">+ Add new card</button>
 
     <div class="buttons">
-        <button type="submit" [disabled]="!cardForm.valid" class="submit">Continue</button>
+        <button (click)="changeCard()" *ngIf="!flagNewCard" class="submit">Change card</button>
+        <button (click)="addNewCardSubmit()" *ngIf="flagNewCard" [disabled]="!cardForm.valid" class="submit">Continue</button>
         <button class="cancel" (click)="addNewCard($event)" *ngIf="flagNewCard">Cancel</button>
     </div>
 

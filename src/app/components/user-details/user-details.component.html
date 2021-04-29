@@ -25,7 +25,7 @@
     <div class="content" *ngIf="item | async as user">
 
         <div class="addressDetails" *ngIf="flagContent === 'shipping'">
-            <div *ngIf="!flagForEditAddress">
+            <div *ngIf="!flagForEditAddress && user.address">
                 <div class="caption">
                     My Shipping Address
                 </div>
@@ -40,18 +40,32 @@
                 </div>
                 <button (click)="editAddress()">Edit</button>
             </div>
+            <button (click)="editAddress()" *ngIf="!flagForEditAddress && !user.address">+ Add new address</button>
             <app-address-form (onChanged)="closeAddressFromChildComponent()" *ngIf="flagForEditAddress"></app-address-form>
         </div>
 
         <div class="paymentMethods" *ngIf="flagContent === 'bankCards'">
             <div class="caption">
-                Payment Methods
+                Bank cards
             </div>
-            <div class="bankCards" *ngFor="let card of user.bankCards">
-                {{card.cardNumber}}
-                <button (click)="removeCard(card.id)">Remove</button>
+            <div class="noCards" *ngIf="!user.bankCards">
+                No cards
             </div>
-            <button (click)="addCard()">Add card</button>
+            <ng-container *ngIf="user.bankCards">
+                <div class="bankCard" *ngFor="let card of user.bankCards">
+                    <div>
+                        <div class="cardNumberCaption">
+                            Card number
+                        </div>
+                        <div class="cardNumber">
+                            {{card.cardNumber | creditCardMask}}
+                        </div>
+                    </div>
+                    <div class="removeCard">
+                        <button (click)="removeCard(card.id)">Remove</button>
+                    </div>
+                </div>
+            </ng-container>
         </div>
 
         <div class="myOrders" *ngIf="flagContent === 'myOrders'">

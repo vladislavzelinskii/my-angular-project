@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductInCart } from 'src/app/models/productInCart';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-checkout-process',
@@ -30,8 +30,8 @@ export class CheckoutProcessComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
   ) {
-    this.item = firestore.collection('usersDetails', ref => {
-      return ref.where('id', '==', 0)
+    this.item = firestore.collection('users', ref => {
+      return ref.where('uid', '==', JSON.parse(localStorage.user).uid)
     }).valueChanges().pipe(
       map(function (item$: any): any {
         return item$[0];
@@ -40,14 +40,14 @@ export class CheckoutProcessComponent implements OnInit {
     firestore.collection('cart').valueChanges().pipe(
       map((res: any) => {
         res.map((element: any) => {
-          if (element.id === 0) {
+          if (element.id === localStorage.cart) {
             this.currentBankCard = element.currentCard;
           }
         })
       })
     ).subscribe();
 
-    this.productsInCart = firestore.collection('cart').doc('0').valueChanges()
+    this.productsInCart = firestore.collection('cart').doc(localStorage.cart).valueChanges()
       .pipe(
         map((res: any) => {
           this.totalPrice = res.totalPrice;
@@ -78,11 +78,5 @@ export class CheckoutProcessComponent implements OnInit {
   closeCardFromChildComponent(){
     this.showCardPopup = false;
   }
-
-  checkout() {
-    alert("success");
-  }
-
-  
 
 }

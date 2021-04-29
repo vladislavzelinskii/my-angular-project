@@ -43,12 +43,14 @@ export class AddressFormComponent implements OnInit {
           if (element.uid === JSON.parse(localStorage.user).uid) {
             if (element.displayName) this.name = element.displayName;
             if (element.phone) this.phone = element.phone;
-            if (element.address.street) this.street = element.address.street;
-            if (element.address.house) this.house = element.address.house;
-            if (element.address.flat) this.flat = element.address.flat;
-            if (element.address.flat) this.country = element.address.country;
-            if (element.address.flat) this.city = element.address.city;
-            if (element.address.flat) this.index = element.address.index
+            if (element.address) {
+              if (element.address.street) this.street = element.address.street;
+              if (element.address.house) this.house = element.address.house;
+              if (element.address.flat) this.flat = element.address.flat;
+              if (element.address.flat) this.country = element.address.country;
+              if (element.address.flat) this.city = element.address.city;
+              if (element.address.flat) this.index = element.address.index;
+            }
           }
         })
       })
