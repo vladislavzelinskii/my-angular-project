@@ -60,8 +60,9 @@ export class AuthComponent implements OnInit {
     this.isSignedIn = false;
   }
 
-  googleSignin() {
-    this.authService.googleSignin();
+  async googleSignin() {
+    await this.authService.googleSignin();
+    this.router.navigateByUrl('');
   }
 
   changeFlagToSignIn() {

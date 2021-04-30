@@ -9,6 +9,7 @@ import 'firebase/auth';
 import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map, take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -20,15 +21,15 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
+    private firestore: AngularFirestore,
     private router: Router,
   ) {}
 
   async signin(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password)
     .then(res => {
-      this.isLoggedIn = true;
-      localStorage.setItem('user', JSON.stringify(res.user));
+      // this.isLoggedIn = true;
+      // localStorage.setItem('user', JSON.stringify(res.user));
       console.log(res.user?.uid);
       
       // пройти по коллекции cart, найти документ с айдишником res.user.uid, засетать cartId в localStorage
@@ -60,7 +61,7 @@ export class AuthService {
   // }
 
   private updateUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user?.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user?.uid}`);
 
     const data = {
       uid: user?.uid,
@@ -72,17 +73,32 @@ export class AuthService {
     this.isLoggedIn = true;
     localStorage.setItem('user', JSON.stringify(data));
 
-    this.afs.collection('cart').add({
-      totalPrice: 0,
-      userId: user?.uid,
-      productsInCart: [],
-    })
-    .then((docRef) => {
-      localStorage.setItem('cart', docRef.id);
-      this.afs.collection('cart').doc(localStorage.cart).set({
-        id: localStorage.cart,
-      }, { merge: true } )
-    });
+
+
+    this.firestore.collection('cart').valueChanges().pipe(
+      take(1),
+      map((documents: any) => {
+        documents.map((element: any) => {
+          if (element.userId === user?.uid) {
+            localStorage.setItem('cart', element.id);
+          } else {
+            this.firestore.collection('cart').add({
+              totalPrice: 0,
+              userId: user?.uid,
+              productsInCart: [],
+            })
+            .then((docRef) => {
+              localStorage.setItem('cart', docRef.id);
+              this.firestore.collection('cart').doc(localStorage.cart).set({
+                id: localStorage.cart,
+              }, { merge: true } )
+            });
+          }
+        })
+      })
+    ).subscribe();
+
+    
 
     return userRef.set(data, { merge: true })
   }

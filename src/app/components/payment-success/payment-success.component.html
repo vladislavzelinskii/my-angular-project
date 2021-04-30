@@ -14,5 +14,39 @@
         <div class="text">
             Congratulations on your purchase!
         </div>
+        <div *ngIf="totalPrice">
+            {{totalPrice}}
+        </div>
+        <div class="productsInCart">
+            <div class="orderListCaption">
+                Order Review
+            </div>
+            <div *ngFor="let productInCart of productsInCart" class="productInCart">
+                <div class="image">
+                    <a routerLink='/product/{{productInCart.productId}}'>
+                        <img
+                            src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                    </a>
+                </div>
+                <div class="nameAndPrice">
+                    <div class="name">
+                        <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                    </div>
+                    <br>
+                    <div class=price>
+                        {{productInCart.price | currency}}
+                    </div>
+                </div>
+                <div class="priceAndQuantity">
+                    <div class="quantity">
+                        Quantity:
+                        {{productInCart.quantity}}
+                    </div>
+                    <div class="priceSubTotal">
+                        {{productInCart.price * productInCart.quantity | currency}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

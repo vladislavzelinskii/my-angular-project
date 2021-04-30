@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.isSignedIn = false;
+    window.location.reload();
   }
 
 }

@@ -1,4 +1,5 @@
 import { Review } from "./review";
+import { Specs } from "./specs";
 
 export interface Product {
     id: number;
@@ -10,18 +11,7 @@ export interface Product {
     category: string;
     brand?: string;
     country?: string;
-    specs?: {
-        screenSize?: number;
-        screenResolution?: string;
-        systemMemory?: number;
-        yearIntroduced?: number;
-        processorModel?: string;
-        processorCores?: number;
-        processorBaseFrequency?: number;
-        storageType?: string;
-        totalStorageCapacity?: number;
-        casingMaterial?: string;
-    };
+    specs: Specs;
     reviews?: Review[];
     averageRating?: number;
 }
