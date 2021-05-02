@@ -7,7 +7,7 @@ header {
 .wrapper {
     background-color: #fff;
     max-width: 1000px;
-    margin: 15px auto 20px;
+    margin: 15px auto 0;
     padding: 10px;
 }
 
@@ -85,6 +85,10 @@ table {
 
 
 .addToCart {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
     button {
         height: 30px;
         box-sizing: border-box;
@@ -104,6 +108,10 @@ table {
 }
 
 .reviews {
-    margin-top: 10px;
+    margin: 10px 0;
     border-top: 3px solid black;
+}
+
+.footer {
+    height: 20px;
 }

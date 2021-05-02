@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="buyButton">
-                <a routerLink='/paymentSuccess'>Buy</a>
+                <button (click)="goToPaymentSuccess()" [ngClass]="{ 'disabled' : (!currentBankCard || !user.address) }">Buy</button>
             </div>
         </div>
 

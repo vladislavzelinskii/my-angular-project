@@ -27,6 +27,7 @@ import { SearchComponent } from './components/search/search.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,9 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

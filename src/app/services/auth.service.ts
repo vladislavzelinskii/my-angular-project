@@ -10,6 +10,7 @@ import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
+import { SignUpLogOutButtonService } from './sign-up-log-out-button.service';
 
 
 @Injectable({
@@ -23,23 +24,18 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore,
     private router: Router,
+    private signUpLogOutButtonService: SignUpLogOutButtonService,
   ) {}
 
   async signin(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password)
     .then(res => {
-      // this.isLoggedIn = true;
-      // localStorage.setItem('user', JSON.stringify(res.user));
-      console.log(res.user?.uid);
-      
-      // пройти по коллекции cart, найти документ с айдишником res.user.uid, засетать cartId в localStorage
+      this.updateUserData(res.user);
     })
   }
   async signup(email: string, password: string) {
     await this.afAuth.createUserWithEmailAndPassword(email, password)
     .then(res => {
-      // this.isLoggedIn = true;
-      // localStorage.setItem('user', JSON.stringify(res.user));
       this.updateUserData(res.user);
     })
   }
@@ -55,11 +51,6 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-  // async signOut() {
-  //   await this.afAuth.signOut();
-  //   return this.router.navigate(['/']);
-  // }
-
   private updateUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user?.uid}`);
 
@@ -73,28 +64,42 @@ export class AuthService {
     this.isLoggedIn = true;
     localStorage.setItem('user', JSON.stringify(data));
 
+    this.signUpLogOutButtonService.subject.next(true);
+
 
 
     this.firestore.collection('cart').valueChanges().pipe(
       take(1),
       map((documents: any) => {
+
+        let flagForCurrentCart: boolean = false;
+        let idOfCart: string = '';
+
         documents.map((element: any) => {
           if (element.userId === user?.uid) {
-            localStorage.setItem('cart', element.id);
-          } else {
-            this.firestore.collection('cart').add({
-              totalPrice: 0,
-              userId: user?.uid,
-              productsInCart: [],
-            })
-            .then((docRef) => {
-              localStorage.setItem('cart', docRef.id);
-              this.firestore.collection('cart').doc(localStorage.cart).set({
-                id: localStorage.cart,
-              }, { merge: true } )
-            });
+            flagForCurrentCart = true;
+            idOfCart = element.id;
           }
         })
+
+        if (flagForCurrentCart) {
+          localStorage.setItem('cart', idOfCart);
+        } else {
+          this.firestore.collection('cart').add({
+            totalPrice: 0,
+            userId: user?.uid,
+            productsInCart: [],
+          })
+          .then((docRef) => {
+            localStorage.setItem('cart', docRef.id);
+            this.firestore.collection('cart').doc(localStorage.cart).set({
+              id: localStorage.cart,
+            }, { merge: true } )
+          });
+        }
+
+
+
       })
     ).subscribe();
 

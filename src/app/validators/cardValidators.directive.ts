@@ -1,4 +1,13 @@
-import { ValidatorFn, AbstractControl } from "@angular/forms";
+import { ValidatorFn, AbstractControl, FormGroup, FormBuilder } from "@angular/forms";
+
+export function cardRadioButtonValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+        if (!control.value) {
+            return {'cardRequired': true}
+        }
+        return null
+    };
+}
 
 export function cardNumberValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
@@ -22,16 +31,18 @@ export function cardHolderValidator(): ValidatorFn {
     };
 }
 
-export function cardExpiresValidator(): ValidatorFn {
+export function cardExpiresValidator(currentMonth: any, currentYear: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
         if (!control.value) {
             return {'cardExpiresRequired': true}
         }
         if (control.value) {
-            if (control.value.substring(0, 2) < 1 || control.value.substring(0, 2) > 12) {
+            let valueMonth = +control.value.substring(0, 2);
+            let valueYear = +control.value.substring(control.value.length - 2);
+            if (valueMonth < 1 || valueMonth > 12) {
                 return {'cardMonth': true};
             }
-            if (control.value.substring(control.value.length - 2) < 21) {
+            if ( valueYear < currentYear || valueYear > (currentYear + 30) || (valueMonth < currentMonth && valueYear == currentYear) ) {
                 return {'cardYear': true};
             }
         }
@@ -47,14 +58,21 @@ export function cardCVVValidator(): ValidatorFn {
             return {'cardCVVLength': true}
         }
         return null
-        // const value = /^\d{3}$/.test(control.value);
-        // return !value ? {value: {value: control.value}} : null;
     };
 }
 
-export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-        const forbidden = nameRe.test(control.value);
-        return forbidden ? {forbiddenName: {value: control.value}} : null;
+export function formValidator( cardName: any, saveCard: any ): any {
+    return (formGroup: FormGroup) => {
+        const cardNameControl = formGroup.controls[cardName];
+        const saveCardControl = formGroup.controls[saveCard]
+
+        if (saveCardControl.value && !cardNameControl.value) {
+            cardNameControl.setErrors({ cardNameRequiredFromForm : true })
+        } else {
+            cardNameControl.setErrors(null)
+        }
+
     };
 }
+
+

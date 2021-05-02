@@ -10,18 +10,20 @@ import { SearchComponent } from './components/search/search.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthBlockGuard } from './guards/auth-block.guard';
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: '', component: MainPageComponent },
   { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'checkout', component: CheckoutProcessComponent},
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutProcessComponent, canActivate: [AuthGuard]},
   { path: 'compare', component: CompareComponent },
   { path: 'search', component: SearchComponent},
-  { path: 'paymentSuccess', component: PaymentSuccessComponent },
-  { path: 'auth', component: AuthComponent},
-  { path: 'userDetails', component: UserDetailsComponent }
+  { path: 'paymentSuccess', component: PaymentSuccessComponent, canActivate: [AuthGuard] },
+  { path: 'auth', component: AuthComponent, canActivate: [AuthBlockGuard]},
+  { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

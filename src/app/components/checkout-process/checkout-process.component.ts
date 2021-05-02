@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BankCard } from 'src/app/models/bankCard';
@@ -21,17 +22,22 @@ export class CheckoutProcessComponent implements OnInit {
   showAddressPopup: boolean = false;
   showCardPopup: boolean = false;
 
+  address!: any;
   currentBankCard!: BankCard;
 
   constructor(
     private firestore: AngularFirestore,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.user = this.firestore.collection('users', ref => {
       return ref.where('uid', '==', JSON.parse(localStorage.user).uid)
     }).valueChanges().pipe(
-      map(function (item$: any): any {
+      map((item$: any): any => {
+        if (item$[0].address) {
+          this.address = item$[0].address;
+        }
         return item$[0];
       }));
 
@@ -72,6 +78,16 @@ export class CheckoutProcessComponent implements OnInit {
   }
   closeCardFromChildComponent(){
     this.showCardPopup = false;
+  }
+
+  goToPaymentSuccess() {
+    console.log('gotopaymentsuccess');
+    if (this.currentBankCard && this.address) {
+      this.router.navigateByUrl('/paymentSuccess');
+    } else {
+      alert("Please enter your shipping address and payment details")
+    }
+    
   }
 
 }

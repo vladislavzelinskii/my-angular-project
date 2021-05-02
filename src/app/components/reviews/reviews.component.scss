@@ -1,6 +1,4 @@
 
-
-
 .review {
     display: grid;
     grid-template-columns: 150px 1fr;
@@ -32,6 +30,10 @@
 
 }
 
+.signupForLeaveReview {
+    text-align: center;
+    margin-top: 20px;
+}
 
 .addReview {
     margin-top: 20px;
@@ -110,6 +112,3 @@
 .rate-area > label:active {
 	position: relative;
 }
-
-
-

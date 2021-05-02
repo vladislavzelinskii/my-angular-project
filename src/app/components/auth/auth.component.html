@@ -18,7 +18,7 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input type="text" formControlName="passwordSignUp" placeholder="Password">
+            <input type="password" formControlName="passwordSignUp" placeholder="Password">
             <div class="inputIncorrect" *ngIf="passwordSignUp?.invalid && (passwordSignUp?.dirty || passwordSignUp?.touched)">
                 <div *ngIf="passwordSignUp?.errors?.passwordRequired">
                     Please, enter password
@@ -40,7 +40,7 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input type="text" formControlName="passwordSignIn" placeholder="Password">
+            <input type="password" formControlName="passwordSignIn" placeholder="Password">
             <div class="inputIncorrect" *ngIf="passwordSignIn?.invalid && (passwordSignIn?.dirty || passwordSignIn?.touched)">
                 <div *ngIf="passwordSignIn?.errors?.passwordRequired">
                     Please, enter password

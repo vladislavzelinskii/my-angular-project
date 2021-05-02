@@ -14,6 +14,7 @@ import { Product } from 'src/app/models/product';
 export class ReviewsComponent implements OnInit {
 
   product!: Observable<Product>;
+  flagLoggedIn: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,9 @@ export class ReviewsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
+    if (localStorage.user) {
+      this.flagLoggedIn = true;
+    }
     this.product = this.firestore.collection('products', ref => {
       return ref.where('id', '==', id)
     }).valueChanges().pipe(

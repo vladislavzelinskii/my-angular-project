@@ -154,32 +154,35 @@
     }
     .buyButton {
         margin-top: 20px;
-        // button {
-        //     border: none;
+        button {
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+            height: 40px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            background-color: #ff4747;
+        }
+        // a {
+        //     margin-top: 20px;
+        //     display: block;
+        //     text-align: center;
+        //     text-decoration: none;
+    
         //     width: 100%;
         //     box-sizing: border-box;
         //     height: 40px;
+        //     line-height: 40px;
         //     border-radius: 5px;
         //     font-size: 1.2rem;
         //     color: #fff;
         //     cursor: pointer;
         //     background-color: #ff4747;
         // }
-        a {
-            margin-top: 20px;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-    
-            width: 100%;
-            box-sizing: border-box;
-            height: 40px;
-            line-height: 40px;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            color: #fff;
-            cursor: pointer;
-            background-color: #ff4747;
+        button.disabled {
+            background-color: #ccc;
         }
     }
     

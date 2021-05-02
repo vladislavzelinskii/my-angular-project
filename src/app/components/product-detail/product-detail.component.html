@@ -47,9 +47,10 @@
         </ng-container>
     </div>
     <div class="addToCart">
-        <button (click)="addToCart(product.id, product.price, product.name, product.image)" [disabled]="flagProductInCart">Add to cart</button>
+        <button (click)="addToCart(product.id, product.price, product.name, product.image)">Add to cart</button>
         <button (click)="removeFromCart(product.id, product.price, product.name, product.image)"
             [disabled]="!flagProductInCart">Remove from cart</button>
+        <div class="quantityInCart">Current quantity of this product in your cart: {{quantityOfItemsInCart}}</div>
     </div>
     <div class="specs">
         <table>
@@ -64,3 +65,5 @@
         <app-reviews></app-reviews>
     </div>
 </div>
+
+<div class="footer"></div>

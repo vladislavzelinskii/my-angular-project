@@ -1,6 +1,10 @@
 <form [formGroup]="cardForm">
-    <div class="changeCardCaption">
-        Payment Methods
+
+    <div class="captionAndClose">
+        <div class="changeCardCaption">
+            Payment Methods
+        </div>
+        <button class="close" (click)="closeForm()"></button>
     </div>
 
     <ng-container *ngIf="bankCards && !flagNewCard">
@@ -27,7 +31,7 @@
                 <div class="cardNumber">
                     <p>CARD NUMBER</p>
                     <input type="text" placeholder="0000 0000 0000 0000" formControlName="cardNumber" (keypress)="cardInputsOnlyDigits($event)"
-                        (keyup)="cardNameFormat($event)" (paste)="$event.preventDefault()" minlength="19" maxlength="19">
+                        (keyup)="cardNumberFormat($event)" (paste)="$event.preventDefault()" minlength="19" maxlength="19">
                 </div>
                 <div class="cardHolder">
                     <p>CARD HOLDER</p>
@@ -42,45 +46,7 @@
             <div class="cardBack">
                 <div class="cardCVV">
                     <p>CARD CVV</p>
-                    <input type="text" placeholder="000" formControlName="cardCVV" maxlength="3" (keypress)="cardInputsOnlyDigits($event)">
-                </div>
-            </div>
-        </div>
-
-        <div class="validationErrors">
-            <div *ngIf="cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)">
-                <div *ngIf="cardNumber?.errors?.cardNameRequired">
-                    Please, enter card number
-                </div>
-                <div *ngIf="cardNumber?.errors?.cardNameLength">
-                    Please, enter 16 digits in card number
-                </div>
-            </div>
-            <div *ngIf="cardHolder?.invalid && (cardHolder?.dirty || cardHolder?.touched)">
-                <div *ngIf="cardHolder?.errors?.cardHolderRequired">
-                    Please, enter name
-                </div>
-                <div *ngIf="cardHolder?.errors?.cardHolderSpace">
-                    Dont forget to enter space between first name and last name
-                </div>
-            </div>
-            <div *ngIf="cardExpires?.invalid && (cardExpires?.dirty || cardExpires?.touched)">
-                <div *ngIf="cardExpires?.errors?.cardExpiresRequired">
-                    Please, enter month and year
-                </div>
-                <div *ngIf="cardExpires?.errors?.cardMonth">
-                    Please, enter month
-                </div>
-                <div *ngIf="cardExpires?.errors?.cardYear">
-                    This card is not valid
-                </div>
-            </div>
-            <div *ngIf="cardCVV?.invalid && (cardCVV?.dirty || cardCVV?.touched)">
-                <div *ngIf="cardCVV?.errors?.cardCVVRequired">
-                    Please, enter CVV
-                </div>
-                <div *ngIf="cardCVV?.errors?.cardCVVLength">
-                    Please, enter 3 digits in CVV
+                    <input type="password" placeholder="000" formControlName="cardCVV" maxlength="3" (keypress)="cardInputsOnlyDigits($event)">
                 </div>
             </div>
         </div>
@@ -94,13 +60,61 @@
 
     </div>
 
+    <div class="validationErrors">
+        <div *ngIf="card?.invalid">
+            <div *ngIf="card?.errors?.cardRequired">
+                Please, select card
+            </div>
+        </div>
+        <div *ngIf="cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)">
+            <div *ngIf="cardNumber?.errors?.cardNameRequired">
+                Please, enter card number
+            </div>
+            <div *ngIf="cardNumber?.errors?.cardNameLength">
+                Please, enter 16 digits in card number
+            </div>
+        </div>
+        <div *ngIf="cardHolder?.invalid && (cardHolder?.dirty || cardHolder?.touched)">
+            <div *ngIf="cardHolder?.errors?.cardHolderRequired">
+                Please, enter name
+            </div>
+            <div *ngIf="cardHolder?.errors?.cardHolderSpace">
+                Dont forget to enter space between first name and last name
+            </div>
+        </div>
+        <div *ngIf="cardExpires?.invalid && (cardExpires?.dirty || cardExpires?.touched)">
+            <div *ngIf="cardExpires?.errors?.cardExpiresRequired">
+                Please, enter month and year
+            </div>
+            <div *ngIf="cardExpires?.errors?.cardMonth">
+                Please, enter month
+            </div>
+            <div *ngIf="cardExpires?.errors?.cardYear">
+                This card is not valid
+            </div>
+        </div>
+        <div *ngIf="cardCVV?.invalid && (cardCVV?.dirty || cardCVV?.touched)">
+            <div *ngIf="cardCVV?.errors?.cardCVVRequired">
+                Please, enter CVV
+            </div>
+            <div *ngIf="cardCVV?.errors?.cardCVVLength">
+                Please, enter 3 digits in CVV
+            </div>
+        </div>
+        <div *ngIf="cardName?.invalid">
+            <div *ngIf="cardName?.errors?.cardNameRequiredFromForm">
+                Please, enter card name
+            </div>
+        </div>
+    </div>
+
 
     <button class="addNewCardButton" (click)="addNewCard($event)" *ngIf="!flagNewCard">+ Add new card</button>
 
     <div class="buttons">
-        <button (click)="changeCard()" *ngIf="!flagNewCard" class="submit">Change card</button>
-        <button (click)="addNewCardSubmit()" *ngIf="flagNewCard" [disabled]="!cardForm.valid" class="submit">Continue</button>
-        <button class="cancel" (click)="addNewCard($event)" *ngIf="flagNewCard">Cancel</button>
+        <!-- <button (click)="changeCard()" *ngIf="!flagNewCard" class="submit">Change card</button> -->
+        <button class="submit" (click)="submit()" [disabled]="!cardForm.valid">Continue</button>
+        <button class="cancel" (click)="cancelAddNewCart($event)" *ngIf="flagNewCard">Cancel</button>
     </div>
 
 </form>

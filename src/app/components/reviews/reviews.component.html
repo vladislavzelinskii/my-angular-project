@@ -18,7 +18,8 @@
             </div>
         </div>
     </div>
-    <div class="addReview">
+    <div class="signupForLeaveReview" *ngIf="!flagLoggedIn">Sign up for leave a review</div>
+    <div class="addReview" *ngIf="flagLoggedIn">
         <form [formGroup]="addReviewForm" (ngSubmit)="addReview(product.id)">
             <div class="rating-area">
                 <input type="radio" id="star-5" formControlName="rating" value="5">
@@ -41,3 +42,4 @@
         </form>
     </div>
 </div>
+<div class="footerForReviews"></div>
