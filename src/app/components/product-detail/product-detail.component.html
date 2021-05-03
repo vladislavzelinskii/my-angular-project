@@ -26,7 +26,6 @@
         <h4>Country: {{product.country}}</h4>
     </div>
     <div class="rating">
-        {{product.averageRating || 'No reviews'}}
         <ng-container *ngIf="product.averageRating">
             <span [ngClass]="{'active' : product.averageRating > 0}"></span>
             <span [ngClass]="{'active' : product.averageRating > 1.5}"></span>
@@ -35,6 +34,9 @@
             <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
             <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
         </ng-container>
+        <div *ngIf="!product.reviews">
+            No reviews
+        </div>
         <ng-container *ngIf="product.reviews">
             <div *ngIf="product.reviews.length > 1">
                 {{product.reviews.length}}

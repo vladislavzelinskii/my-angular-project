@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user';
 import { first, map } from 'rxjs/operators';
 
 @Component({

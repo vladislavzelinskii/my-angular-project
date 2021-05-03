@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BankCard } from 'src/app/models/bankCard';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-checkout-process',
@@ -15,7 +15,7 @@ export class CheckoutProcessComponent implements OnInit {
 
   user!: Observable<User>;
 
-  productsInCart: any;
+  productsInCart: any = [];
 
   totalPrice!: number;
 

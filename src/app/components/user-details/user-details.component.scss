@@ -48,9 +48,9 @@ aside {
 }
 
 .content {
-    background-color: #fff;
-    padding: 15px;
     .addressDetails {
+        padding: 15px;
+        background-color: #fff;
         .caption {
             font-size: 20px;
             // margin-top: 15px;
@@ -70,6 +70,8 @@ aside {
         }
     }
     .paymentMethods {
+        padding: 15px;
+        background-color: #fff;
         .caption {
             font-size: 20px;
             margin-bottom: 15px;
@@ -114,6 +116,72 @@ aside {
             border: none;
             cursor: pointer;
             font-weight: bold;
+        }
+    }
+    .myOrders {
+        .caption {
+            font-size: 20px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            padding: 20px;
+        }
+        .purchase {
+            margin-bottom: 15px;
+            background-color: #fff;
+            padding: 20px;
+            padding-bottom: 0;
+            .products {
+                display: flex;
+                flex-direction: column;
+                background-color: #fff;
+                border-radius: 5px;
+            
+                .dateAndTotalPrice {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    .dateAndTime {
+                        font-size: 1.2rem;
+                    }
+                    .totalPrice {
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    }
+                }
+            
+                .productInCart {
+                    margin: 10px;
+                    margin-top: 20px;
+                    padding: 10px;
+                    height: 100px;
+            
+                    display: grid;
+                    grid-template-columns: 100px 1fr 100px;
+                    grid-gap: 1rem;
+                
+                    a {
+                        color: black;
+                        text-decoration: none;
+                    }
+                    
+                    .image {
+                        text-align: center;
+                        height: 100px;
+                        img {
+                            max-height: 100%;
+                            max-width: 100%;
+                        }
+                    }
+            
+                    .priceAndQuantity {
+                        .priceSubTotal {
+                            padding-top: 20px;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+                
+            }
         }
     }
 }

@@ -68,7 +68,53 @@
         </div>
 
         <div class="myOrders" *ngIf="flagContent === 'myOrders'">
-            my orders
+            <div class="caption">
+                My orders
+            </div>
+            <div class="noCards" *ngIf="!user.bankCards">
+                No orders
+            </div>
+            <ng-container *ngIf="user.purchaseHistory">
+                <div class="purchase" *ngFor="let purchase of user.purchaseHistory">
+                    <div class="products">
+                        <div class="dateAndTotalPrice">
+                            <div class="dateAndTime">
+                                {{purchase.date}}
+                                {{purchase.time}}
+                            </div>
+                            <div class="totalPrice">
+                                Total price: {{purchase.totalPrice}}
+                            </div>
+                        </div>
+                        <div *ngFor="let productInCart of purchase.products" class="productInCart">
+                            <div class="image">
+                                <a routerLink='/product/{{productInCart.productId}}'>
+                                    <img
+                                        src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
+                                </a>
+                            </div>
+                            <div class="nameAndPrice">
+                                <div class="name">
+                                    <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                                </div>
+                                <br>
+                                <div class=price>
+                                    {{productInCart.price | currency}}
+                                </div>
+                            </div>
+                            <div class="priceAndQuantity">
+                                <div class="quantity">
+                                    Quantity:
+                                    {{productInCart.quantity}}
+                                </div>
+                                <div class="priceSubTotal">
+                                    {{productInCart.price * productInCart.quantity | currency}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
         </div>
 
     </div>

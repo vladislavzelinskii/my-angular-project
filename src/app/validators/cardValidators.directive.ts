@@ -15,9 +15,33 @@ export function cardNumberValidator(): ValidatorFn {
             return {'cardNameRequired': true}
         } else if (control.value.length < 19) {
             return {'cardNameLength': true}
+        } else if (luhnAlgorithm(control.value)) {
+            return {'luhnAlgorithm': true}
         }
         return null
     };
+}
+
+function luhnAlgorithm(value: string) {
+    value = value.replace(/\s+/g, '');
+    let valueNumber = value.split('').reverse();
+    let summ = 0;
+    let cardNumberReverse = valueNumber.map((element: any, index: any) => {
+        let currentElement = +element;
+        if (index % 2) {
+            currentElement *= 2;
+            if (currentElement > 9) {
+                currentElement -= 9
+            }
+        }
+        summ += currentElement
+        return currentElement
+    })
+    if (summ % 10) {
+        return true
+    } else {
+        return false
+    }
 }
 
 export function cardHolderValidator(): ValidatorFn {

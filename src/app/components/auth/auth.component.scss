@@ -58,7 +58,12 @@
             color: #fff;
             height: 44px;
             cursor: pointer;
+            &:disabled {
+                background-color: #999;
+                cursor: default;
+            }
         }
+        
     }
     .quickAccess {
         text-align: center;

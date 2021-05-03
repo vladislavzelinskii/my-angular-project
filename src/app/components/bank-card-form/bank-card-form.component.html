@@ -73,6 +73,9 @@
             <div *ngIf="cardNumber?.errors?.cardNameLength">
                 Please, enter 16 digits in card number
             </div>
+            <div *ngIf="cardNumber?.errors?.luhnAlgorithm">
+                Please, check your card number
+            </div>
         </div>
         <div *ngIf="cardHolder?.invalid && (cardHolder?.dirty || cardHolder?.touched)">
             <div *ngIf="cardHolder?.errors?.cardHolderRequired">

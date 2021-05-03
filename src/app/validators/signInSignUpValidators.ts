@@ -1,4 +1,4 @@
-import { ValidatorFn, AbstractControl } from "@angular/forms";
+import { ValidatorFn, AbstractControl, FormGroup } from "@angular/forms";
 
 export function emailValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
@@ -20,5 +20,21 @@ export function passwordValidator(): ValidatorFn {
             return {'passwordLength': true}
         }
         return null
+    };
+}
+
+export function passwordConfirmValidator( password: any, confirm: any ): any {
+    return (formGroup: FormGroup) => {
+        const passwordControl = formGroup.controls[password];
+        const confirmControl = formGroup.controls[confirm]
+
+        if (!confirmControl.value) {
+            confirmControl.setErrors({ passwordConfirmRequired : true })
+        } else if (passwordControl.value !== confirmControl.value) {
+            confirmControl.setErrors({ passwordConfirmMismatch : true })
+        } else {
+            confirmControl.setErrors(null)
+        }
+
     };
 }

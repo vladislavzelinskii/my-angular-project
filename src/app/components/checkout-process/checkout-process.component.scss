@@ -45,6 +45,32 @@
 
 }
 
+.emptyCard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 233px;
+    }
+    .emptyCardText {
+        margin-top: 30px;
+        font-size: 35px;
+    }
+    span {
+        margin-top: 10px;
+        a {
+            color: #2e9cc3;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
 .wrapper {
     max-width: 1000px;
     margin: 0 auto;

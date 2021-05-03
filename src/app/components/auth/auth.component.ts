@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { emailValidator, passwordValidator } from 'src/app/validators/signInSignUpValidators';
+import { emailValidator, passwordValidator, passwordConfirmValidator } from 'src/app/validators/signInSignUpValidators';
 
 @Component({
   selector: 'app-auth',
@@ -29,7 +29,8 @@ export class AuthComponent implements OnInit {
     this.signUpForm = this.fb.group({
       emailSignUp: ['', [emailValidator()]],
       passwordSignUp: ['', [passwordValidator()]],
-    });
+      passwordConfirm: [],
+    }, { validator: passwordConfirmValidator("passwordSignUp", "passwordConfirm") });
     this.signInForm = this.fb.group({
       emailSignIn: ['', [emailValidator()]],
       passwordSignIn: ['', [passwordValidator()]],
@@ -85,6 +86,9 @@ export class AuthComponent implements OnInit {
   }
   get passwordSignUp() {
     return this.signUpForm.get('passwordSignUp');
+  }
+  get passwordConfirm() {
+    return this.signUpForm.get('passwordConfirm');
   }
   get emailSignIn() {
     return this.signInForm.get('emailSignIn');

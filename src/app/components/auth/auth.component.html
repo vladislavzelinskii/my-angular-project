@@ -27,6 +27,15 @@
                     Please enter 6 - 20 characters (A-Z, a-z, 0-9 only)
                 </div>
             </div>
+            <input type="password" formControlName="passwordConfirm" placeholder="Password confirm" *ngIf="signUpForm.value.passwordSignUp">
+            <div class="inputIncorrect" *ngIf="passwordConfirm?.invalid && (passwordConfirm?.dirty || passwordConfirm?.touched)">
+                <div *ngIf="passwordConfirm?.errors?.passwordConfirmRequired">
+                    Please, confirm password
+                </div>
+                <div *ngIf="passwordConfirm?.errors?.passwordConfirmMismatch">
+                    Passwords mismatch
+                </div>
+            </div>
             <button type="submit" [disabled]="!this.signUpForm.valid">CREATE ACCOUNT</button>
         </form>
         <form [formGroup]="signInForm" *ngIf="!isSignedIn && !flagForRegisterOfSignIn" class="signIn"
