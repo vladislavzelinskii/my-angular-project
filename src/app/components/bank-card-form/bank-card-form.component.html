@@ -20,7 +20,7 @@
     <div class="newCardWrapper" *ngIf="flagNewCard">
 
         <div *ngIf="cardForm.value.saveCard == true" class="inputCardName">
-            <label>
+            <label [ngClass]="{'cardNameLabelError' : cardName?.errors?.cardNameRequiredFromForm }">
                 Card name
                 <input type="text" formControlName="cardName" placeholder="My work card">
             </label>
@@ -61,12 +61,17 @@
     </div>
 
     <div class="validationErrors">
-        <div *ngIf="card?.invalid">
-            <div *ngIf="card?.errors?.cardRequired">
-                Please, select card
+        <ng-container *ngIf="bankCards.length">
+            <div *ngIf="card?.invalid">
+                <div *ngIf="card?.errors?.cardRequired">
+                    Please, select card
+                </div>
             </div>
+        </ng-container>
+        <div *ngIf="!bankCards || bankCards.length === 0">
+            Please add card
         </div>
-        <div *ngIf="cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)">
+        <div *ngIf="cardNumber?.invalid && cardNumber?.touched">
             <div *ngIf="cardNumber?.errors?.cardNameRequired">
                 Please, enter card number
             </div>
@@ -77,7 +82,7 @@
                 Please, check your card number
             </div>
         </div>
-        <div *ngIf="cardHolder?.invalid && (cardHolder?.dirty || cardHolder?.touched)">
+        <div *ngIf="cardHolder?.invalid && cardHolder?.touched">
             <div *ngIf="cardHolder?.errors?.cardHolderRequired">
                 Please, enter name
             </div>
@@ -85,7 +90,7 @@
                 Dont forget to enter space between first name and last name
             </div>
         </div>
-        <div *ngIf="cardExpires?.invalid && (cardExpires?.dirty || cardExpires?.touched)">
+        <div *ngIf="cardExpires?.invalid && cardExpires?.touched">
             <div *ngIf="cardExpires?.errors?.cardExpiresRequired">
                 Please, enter month and year
             </div>
@@ -96,7 +101,7 @@
                 This card is not valid
             </div>
         </div>
-        <div *ngIf="cardCVV?.invalid && (cardCVV?.dirty || cardCVV?.touched)">
+        <div *ngIf="cardCVV?.invalid && cardCVV?.touched">
             <div *ngIf="cardCVV?.errors?.cardCVVRequired">
                 Please, enter CVV
             </div>

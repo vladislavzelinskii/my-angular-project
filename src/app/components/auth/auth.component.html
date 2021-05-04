@@ -18,7 +18,8 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input type="password" formControlName="passwordSignUp" placeholder="Password">
+            <input [type]="flagPasswordOrText ? 'text' : 'password'" formControlName="passwordSignUp" placeholder="Password">
+            <div class="showPassword" (click)="toggleFlagPasswordOrText()"></div>
             <div class="inputIncorrect" *ngIf="passwordSignUp?.invalid && (passwordSignUp?.dirty || passwordSignUp?.touched)">
                 <div *ngIf="passwordSignUp?.errors?.passwordRequired">
                     Please, enter password
@@ -27,7 +28,8 @@
                     Please enter 6 - 20 characters (A-Z, a-z, 0-9 only)
                 </div>
             </div>
-            <input type="password" formControlName="passwordConfirm" placeholder="Password confirm" *ngIf="signUpForm.value.passwordSignUp">
+            <input [type]="flagPasswordConfirmOrText ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Password confirm" *ngIf="signUpForm.value.passwordSignUp">
+            <div class="showPassword" (click)="toggleFlagPasswordConfirmOrText()"></div>
             <div class="inputIncorrect" *ngIf="passwordConfirm?.invalid && (passwordConfirm?.dirty || passwordConfirm?.touched)">
                 <div *ngIf="passwordConfirm?.errors?.passwordConfirmRequired">
                     Please, confirm password
@@ -49,7 +51,8 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input type="password" formControlName="passwordSignIn" placeholder="Password">
+            <input [type]="flagPasswordSignInOrText ? 'text' : 'password'" formControlName="passwordSignIn" placeholder="Password">
+            <div class="showPassword" (click)="toggleFlagSignInPasswordOrText()"></div>
             <div class="inputIncorrect" *ngIf="passwordSignIn?.invalid && (passwordSignIn?.dirty || passwordSignIn?.touched)">
                 <div *ngIf="passwordSignIn?.errors?.passwordRequired">
                     Please, enter password

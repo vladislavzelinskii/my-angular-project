@@ -49,6 +49,17 @@
         input.ng-touched.ng-invalid {
             border: 1px solid #e62e04;
         }
+        .showPassword {
+            position: relative;
+            left: 360px;
+            top: -43px;
+            width: 0;
+            height: 0;
+            &:before {
+                content: '\1F441';
+                font-size: 30px;
+            }
+        }
         button {
             margin-top: 20px;
             background-color: #ff4747;

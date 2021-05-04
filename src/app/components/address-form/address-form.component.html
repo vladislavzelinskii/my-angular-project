@@ -7,27 +7,67 @@
         Contact
     </div>
     <div class="nameAndPhone">
-        <input type="text" placeholder="Name" formControlName="name">
-        <input type="text" placeholder="Phone Number" formControlName="phone">
+        <div class="nameWrapper">
+            <input type="text" placeholder="Name" formControlName="name">
+            <div class="exampleName">
+                Example: Ivanov Ivan Ivanovich
+            </div>
+            <div class="inputError" *ngIf="nameInput?.errors?.inputLength">
+                Too long name
+            </div>
+        </div>
+        <div class="phoneWrapper">
+            <input type="text" placeholder="Phone Number" formControlName="phone" (keypress)="inputOnlyDigits($event)"
+                (keyup)="phoneFormat($event)" maxlength="18">
+            <div class="examplePhone">
+                Example: +375(##) ###-##-##
+            </div>
+        </div>
     </div>
-    <div class="exampleName">
-        Example: Ivanov Ivan Ivanovich
-    </div>
-    
     <div class="addressCaption">
         Address
     </div>
 
     <div class="streetHouseFlat">
-        <input type="text" placeholder="Street" formControlName="street">
-        <input type="text" placeholder="House" formControlName="house">
-        <input type="text" placeholder="Flat" formControlName="flat">
+        <div class="streetWrapper">
+            <input type="text" placeholder="Street" formControlName="street">
+            <div class="inputError" *ngIf="streetInput?.errors?.inputLength">
+                Too long name of street
+            </div>
+        </div>
+        <div class="houseWrapper">
+            <input type="text" placeholder="House" formControlName="house" (keypress)="inputOnlyDigits($event)">
+            <div class="inputError" *ngIf="houseInput?.errors?.inputLength">
+                Too long number of house
+            </div>
+        </div>
+        <div class="flatWrapper">
+            <input type="text" placeholder="Flat" formControlName="flat" (keypress)="inputOnlyDigits($event)">
+            <div class="inputError" *ngIf="flatInput?.errors?.inputLength">
+                Too long number of flat
+            </div>
+        </div>
     </div>
 
     <div class="countryCityIndex">
-        <input type="text" placeholder="Country" formControlName="country">
-        <input type="text" placeholder="City" formControlName="city">
-        <input type="text" placeholder="Index" formControlName="index">
+        <div class="countryWrapper">
+            <input type="text" placeholder="Country" formControlName="country">
+            <div class="inputError" *ngIf="countryInput?.errors?.inputLength">
+                Too long name of country
+            </div>
+        </div>
+        <div class="cityWrapper">
+            <input type="text" placeholder="City" formControlName="city">
+            <div class="inputError" *ngIf="cityInput?.errors?.inputLength">
+                Too long name of city
+            </div>
+        </div>
+        <div class="indexWrapper">
+            <input type="text" placeholder="Index" formControlName="index" (keypress)="inputOnlyDigits($event)" maxlength="6">
+            <div class="inputError" *ngIf="indexInput?.errors?.inputLength">
+                Too long number of index
+            </div>
+        </div>
     </div>
 
     <div class="buttons">

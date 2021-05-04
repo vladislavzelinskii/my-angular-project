@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { SignUpLogOutButtonService } from 'src/app/services/sign-up-log-out-button.service';
@@ -16,8 +17,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private firebase: AngularFirestore,
-    public authService: AuthService,
+    private authService: AuthService,
     private signUpLogOutButtonService: SignUpLogOutButtonService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,22 @@ export class HeaderComponent implements OnInit {
       ).subscribe();
     }
 
+  }
+
+  toCart() {
+    if (localStorage.cart) {
+      this.router.navigateByUrl('/cart');
+    } else {
+      alert('Please sign up');
+    }
+  }
+
+  toUserDetails() {
+    if (localStorage.user) {
+      this.router.navigateByUrl('/userDetails');
+    } else {
+      alert('Please sign up');
+    }
   }
 
   logout() {

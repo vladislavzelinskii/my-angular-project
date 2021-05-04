@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="signupForLeaveReview" *ngIf="!flagLoggedIn">Sign up for leave a review</div>
+    <div class="signupForLeaveReview" *ngIf="!flagLoggedIn">Sign up to leave your review</div>
     <div class="addReview" *ngIf="flagLoggedIn">
         <form [formGroup]="addReviewForm" (ngSubmit)="addReview(product.id)">
             <div class="rating-area">

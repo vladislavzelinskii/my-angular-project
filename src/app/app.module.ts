@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
-import { CreditCardMaskPipe } from './pipes/bankCardNumber.pipe';
+import { CreditCardMaskPipe } from './pipes/bank-card-number.pipe';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { CompareComponent } from './components/compare/compare.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';

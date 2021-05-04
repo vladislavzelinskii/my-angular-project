@@ -5,18 +5,18 @@
 
     <app-search></app-search>
 
-    <a routerLink='/cart' class="toCart">
+    <button (click)="toCart()" class="toCart">
         <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FcartIcon.png?alt=media&token=30d47dc7-d520-45df-b611-34ce723886cd"
             alt="">
         <div class="counterCart" *ngIf="itemsLength">
             {{itemsLength}}
         </div>
-    </a>
+    </button>
 
-    <a routerLink='/userDetails' class="toUserDetails">
+    <button (click)="toUserDetails()" class="toUserDetails">
         <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FuserDetailsIcon.png?alt=media&token=309db636-fd81-4d03-bf8d-ef430c09ccfc"
             alt="userDetails">
-    </a>
+    </button>
 
     <a *ngIf="!isSignedIn" routerLink='/auth' class="auth">
         <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2Fenter.svg?alt=media&token=4259e2dc-6f77-4ff0-ab73-ed0a8b766a15" alt="">

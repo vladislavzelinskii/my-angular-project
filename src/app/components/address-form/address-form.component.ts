@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { inputLengthValidator } from 'src/app/validators/address-validators';
 
 @Component({
   selector: 'app-address-form',
@@ -22,14 +23,14 @@ export class AddressFormComponent implements OnInit {
   index: any = '';
 
   addressForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, inputLengthValidator(40)]),
     phone: new FormControl('', Validators.required),
-    street: new FormControl('', Validators.required),
-    house: new FormControl('', Validators.required),
-    flat: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    index: new FormControl('', Validators.required),
+    street: new FormControl('', [Validators.required, inputLengthValidator(40)]),
+    house: new FormControl('', [Validators.required, inputLengthValidator(3)]),
+    flat: new FormControl('', [Validators.required, inputLengthValidator(4)]),
+    country: new FormControl('', [Validators.required, inputLengthValidator(40)]),
+    city: new FormControl('', [Validators.required, inputLengthValidator(40)]),
+    index: new FormControl('', [Validators.required, inputLengthValidator(6)]),
   });
 
   constructor(
@@ -68,6 +69,39 @@ export class AddressFormComponent implements OnInit {
     });
   }
 
+  inputOnlyDigits(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+  phoneFormat(event: any) {
+    let value = event.target.value;
+    value = value.replace(/\D+/g,"");
+
+    if (value.length > 0) {
+      value = '+' + value.substr(0, value.length);
+    }
+    if (value.length > 4) {
+      value = value.substr(0, 4) + '(' + value.substr(4, value.length);
+    }
+    if (value.length > 7) {
+      value = value.substr(0, 7) + ') ' + value.substr(7, value.length);
+    }
+    if (value.length > 12) {
+      value = value.substr(0, 12) + '-' + value.substr(12, value.length);
+    }
+    if (value.length > 15) {
+      value = value.substr(0, 15) + '-' + value.substr(15, value.length);
+    }
+    if (value.length > 18) {
+      value = value.substr(0, 18);
+    }
+    
+    event.target.value = value;
+  }
+
   onSubmit() {
     this.firestore.collection('users').doc(JSON.parse(localStorage.user).uid).update({
       displayName: this.addressForm.value.name, 
@@ -91,6 +125,28 @@ export class AddressFormComponent implements OnInit {
 
   closeForm() {
     this.onChanged.emit();
+  }
+
+  get nameInput() {
+    return this.addressForm.get('name');
+  }
+  get streetInput() {
+    return this.addressForm.get('street');
+  }
+  get houseInput() {
+    return this.addressForm.get('house');
+  }
+  get flatInput() {
+    return this.addressForm.get('flat');
+  }
+  get countryInput() {
+    return this.addressForm.get('country');
+  }
+  get cityInput() {
+    return this.addressForm.get('city');
+  }
+  get indexInput() {
+    return this.addressForm.get('index');
   }
 
 }

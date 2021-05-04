@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { first, map } from 'rxjs/operators';
 import { BankCard } from 'src/app/models/bankCard';
-import { cardCVVValidator, cardExpiresValidator, cardHolderValidator, cardNumberValidator, formValidator, cardRadioButtonValidator } from 'src/app/validators/cardValidators.directive';
+import { cardCVVValidator, cardExpiresValidator, cardHolderValidator, cardNumberValidator, formValidator, cardRadioButtonValidator } from 'src/app/validators/card-validators.directive';
 
 @Component({
   selector: 'app-bank-card-form',

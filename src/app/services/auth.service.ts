@@ -31,12 +31,20 @@ export class AuthService {
     await this.afAuth.signInWithEmailAndPassword(email, password)
     .then(res => {
       this.updateUserData(res.user);
+    }).catch((err) => {
+      if (err.code === "auth/wrong-password") {
+        alert("Email or password wrong");
+      }
     })
   }
   async signup(email: string, password: string) {
     await this.afAuth.createUserWithEmailAndPassword(email, password)
     .then(res => {
       this.updateUserData(res.user);
+    }).catch((err) => {
+      if (err.code === "auth/email-already-in-use") {
+        alert("Email already in use");
+      }
     })
   }
   logout() {

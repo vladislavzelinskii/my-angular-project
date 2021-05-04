@@ -17,6 +17,7 @@ export class PaymentSuccessComponent implements OnInit {
   currentDateAndTime: any = new Date();
   currentDate: any;
   currentTime: any;
+  currentCard: any;
 
   constructor(
     private firestore: AngularFirestore,
@@ -35,6 +36,7 @@ export class PaymentSuccessComponent implements OnInit {
         map((res: any) => {
           this.totalPrice = res.totalPrice;
           this.productsInCart = res.productsInCart;
+          this.currentCard = res.currentCard;
 
           cartDocument.update({
             productsInCart: [],
@@ -61,6 +63,7 @@ export class PaymentSuccessComponent implements OnInit {
             time: this.currentTime,
             totalPrice: this.totalPrice,
             products: this.productsInCart,
+            bankCard: this.currentCard,
           }
 
           this.purchaseHistory.push(this.currentPurchase)

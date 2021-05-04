@@ -79,6 +79,11 @@ aside {
         .noCards {
             margin-top: 35px;
             font-size: 18px;
+            .captionNoCards {
+                font-size: 20px;
+                margin-bottom: 20px;
+                font-weight: bold;
+            }
         }
         .bankCard {
             width: 400px;
@@ -122,6 +127,11 @@ aside {
         .caption {
             font-size: 20px;
             margin-bottom: 15px;
+            background-color: #fff;
+            padding: 20px;
+        }
+        .noOrders {
+            font-size: 20px;
             background-color: #fff;
             padding: 20px;
         }
@@ -178,6 +188,14 @@ aside {
                             padding-top: 20px;
                             font-size: 1.2rem;
                         }
+                    }
+                }
+
+                .paymentMethods {
+                    display: flex;
+                    flex-direction: row;
+                    .paidThrough {
+                        margin-right: 10px;
                     }
                 }
                 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { emailValidator, passwordValidator, passwordConfirmValidator } from 'src/app/validators/signInSignUpValidators';
+import { emailValidator, passwordValidator, passwordConfirmValidator } from 'src/app/validators/sign-in-sign-up-validators';
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +17,10 @@ export class AuthComponent implements OnInit {
 
   signUpForm!: FormGroup;
   signInForm!: FormGroup;
+
+  flagPasswordOrText: boolean = false;
+  flagPasswordConfirmOrText: boolean = false;
+  flagPasswordSignInOrText: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -79,6 +83,25 @@ export class AuthComponent implements OnInit {
       passwordSignIn: ['', [passwordValidator()]],
     });
     this.flagForRegisterOfSignIn = false;
+  }
+
+  toggleFlagPasswordOrText() {
+    this.flagPasswordOrText = true;
+    setTimeout(() => {
+      this.flagPasswordOrText = false;
+    }, 1000);
+  }
+  toggleFlagPasswordConfirmOrText() {
+    this.flagPasswordConfirmOrText = true;
+    setTimeout(() => {
+      this.flagPasswordConfirmOrText = false;
+    }, 1000);
+  }
+  toggleFlagSignInPasswordOrText() {
+    this.flagPasswordSignInOrText = true;
+    setTimeout(() => {
+      this.flagPasswordSignInOrText = false;
+    }, 1000);
   }
 
   get emailSignUp() {

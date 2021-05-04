@@ -47,10 +47,15 @@
             <div class="caption">
                 Bank cards
             </div>
-            <div class="noCards" *ngIf="!user.bankCards">
-                No cards
+            <div class="noCards" *ngIf="!user.bankCards || user.bankCards?.length === 0">
+                <div class="captionNoCards">
+                    No cards 
+                </div>
+                <div>
+                    You can add a card on checkout
+                </div>
             </div>
-            <ng-container *ngIf="user.bankCards">
+            <ng-container *ngIf="user.bankCards?.length !== 0">
                 <div class="bankCard" *ngFor="let card of user.bankCards">
                     <div>
                         <div class="cardNumberCaption">
@@ -71,7 +76,7 @@
             <div class="caption">
                 My orders
             </div>
-            <div class="noCards" *ngIf="!user.bankCards">
+            <div class="noOrders" *ngIf="!user.purchaseHistory">
                 No orders
             </div>
             <ng-container *ngIf="user.purchaseHistory">
@@ -110,6 +115,14 @@
                                 <div class="priceSubTotal">
                                     {{productInCart.price * productInCart.quantity | currency}}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="paymentMethods">
+                            <div class="paidThrough">
+                                Paid through {{purchase.bankCard.cardNumber | creditCardMask}} 
+                            </div>
+                            <div *ngIf="purchase.bankCard.cardName">
+                                {{purchase.bankCard.cardName}}
                             </div>
                         </div>
                     </div>

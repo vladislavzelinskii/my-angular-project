@@ -76,6 +76,7 @@ form {
                 color: #e62e04;
                 border-bottom: 1px solid #e62e04;
             }
+
         }
     }
     .cardFront {
@@ -124,10 +125,17 @@ form {
 
 .inputCardName {
     margin-bottom: 20px;
+    .cardNameLabelError {
+        color: #e62e04;
+    }
     input {
         border: none;
         outline: none;
         border-bottom: 1px solid black;
+    }
+    input.ng-invalid {
+        color: #e62e04;
+        border-bottom: 1px solid #e62e04;
     }
 }
 
@@ -174,16 +182,6 @@ form {
         width: 140px;
     }
 }
-
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-
-
 
 .validationErrors {
     color: #e62e04;

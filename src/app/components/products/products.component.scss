@@ -150,12 +150,13 @@ aside {
         background: inherit;
         border: 2px solid black;
         cursor: pointer;
+        &:hover {
+            background-color: #ccc;
+        }
         &:disabled {
             border: 2px solid #ccc;
             cursor: default;
-        }
-        &:hover {
-            background-color: #ccc;
+            background-color: inherit;
         }
     }
 }
