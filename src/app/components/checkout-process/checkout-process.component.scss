@@ -96,6 +96,32 @@
     }
 }
 
+@media (max-width: 750px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            'deliveryAddress'
+            'paymentDetails'
+            'productsInCart'
+            'buy'
+        ;
+    }
+    .buy {
+        button {
+            float: right;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .buy {
+        button {
+            float: inherit;
+            margin: 0 auto;
+        }
+    }
+}
+
 .deliveryAddress,
 .paymentDetails {
     background-color: #fff;
@@ -182,6 +208,7 @@
         button {
             border: none;
             width: 100%;
+            max-width: 200px;
             box-sizing: border-box;
             height: 40px;
             border-radius: 5px;

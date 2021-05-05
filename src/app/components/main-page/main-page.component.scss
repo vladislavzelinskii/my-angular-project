@@ -70,7 +70,7 @@ aside {
     li {
         height: 43px;
         a {
-            padding: 10px 0px 10px 15px;
+            padding: 10px 15px;
             display: block;
             text-decoration: none;
             color: black;
@@ -107,5 +107,9 @@ li:hover {
 
 .products {
     background-color: #fff;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 30px);
 }
 

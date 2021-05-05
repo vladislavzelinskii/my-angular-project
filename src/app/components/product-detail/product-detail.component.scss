@@ -11,6 +11,9 @@ header {
     padding: 10px;
 }
 
+@media (max-width: 700px) {
+}
+
 
 
 // :root {
@@ -52,13 +55,13 @@ header {
 }
 
 img {
-    height: 300px;
+    width: 100%;
+    max-width: 300px;
 }
 
 table {
-    table-layout: fixed;
     border-collapse: collapse;
-    width: 800px;
+    width: 100%;
     caption {
         text-align: left;
         padding: 15px 0;
@@ -87,10 +90,12 @@ table {
 .addToCart {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    min-height: 30px;
+    height: fit-content;
     line-height: 30px;
     button {
-        height: 30px;
+        min-height: 30px;
+        height: fit-content;
         box-sizing: border-box;
         border-radius: 5px;
         border: none;

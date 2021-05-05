@@ -34,7 +34,8 @@ export class SearchComponent implements OnInit {
     this.flagShowSearch = true;
 
     this.productsList = [];
-    this.currentValueSearch = $event.target.value;
+    this.currentValueSearch = $event.target.value.toLowerCase();
+
 
     if (this.currentValueSearch !== '') {
       this.products.map((element: any) => {

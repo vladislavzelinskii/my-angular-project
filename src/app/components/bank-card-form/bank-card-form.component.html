@@ -61,16 +61,18 @@
     </div>
 
     <div class="validationErrors">
-        <ng-container *ngIf="bankCards.length">
+        <ng-container *ngIf="bankCards?.length">
             <div *ngIf="card?.invalid">
                 <div *ngIf="card?.errors?.cardRequired">
                     Please, select card
                 </div>
             </div>
         </ng-container>
-        <div *ngIf="!bankCards || bankCards.length === 0">
-            Please add card
-        </div>
+        <ng-container *ngIf="!flagNewCard">
+            <div *ngIf="!bankCards || bankCards.length === 0">
+                Please add card
+            </div>
+        </ng-container>
         <div *ngIf="cardNumber?.invalid && cardNumber?.touched">
             <div *ngIf="cardNumber?.errors?.cardNameRequired">
                 Please, enter card number

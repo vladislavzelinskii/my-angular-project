@@ -71,6 +71,21 @@
     }
 }
 
+@media (max-width: 600px) {
+    .addReview {
+        display: flex;
+        justify-content: center;
+        form {
+            width: 100%;
+            max-width: 300px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 30px 1fr 50px;
+            grid-gap: 20px;
+        }
+    }
+}
+
 
 .rating-area {
 	overflow: hidden;
