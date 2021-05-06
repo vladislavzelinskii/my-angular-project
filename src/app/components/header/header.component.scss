@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
     background-color: #fff;
-    grid-template-columns: 180px 1fr 300px;
+    grid-template-columns: 180px 1fr 250px;
     line-height: 60px;
     height: 60px;
     margin: 0 auto;
@@ -34,17 +34,25 @@
 .iconsList {
     display: flex;
     flex-direction: row;
+    .textForIcon {
+        display: none;
+    }
 }
 
 
 @media (max-width: 720px) {
     .wrapper {
-        grid-template-columns: 170px 1fr 60px;
+        grid-template-columns: 120px 1fr 60px;
+    }
+    .shopName {
+        a {
+            font-size: 2.3rem;
+
+        }
     }
     .showIconsListLabel {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         cursor: pointer;
     }
     .iconsList {
@@ -52,48 +60,40 @@
     }
     .showIconsListInput:checked ~ .iconsList {
         position: absolute;
-        left: -30px;
-        top: 75px;
+        left: -160px;
+        top: 60px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-color: rgb(148, 132, 132);
-        height: 200px;
-        width: 80px;
+        align-items: flex-start;
+        background-color: #fff;
+        box-shadow: -8px 10px 10px -4px rgba(0,0,0,0.5);;
+        height: fit-content;
+        width: fit-content;
+        .icon {
+            justify-content: flex-start;
+            height: 120px;
+            width: 200px;
+            margin: 0 10px;
+            img {
+                height: 60px;
+                width: 60px;
+            }
+        }
+        .textForIcon {
+            display: block;
+            font-size: 22px;
+            margin: 0 10px;
+        }
     }
-}
-
-@media (max-width: 540px) {
-    .wrapper {
-        grid-template-columns: 1fr 60px 60px;
-    }
-    .showSearchLabel {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        cursor: pointer;
-    }
-    app-search {
-        display: none;
-    }
-    .showSearchInput:checked ~ app-search {
-        display: flex;
-        position: absolute;
-        left: 16px;
-        top: 75px;
-        display: flex;
-        box-sizing: border-box;
-        height: calc(100% - 100px);
-        width: calc(100% - 50px);
-    }
-}
+} 
 
 .shopName {
     height: 60px;
     font-size: 2.8rem;
     font-weight: 900;
-    padding-left: 20px;
-    padding-right: 10px;
+    display: flex;
+    justify-content: center;
     a {
         color: #ff4747;
         text-decoration: none;
@@ -102,13 +102,15 @@
 
 
 app-search {
-    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
 }
 
 
 
-.toCart,
-.toUserDetails {
+.icon {
     width: 70px;
     color: black;
     background-color: inherit;
@@ -139,29 +141,14 @@ app-search {
     }
 }
 
-.auth {
-    text-decoration: none;
-    height: 60px;
-    text-decoration: none;
-    color: black;
-    img {
-        height: 20px;
-        width: 20px;
-    }
-}
-
-.logout {
-    height: 60px;
-    button {
-        height: 60px;
-        background-color: inherit;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        img {
-            height: 20px;
-            width: 20px;
-        }
+.icon:hover {
+    div {
+        display: block;
+        position: absolute;
+        top: 45px;
+        border: 1px solid black;
+        background-color: #fff;
+        padding: 5px;
     }
 }
 

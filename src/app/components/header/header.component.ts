@@ -63,6 +63,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  toAuth() {
+    this.router.navigateByUrl('/auth');
+  }
+
   logout() {
     this.authService.logout();
     this.isSignedIn = false;
