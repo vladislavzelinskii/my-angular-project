@@ -57,6 +57,11 @@
     }
     .iconsList {
         display: none;
+        .icon {
+            .counterCart {
+                top: 28px;
+            }
+        }
     }
     .showIconsListInput:checked ~ .iconsList {
         position: absolute;
@@ -141,15 +146,19 @@ app-search {
     }
 }
 
-.icon:hover {
-    div {
-        display: block;
-        position: absolute;
-        top: 45px;
-        border: 1px solid black;
-        background-color: #fff;
-        padding: 5px;
+@media (min-width: 720px) {
+    .icon:hover {
+        div {
+            display: block;
+            position: absolute;
+            top: 45px;
+            border: 1px solid black;
+            background-color: #fff;
+            padding: 5px;
+            z-index: 1;
+        }
     }
 }
+
 
 

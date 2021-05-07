@@ -11,11 +11,6 @@
         </aside>
 
         <div class="products" *ngIf="flagForLoader">
-            <!-- <div class="orderBy">
-                <button (click)="changeUrlToOrderBy('id')">Unordered</button>
-                <button (click)="changeUrlToOrderBy('price')">Cheap</button>
-                <button (click)="changeUrlToOrderBy('price', true)">Expensive</button>
-            </div> -->
             <div class="customSelect">
                 <div class="currentOrder" (click)="openList($event)"><span *ngIf="currentOrder!=='Default'">First </span>{{currentOrder}} &#9660;</div>
                 <ul *ngIf="showListOfSort">
@@ -24,47 +19,16 @@
                     <li (click)="changeUrlToOrderBy('price', true)"><span *ngIf="currentOrder === 'expensive'">&#10003;</span>Expensive</li>
                 </ul>
             </div>
-            <!-- <div class="select">
-            <select name="orderBy" id="orderBy" ngModel="unordered" (ngModelChange)="SELECTchangeUrlToOrderBy($event)">
-                <option value="unordered">Unordered</option>
-                <option value="priceAsc">Cheap</option>
-                <option value="priceDesc">Expensive</option>
-            </select>
-        </div> -->
             <ul class="productsContent">
                 <ng-container *ngFor="let product of currentProductsOnPage">
-                    <!-- <li *ngIf="flagForNoSelectedCategory || queryCategory.category?.includes(product.category)"> -->
                     <li>
-                        <!-- <div class="inputCompare">
-
-                            <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
-                                <input type="checkbox" checked="true" (click)="addToCompare($event, product.id, product.category)">
-                            </div>
-                            <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
-                                <input type="checkbox" (click)="addToCompare($event, product.id, product.category)">
-                            </div> -->
-
-                            <!-- <div *ngIf="arrayOfIdForCompare.includes(product.id.toString())">
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" checked="true" (click)="addToCompare($event, product.id)">
-                                    <span></span>
-                                </label>
-                            </div>
-                            <div *ngIf="!arrayOfIdForCompare.includes(product.id.toString())">
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" (click)="addToCompare($event, product.id)">
-                                    <span></span>
-                                </label>
-                            </div> -->
-
-                        <!-- </div> -->
                         <div class="image">
                             <a routerLink='/product/{{product.id}}'>
                                 <img
                                     src="{{ (product.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
                             </a>
                         </div>
-                        <div class="nameAndDescription">
+                        <div class="nameAndDescriptionAndCompare">
                             <div class="name">
                                 <a routerLink='/product/{{product.id}}'>{{product.name}}</a>
                             </div>
@@ -72,7 +36,6 @@
                                 {{product.shortDescription || 'no description'}}
                             </div>
                             <div class="addToCompare">
-                                <!-- <input type="checkbox" [checked]="checkValue(product.id)" (click)="addToCompare(product.id, product.category)"> -->
                                 <button [className]="checkValue(product.id) ? 'buttonCompareChecked' : 'buttonCompare'" (click)="addToCompare(product.id, product.category)"></button>
                             </div>
                         </div>
@@ -89,7 +52,6 @@
             </div>
 
         </div>
-
 
         <div class="toCompare" *ngIf="compareCounter > 0">
             <div class="counterCompare" *ngIf="!flagForClearComparison">

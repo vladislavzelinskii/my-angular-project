@@ -1,6 +1,6 @@
 <ng-container *ngIf="filtersForm">
-    <div [formGroup]="filtersForm">
-        <div *ngFor="let control of categoriesArray.controls; let i = index" formArrayName='categories'>
+    <div [formGroup]="filtersForm" class="wrapper">
+        <div class="control" *ngFor="let control of categoriesArray.controls; let i = index" formArrayName='categories'>
             <input [formControlName]="i" type="checkbox" id="checkbox{{i}}" 
             (change)="getSelectedCategoriesValue()"
             value="123">

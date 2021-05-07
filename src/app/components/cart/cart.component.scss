@@ -16,15 +16,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
     img {
-        height: 233px;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
     }
     .emptyCardText {
         margin-top: 30px;
         font-size: 35px;
+        text-align: center;
     }
     span {
         margin-top: 10px;
+        text-align: center;
+
         a {
             color: #2e9cc3;
             text-decoration: none;

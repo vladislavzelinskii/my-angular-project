@@ -1,0 +1,19 @@
+
+@media (max-width: 600px) {
+    .wrapper {
+        .control {
+            height: 60px;
+            line-height: 60px;
+            display: flex;
+            flex-direction: row;
+            input {
+                height: 60px;
+            }
+            label {
+                display: block;
+                height: 60px;
+                font-size: 30px;
+            }
+        }
+    }
+}

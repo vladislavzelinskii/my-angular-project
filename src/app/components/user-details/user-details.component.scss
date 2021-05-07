@@ -2,6 +2,7 @@
 .wrapper {
     max-width: 1000px;
     margin: 0 auto;
+    // padding: 0 20px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 215px 1fr;
@@ -18,6 +19,18 @@
         grid-area: content;
     }
 }
+
+@media (max-width: 700px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'header' 
+        'aside'
+        'content';
+    }
+}
+
+
 
 aside {
     background-color: #fff;
@@ -204,6 +217,18 @@ aside {
     }
 }
 
-
+@media (max-width: 530px) {
+    .content {
+        .paymentMethods {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .bankCard {
+                width: 290px;
+                height: 160px;
+            }
+        }
+    }
+}
 
 

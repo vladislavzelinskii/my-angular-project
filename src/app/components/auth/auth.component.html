@@ -9,7 +9,9 @@
         </div>
         <form [formGroup]="signUpForm" *ngIf="!isSignedIn && flagForRegisterOfSignIn" class="signUp"
             (ngSubmit)="onSignup(this.signUpForm.value.emailSignUp, this.signUpForm.value.passwordSignUp)">
-            <input type="text" formControlName="emailSignUp" placeholder="Email address">
+            <div class="wrapperForInput">
+                <input type="text" formControlName="emailSignUp" placeholder="Email address">
+            </div>
             <div class="inputIncorrect" *ngIf="emailSignUp?.invalid && (emailSignUp?.dirty || emailSignUp?.touched)">
                 <div *ngIf="emailSignUp?.errors?.emailRequired">
                     Please, enter email
@@ -18,8 +20,12 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input [type]="flagPasswordOrText ? 'text' : 'password'" formControlName="passwordSignUp" placeholder="Password">
-            <div class="showPassword" (click)="toggleFlagPasswordOrText()"></div>
+            <div class="wrapperForInput">
+                <input [type]="flagPasswordOrText ? 'text' : 'password'" formControlName="passwordSignUp" placeholder="Password">
+                <div class="showPassword" (click)="toggleFlagPasswordOrText()">
+                    <div class="tooltip">Show password for 1 sec</div>
+                </div>
+            </div>
             <div class="inputIncorrect" *ngIf="passwordSignUp?.invalid && (passwordSignUp?.dirty || passwordSignUp?.touched)">
                 <div *ngIf="passwordSignUp?.errors?.passwordRequired">
                     Please, enter password
@@ -28,8 +34,12 @@
                     Please enter 6 - 20 characters (A-Z, a-z, 0-9 only)
                 </div>
             </div>
-            <input [type]="flagPasswordConfirmOrText ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Password confirm" *ngIf="signUpForm.value.passwordSignUp">
-            <div class="showPassword" (click)="toggleFlagPasswordConfirmOrText()"></div>
+            <div class="wrapperForInput" *ngIf="signUpForm.value.passwordSignUp">
+                <input [type]="flagPasswordConfirmOrText ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Password confirm">
+                <div class="showPassword" (click)="toggleFlagPasswordConfirmOrText()">
+                    <div class="tooltip">Show password for 1 sec</div>
+                </div>
+            </div>
             <div class="inputIncorrect" *ngIf="passwordConfirm?.invalid && (passwordConfirm?.dirty || passwordConfirm?.touched)">
                 <div *ngIf="passwordConfirm?.errors?.passwordConfirmRequired">
                     Please, confirm password
@@ -42,7 +52,9 @@
         </form>
         <form [formGroup]="signInForm" *ngIf="!isSignedIn && !flagForRegisterOfSignIn" class="signIn"
             (ngSubmit)="onSignin(this.signInForm.value.emailSignIn, this.signInForm.value.passwordSignIn)">
-            <input type="text" formControlName="emailSignIn" placeholder="Email address">
+            <div class="wrapperForInput">
+                <input type="text" formControlName="emailSignIn" placeholder="Email address">
+            </div>
             <div class="inputIncorrect" *ngIf="emailSignIn?.invalid && (emailSignIn?.dirty || emailSignIn?.touched)">
                 <div *ngIf="emailSignIn?.errors?.emailRequired">
                     Please, enter email
@@ -51,8 +63,12 @@
                     Please, enter correct email
                 </div>
             </div>
-            <input [type]="flagPasswordSignInOrText ? 'text' : 'password'" formControlName="passwordSignIn" placeholder="Password">
-            <div class="showPassword" (click)="toggleFlagSignInPasswordOrText()"></div>
+            <div class="wrapperForInput">
+                <input [type]="flagPasswordSignInOrText ? 'text' : 'password'" formControlName="passwordSignIn" placeholder="Password">
+                <div class="showPassword" (click)="toggleFlagSignInPasswordOrText()">
+                    <div class="tooltip">Show password for 1 sec</div>
+                </div>
+            </div>
             <div class="inputIncorrect" *ngIf="passwordSignIn?.invalid && (passwordSignIn?.dirty || passwordSignIn?.touched)">
                 <div *ngIf="passwordSignIn?.errors?.passwordRequired">
                     Please, enter password
@@ -74,6 +90,7 @@
         <div class="google">
             <button (click)="googleSignin()">
                 <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FGoogleLogo.png?alt=media&token=19e21e19-b1ca-4603-ac0f-6f4bdd88c514" alt="">
+                <div class="tooltip">Sign In / Sign Up with Google</div>
             </button>
         </div>
     </div>

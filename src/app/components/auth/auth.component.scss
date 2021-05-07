@@ -6,12 +6,17 @@
     justify-content: center;
 }
 
+.tooltip {
+    display: none;
+}
+
 .content {
-    margin-top: 20px;
+    margin: 20px;
     background-color: #fff;
     border-radius: 8px;
     padding: 10px;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     .buttonsRegisterOrSignIn {
         text-align: center;
         button {
@@ -38,26 +43,44 @@
     .signUp {
         display: flex;
         flex-direction: column;
-        input {
-            height: 40px;
-            border: 1px solid #ebebeb;
-            border-radius: 4px;
-            outline: none;
-            padding: 0 16px 0 10px;
-            margin-top: 20px;
-        }
-        input.ng-touched.ng-invalid {
-            border: 1px solid #e62e04;
-        }
-        .showPassword {
-            position: relative;
-            left: 360px;
-            top: -43px;
-            width: 0;
-            height: 0;
-            &:before {
-                content: '\1F441';
-                font-size: 30px;
+        .wrapperForInput {
+            display: flex;
+            flex-direction: row;
+            input {
+                width: 100%;
+                height: 40px;
+                border: 1px solid #ebebeb;
+                border-radius: 4px;
+                outline: none;
+                padding: 0 16px 0 10px;
+                margin-top: 20px;
+            }
+            input.ng-touched.ng-invalid {
+                border: 1px solid #e62e04;
+            }
+            .showPassword {
+                position: relative;
+                right: 40px;
+                top: 20px;
+                width: 0;
+                height: 0;
+                cursor: pointer;
+                &:before {
+                    content: '\1F441';
+                    font-size: 30px;
+                }
+                &:hover {
+                    .tooltip {
+                        display: block;
+                        position: absolute;
+                        top: 45px;
+                        left: -20px;
+                        border: 1px solid black;
+                        background-color: #fff;
+                        padding: 5px;
+                        z-index: 1;
+                    }
+                }
             }
         }
         button {
@@ -88,9 +111,23 @@
             border: none;
             outline: none;
             cursor: pointer;
+            position: relative;
             img {
                 width: 80px;
                 height: 80px;
+            }
+            &:hover {
+                .tooltip {
+                    display: block;
+                    position: absolute;
+                    top: 85px;
+                    left: 70px;
+                    width: 100px;
+                    border: 1px solid black;
+                    background-color: #fff;
+                    padding: 5px;
+                    z-index: 1;
+                }
             }
         }
     }

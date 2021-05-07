@@ -32,11 +32,13 @@ header {
 }
 
 
+
+
 aside {
     grid-area: aside;
     // width: 150px;
     background-color: #fff;
-    height: 110px;
+    height: fit-content;
     padding: 10px;
     // position: fixed;
     top: 70px;
@@ -138,13 +140,7 @@ aside {
 }
 
 
-@media (max-width: 700px) {
-    .products > ul > li {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 1rem;
-    }
-}
+
 
 .pagination {
     display: flex;
@@ -274,6 +270,43 @@ aside {
         &::before {
             content: "- remove";
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .products {
+        margin-bottom: 60px;
+        .productsContent {
+            li {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
+                grid-gap: 1rem;
+
+                .nameAndDescriptionAndCompare {
+                    .addToCompare {
+                        padding-top: 15px;
+                        button {
+                            float: left;
+                            margin-left: 20px;
+                        }
+                    }
+                }
+                .price {
+                    margin-right: 20px;
+                    height: 0;
+                    h3 {
+                        position: relative;
+                        top: -43px;
+                        float: right;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    .toCompare {
+        right: 38px;
     }
 }
 
