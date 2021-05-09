@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
 
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { CompareCounterService } from 'src/app/services/compare-counter.service';
 
 @Component({
@@ -15,13 +12,9 @@ import { CompareCounterService } from 'src/app/services/compare-counter.service'
 })
 export class ProductsComponent implements OnInit {
 
-  // products: Product[] = PRODUCTS;
-
   queryCategory: Params = {};
 
   flagForNoSelectedCategory: boolean = false;
-
-  // flagForAddToCart: boolean = false;
 
   allProducts: any = [];
   productsAfterFilter: any = [];
@@ -46,7 +39,6 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    // private productService: ProductService,  
     private firestore: AngularFirestore,
     private router: Router,
     private counterService: CompareCounterService,
@@ -99,7 +91,6 @@ export class ProductsComponent implements OnInit {
     ).subscribe(() => this.productsMap());
   }
 
-
   productsMap() {
 
     this.productsAfterFilter = [];
@@ -112,8 +103,6 @@ export class ProductsComponent implements OnInit {
         this.productsAfterFilter.push(element)
       }
     })
-
-    // console.log(this.productsAfterFilter);
 
     this.currentProductsOnPage = [];
     this.currentPage = 1;
@@ -160,7 +149,7 @@ export class ProductsComponent implements OnInit {
     this.showListOfSort = !this.showListOfSort;
   }
 
-  closeList($event: any) {
+  closeList() {
     if (this.showListOfSort) {
       this.showListOfSort = false;
     }

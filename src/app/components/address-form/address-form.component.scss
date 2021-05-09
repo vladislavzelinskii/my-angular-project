@@ -33,7 +33,7 @@ form {
             width: 100%;
             box-sizing: border-box;
         }
-        input.ng-invalid {
+        input.ng-touched.ng-invalid  {
             color: #e62e04;
             border: 2px solid #e62e04;
             outline: none;
@@ -62,7 +62,7 @@ form {
         width: 100%;
         box-sizing: border-box;
     }
-    input.ng-invalid {
+    input.ng-touched.ng-invalid  {
         color: #e62e04;
         border: 2px solid #e62e04;
         outline: none;
@@ -97,6 +97,27 @@ form {
         width: 140px;
     }
 }
+
+@media (max-width: 500px) {
+    .nameAndPhone {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .streetHouseFlat,
+    .countryCityIndex {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .submit {
+            margin: 0 0 10px;
+        }
+    }
+}
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

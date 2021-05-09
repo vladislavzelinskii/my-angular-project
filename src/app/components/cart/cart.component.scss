@@ -79,15 +79,6 @@
     }
 }
 
-@media (max-width: 400px) {
-    .buy {
-        a {
-            float: inherit;
-            margin: 0 auto;
-        }
-    }
-}
-
 .cartCaptionAndClearCart {
     background-color: #fff;
     border-radius: 5px;
@@ -237,6 +228,35 @@
         }
     }
     
+}
+
+@media (max-width: 400px) {
+    .buy {
+        a {
+            float: inherit;
+            margin: 0 auto;
+        }
+    }
+    .productsInCart {
+        .productInCart {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
+            height: fit-content;
+            .nameAndPrice {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .priceAndQuantity {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .priceSubTotal {
+                    padding: 0;
+                }
+            }
+        }
+    }
 }
 
 

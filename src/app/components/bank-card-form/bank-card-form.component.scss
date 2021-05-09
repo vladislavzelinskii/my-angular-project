@@ -186,3 +186,72 @@ form {
 .validationErrors {
     color: #e62e04;
 }
+
+@media (max-width: 900px) {
+
+    .newCard {
+        flex-direction: column;
+        .cardFront {
+            margin-bottom: 20px;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .submit {
+            margin: 0 0 10px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+
+    .newCard {
+        width: 100%;
+        height: 100%;
+        .cardFront {
+            width: 100%;
+            height: 100%;
+            .cardNumber {
+                position: static;
+                input {
+                    width: 248px;
+                    height: 26px;
+                    font-size: 16px;
+                }
+            }
+            .cardHolder {
+                position: static;
+                input {
+                    width: 120px;
+                    height: 17px;
+                    font-size: 14px;
+                }
+            }
+            .expires {
+                position: static;
+                input {
+                    width: 80px;
+                    height: 17px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .cardBack {
+            width: 100%;
+            height: 100%;
+            .cardCVV {
+                width: 67px;
+                position: static;
+                input {
+                    font-size: 22px;
+                    height: 26px;
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+}

@@ -55,7 +55,7 @@ export class AddressFormComponent implements OnInit {
           }
         })
       })
-    ).subscribe(x => {
+    ).subscribe(() => {
       this.addressForm.setValue({
         name: this.name,
         phone: this.phone,
@@ -76,11 +76,23 @@ export class AddressFormComponent implements OnInit {
     }
     return true;
   }
+
+  inputOnlyDigitsAndPlus(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode === 43 && event.target.value === '') {
+      return true
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
   phoneFormat(event: any) {
     let value = event.target.value;
-    value = value.replace(/\D+/g,"");
 
     if (value.length > 0) {
+      value = value.replace(/\D+/g,"");
       value = '+' + value.substr(0, value.length);
     }
     if (value.length > 4) {
@@ -129,6 +141,9 @@ export class AddressFormComponent implements OnInit {
 
   get nameInput() {
     return this.addressForm.get('name');
+  }
+  get phoneInput() {
+    return this.addressForm.get('phone');
   }
   get streetInput() {
     return this.addressForm.get('street');

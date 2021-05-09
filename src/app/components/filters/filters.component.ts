@@ -14,6 +14,7 @@ export class FiltersComponent implements OnInit {
 
   queryCategory: Params = {};
   filters: Array<string> = [];
+  filtersPrice: Array<string> = [];
   selectedCategoriesValues: string[] = [];
   filtersForm: any;
 
@@ -26,8 +27,13 @@ export class FiltersComponent implements OnInit {
     this.firestore.collection('filters').valueChanges()
     .pipe(
       map(res => {
-        this.filters = res.map((element: any) => {
-          return element.name;
+        res.map((element: any) => {
+          if (element.type === 'checkbox') {
+            this.filters.push(element.name);
+          } 
+          else if (element.type === "input") {
+            this.filtersPrice.push(element.name);
+          }
         })
       })
     )
@@ -36,7 +42,9 @@ export class FiltersComponent implements OnInit {
 
   createFiltersForm() {
     this.filtersForm = this.fb.group({
-      categories: this.addCategoriesControl()
+      categories: this.addCategoriesControl(),
+      // priceMin: [],
+      // priceMax: [],
     })
   }
 
@@ -57,9 +65,30 @@ export class FiltersComponent implements OnInit {
     return this.fb.array(arr);
   }
 
+  // addPricesControl() {
+  //   const arr = this.filtersPrice.map(element => {
+  //     return this.fb.control;
+  //   });
+
+  //   return this.fb.array(arr);
+  // }
+
+  applyPrice() {
+    console.log(this.filtersForm.value);
+  }
+
   get categoriesArray() {
     return this.filtersForm.get('categories') as FormArray;
   }
+  get priceMin() {
+    return this.filtersForm.get('priceMin');
+  }
+  get priceMax() {
+    return this.filtersForm.get('priceMax');
+  }
+  // get pricesArray() {
+  //   return this.filtersForm.get('prices') as FormArray;
+  // }
 
   getSelectedCategoriesValue() {
     this.selectedCategoriesValues = [];

@@ -12,6 +12,9 @@
             <div class="wrapperForInput">
                 <input type="text" formControlName="emailSignUp" placeholder="Email address">
             </div>
+            <div class="exampleEmail">
+                Example: IvanIvanov1998@gmail.com
+            </div>
             <div class="inputIncorrect" *ngIf="emailSignUp?.invalid && (emailSignUp?.dirty || emailSignUp?.touched)">
                 <div *ngIf="emailSignUp?.errors?.emailRequired">
                     Please, enter email
@@ -54,6 +57,9 @@
             (ngSubmit)="onSignin(this.signInForm.value.emailSignIn, this.signInForm.value.passwordSignIn)">
             <div class="wrapperForInput">
                 <input type="text" formControlName="emailSignIn" placeholder="Email address">
+            </div>
+            <div class="exampleEmail">
+                Example: IvanIvanov1998@gmail.com
             </div>
             <div class="inputIncorrect" *ngIf="emailSignIn?.invalid && (emailSignIn?.dirty || emailSignIn?.touched)">
                 <div *ngIf="emailSignIn?.errors?.emailRequired">

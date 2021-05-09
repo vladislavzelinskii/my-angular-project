@@ -9,7 +9,7 @@ import 'firebase/auth';
 import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { map, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { SignUpLogOutButtonService } from './sign-up-log-out-button.service';
 
 
@@ -90,6 +90,13 @@ export class AuthService {
           }
         })
 
+        // if (flagForCurrentCart) {
+        //   localStorage.setItem('cart', idOfCart);
+        //   return '';
+        // }
+        // return idOfCart;
+        
+
         if (flagForCurrentCart) {
           localStorage.setItem('cart', idOfCart);
         } else {
@@ -108,7 +115,23 @@ export class AuthService {
 
 
 
+      // }),
+      // filter((id: string) => !!id),
+      // switchMap((idOfCart: string) => {
+      //   return this.firestore.collection('cart').add({
+      //     totalPrice: 0,
+      //     userId: user?.uid,
+      //     productsInCart: [],
+      //   })
+      // }),
+      // switchMap((object: any) => {
+      //   localStorage.setItem('cart', object.id)
+      //   return this.firestore.collection('cart').doc(localStorage.cart).set({
+      //           id: localStorage.cart,
+      //         }, { merge: true } )
       })
+
+
     ).subscribe();
 
     

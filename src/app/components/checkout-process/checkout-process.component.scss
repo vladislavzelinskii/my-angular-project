@@ -8,6 +8,8 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -23,6 +25,8 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -51,15 +55,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
     img {
-        height: 233px;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
     }
     .emptyCardText {
         margin-top: 30px;
         font-size: 35px;
+        text-align: center;
     }
     span {
         margin-top: 10px;
+        text-align: center;
+
         a {
             color: #2e9cc3;
             text-decoration: none;
@@ -109,15 +120,6 @@
     .buy {
         button {
             float: right;
-        }
-    }
-}
-
-@media (max-width: 400px) {
-    .buy {
-        button {
-            float: inherit;
-            margin: 0 auto;
         }
     }
 }
@@ -238,11 +240,7 @@
         }
     }
     
-
-
 }
-
-
 
 .productsInCart {
     display: flex;
@@ -262,7 +260,7 @@
 
         display: grid;
         grid-template-columns: 100px 1fr 100px;
-        grid-gap: 1rem;
+        grid-gap: 20px;
     
         margin-bottom: 1rem;
 
@@ -288,6 +286,35 @@
         }
     }
     
+}
+
+@media (max-width: 400px) {
+    .buy {
+        button {
+            float: inherit;
+            margin: 0 auto;
+        }
+    }
+    .productsInCart {
+        .productInCart {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
+            height: fit-content;
+            .nameAndPrice {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .priceAndQuantity {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .priceSubTotal {
+                    padding: 0;
+                }
+            }
+        }
+    }
 }
 
 

@@ -2,6 +2,7 @@
 .wrapper {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 10px;
     display: grid;
     grid-gap: 20px;
     grid-template-areas: 
@@ -107,9 +108,5 @@ li:hover {
 
 .products {
     background-color: #fff;
-    box-sizing: border-box;
-    margin-left: 10px;
-    margin-right: 10px;
-    width: calc(100% - 30px);
 }
 

@@ -228,6 +228,30 @@ aside {
                 height: 160px;
             }
         }
+        .myOrders {
+            .purchase {
+                .products {
+                    .productInCart {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
+                        height: fit-content;
+                        .nameAndPrice {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                        }
+                        .priceAndQuantity {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            .priceSubTotal {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

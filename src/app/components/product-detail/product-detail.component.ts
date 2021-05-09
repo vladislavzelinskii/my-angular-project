@@ -4,10 +4,9 @@ import { Location } from '@angular/common';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { first, map, take, tap } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
 
 import firebase from 'firebase/app';
 
@@ -20,14 +19,13 @@ import firebase from 'firebase/app';
 
 export class ProductDetailComponent implements OnInit {
 
-  product!: Observable<Product>;
+  product$!: Observable<Product>;
   id!: number;
   flagProductInCart: boolean = false;
   quantityOfItemsInCart: number = 0;
 
   constructor(
     private route: ActivatedRoute,
-    // private productService: ProductService,
     private location: Location,
     private firestore: AngularFirestore,
   ) { }
@@ -38,29 +36,36 @@ export class ProductDetailComponent implements OnInit {
       map(params => params.getAll('id'))
     ).subscribe(data => {
       this.id = +data;
+      
 
-      this.product = this.firestore.collection('products', ref => {
+      this.product$ = this.firestore.collection('products', ref => {
         return ref.where('id', '==', this.id)
       }).valueChanges().pipe(
+        take(1),
         map((item$: any): any => {
           return item$[0];
         }));
 
+
+      this.firestore.collection('cart').doc(localStorage.cart).valueChanges().pipe(
+        take(1),
+        map((res: any) => {
+          this.flagProductInCart = false;
+          this.quantityOfItemsInCart = 0;
+          if (res) {
+            res.productsInCart.map((element: any) => {
+              if (element.productId === this.id) {
+                this.flagProductInCart = true;
+                this.quantityOfItemsInCart = element.quantity;
+              }
+            })
+          }
+        })
+      ).subscribe();
+
     });
 
-    this.firestore.collection('cart').doc(localStorage.cart).valueChanges().pipe(
-      map((res: any) => {
-        this.flagProductInCart = false;
-        if (res) {
-          res.productsInCart.map((element: any) => {
-            if (element.productId === this.id) {
-              this.flagProductInCart = true;
-              this.quantityOfItemsInCart = element.quantity;
-            }
-          })
-        }
-      })
-    ).subscribe();
+    
 
   }
 

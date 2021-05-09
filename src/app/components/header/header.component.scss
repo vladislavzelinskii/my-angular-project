@@ -34,6 +34,7 @@
 .iconsList {
     display: flex;
     flex-direction: row;
+    z-index: 1;
     .textForIcon {
         display: none;
     }
@@ -133,7 +134,7 @@ app-search {
     }
     .counterCart {
         position: absolute;
-        top: 8px;
+        top: -3px;
         left: 43px;
         width: 20px;
         height: 20px;
@@ -148,7 +149,7 @@ app-search {
 
 @media (min-width: 720px) {
     .icon:hover {
-        div {
+        .textForIcon {
             display: block;
             position: absolute;
             top: 45px;
