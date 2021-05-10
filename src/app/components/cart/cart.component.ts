@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ProductInCart } from 'src/app/models/productInCart';
 import firebase from 'firebase/app';
 
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

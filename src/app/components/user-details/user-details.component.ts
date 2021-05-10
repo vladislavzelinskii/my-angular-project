@@ -16,8 +16,8 @@ export class UserDetailsComponent implements OnInit {
   userId: string = '';
   userEmail: string = '';
 
-  flagForEditAddress: boolean = false;
-  flagForEditCard: boolean = false;
+  flagForEditAddress!: boolean;
+  flagForEditCard!: boolean;
   flagContent: string = 'shipping';
 
   constructor(

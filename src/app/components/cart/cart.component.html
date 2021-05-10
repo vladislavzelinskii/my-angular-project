@@ -9,6 +9,10 @@
         </div>
     
         <div *ngIf="cart.productsInCart.length > 0" class="wrapper">
+
+            <header>
+                <app-header></app-header>
+            </header>
             
             <div class="cartCaptionAndClearCart">
                 <div class="captionAndQuantity">
@@ -69,7 +73,6 @@
                             <button
                                 (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
                                 DELETE
-                                <!-- <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="delete"> -->
                             </button>
                         </div>
                         <div class="quantity">
@@ -90,40 +93,6 @@
                         </div>
                     </div>
     
-    
-    
-                    <!-- <div class="nameAndQuantity">
-                        <div class="name">
-                            <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
-                        </div>
-                        <div class="quantity">
-                            <button
-                                (click)="quantityMinus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                                [disabled]="(productInCart.quantity === 1)">
-                                -
-                            </button>
-                            {{productInCart.quantity}}
-                            <button
-                                (click)="quantityPlus(productInCart.productId, productInCart.quantity, cart.productsInCart, productInCart.price)"
-                                [disabled]="(productInCart.quantity === 10)">
-                                +
-                            </button>
-                        </div>
-                    </div>
-                    <div class="priceAndDeleteButton">
-                        <div class="price">
-                            {{productInCart.price | currency}}
-                            {{productInCart.price * productInCart.quantity | currency}}
-                        </div>
-                        <button
-                            (click)="deleteProduct(productInCart.productId, productInCart.price, productInCart.name, productInCart.image, productInCart.quantity)">
-                            Delete product
-                        </button>
-                    </div> -->
-    
-    
-    
-    
                 </div>
             </div>
     
@@ -133,8 +102,3 @@
     
 
 </div>
-
-<!-- <h3>{{ item | async | json }}</h3> -->
-
-<!-- <input [(ngModel)]="newContent">
-    <button (click)="updateContent()">Update</button> -->

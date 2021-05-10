@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
   queryCategory: Params = {};
 
-  flagForNoSelectedCategory: boolean = false;
+  flagForNoSelectedCategory!: boolean;
 
   allProducts: any = [];
   productsAfterFilter: any = [];
@@ -26,16 +26,16 @@ export class ProductsComponent implements OnInit {
 
   arrayOfIdForCompare: any;
 
-  showListOfSort: boolean = false;
+  showListOfSort!: boolean;
 
   currentOrder: string = 'Default';
 
   condition: { order?: string, desc?: any } = {};
 
-  flagForLoader: boolean = false;
+  flagForLoader!: boolean;
 
   compareCounter!: number;
-  flagForClearComparison: boolean = false;
+  flagForClearComparison!: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,

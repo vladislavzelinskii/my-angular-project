@@ -18,7 +18,7 @@ export class PopularProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = this.firestore.collection('products', ref => {
-      return ref.limit(5);
+      return ref.orderBy('averageRating', 'desc').limit(5);
     }).valueChanges();
   }
 

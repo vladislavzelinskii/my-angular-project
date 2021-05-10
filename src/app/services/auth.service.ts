@@ -18,7 +18,7 @@ import { SignUpLogOutButtonService } from './sign-up-log-out-button.service';
 })
 export class AuthService {
 
-  isLoggedIn: boolean = false;
+  isLoggedIn!: boolean;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -112,6 +112,8 @@ export class AuthService {
             }, { merge: true } )
           });
         }
+
+        
 
 
 

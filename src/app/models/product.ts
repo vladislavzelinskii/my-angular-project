@@ -1,5 +1,4 @@
 import { Review } from "./review";
-import { Specs } from "./specs";
 
 export interface Product {
     id: number;

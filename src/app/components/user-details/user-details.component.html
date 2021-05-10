@@ -80,7 +80,7 @@
                 No orders
             </div>
             <ng-container *ngIf="user.purchaseHistory">
-                <div class="purchase" *ngFor="let purchase of user.purchaseHistory">
+                <div class="purchase" *ngFor="let purchase of user.purchaseHistory.reverse()">
                     <div class="products">
                         <div class="dateAndTotalPrice">
                             <div class="dateAndTime">
@@ -88,7 +88,7 @@
                                 {{purchase.time}}
                             </div>
                             <div class="totalPrice">
-                                Total price: {{purchase.totalPrice}}
+                                Total price: {{purchase.totalPrice | currency}}
                             </div>
                         </div>
                         <div *ngFor="let productInCart of purchase.products" class="productInCart">

@@ -14,7 +14,7 @@ import { Product } from 'src/app/models/product';
 export class ReviewsComponent implements OnInit {
 
   product!: Observable<Product>;
-  flagLoggedIn: boolean = false;
+  flagLoggedIn!: boolean;
 
   constructor(
     private route: ActivatedRoute,

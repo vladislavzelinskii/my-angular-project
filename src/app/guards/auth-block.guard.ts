@@ -10,14 +10,7 @@ export class AuthBlockGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    console.log('route: ' + route.url);
-    console.log('state: ' + state.url);
+    return localStorage.user ? false : true
 
-    if (localStorage.user) {
-      return false;
-    }
-    
-    return true;
   }
-  
 }

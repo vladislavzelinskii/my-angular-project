@@ -21,7 +21,7 @@ export class ProductDetailComponent implements OnInit {
 
   product$!: Observable<Product>;
   id!: number;
-  flagProductInCart: boolean = false;
+  flagProductInCart!: boolean;
   quantityOfItemsInCart: number = 0;
 
   constructor(
@@ -41,14 +41,12 @@ export class ProductDetailComponent implements OnInit {
       this.product$ = this.firestore.collection('products', ref => {
         return ref.where('id', '==', this.id)
       }).valueChanges().pipe(
-        take(1),
         map((item$: any): any => {
           return item$[0];
         }));
 
 
       this.firestore.collection('cart').doc(localStorage.cart).valueChanges().pipe(
-        take(1),
         map((res: any) => {
           this.flagProductInCart = false;
           this.quantityOfItemsInCart = 0;

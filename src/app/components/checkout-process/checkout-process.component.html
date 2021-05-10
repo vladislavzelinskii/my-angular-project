@@ -16,9 +16,11 @@
         </div>
         <div class="popupBackground" *ngIf="showCardPopup" (click)="closeCard()"></div>
         
-        <!-- *ngIf="showCardPopup" -->
-        
         <div *ngIf="user | async as user" class="wrapper">
+
+            <header>
+                <app-header></app-header>
+            </header>
     
             <div class="deliveryAddress">
                 <div class="addressDetails">
@@ -95,20 +97,20 @@
                     </div>
                     <div class="nameAndPrice">
                         <div class="name">
-                            <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
+                            <a routerLink='/product/{{productInCart.productId}}'>{{productInCart?.name}}</a>
                         </div>
                         <br>
                         <div class=price>
-                            {{productInCart.price | currency}}
+                            {{productInCart?.price | currency}}
                         </div>
                     </div>
                     <div class="priceAndQuantity">
                         <div class="quantity">
                             Quantity:
-                            {{productInCart.quantity}}
+                            {{productInCart?.quantity}}
                         </div>
                         <div class="priceSubTotal">
-                            {{productInCart.price * productInCart.quantity | currency}}
+                            {{productInCart?.price * productInCart?.quantity | currency}}
                         </div>
                     </div>
                 </div>

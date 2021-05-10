@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BankCard } from 'src/app/models/bankCard';
+import { ProductInCart } from 'src/app/models/productInCart';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -15,14 +16,14 @@ export class CheckoutProcessComponent implements OnInit {
 
   user!: Observable<User>;
 
-  productsInCart: any = [];
+  productsInCart: ProductInCart[] | any = [];
 
   totalPrice!: number;
 
-  showAddressPopup: boolean = false;
-  showCardPopup: boolean = false;
+  showAddressPopup!: boolean;
+  showCardPopup!: boolean;
 
-  address!: any;
+  address!: Record<string, unknown>;
   currentBankCard!: BankCard;
 
   constructor(
@@ -81,13 +82,11 @@ export class CheckoutProcessComponent implements OnInit {
   }
 
   goToPaymentSuccess() {
-    console.log('gotopaymentsuccess');
     if (this.currentBankCard && this.address) {
       this.router.navigateByUrl('/paymentSuccess');
     } else {
       alert("Please enter your shipping address and payment details")
     }
-    
   }
 
 }

@@ -7,7 +7,8 @@
         <div class="productComparisonCaption">
             Product comparison
         </div>
-        <div class="clearComparison">
+        <div class="backToProductsAndClearComparison">
+            <a routerLink="/products">Back to products</a>
             <button (click)="clearComparison()" >Clear comparison</button>
         </div>
     </div>
@@ -43,6 +44,7 @@
                                 <span [ngClass]="{'active' : product.averageRating > 3.5}"></span>
                                 <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
                                 <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
+                                {{product.averageRating | number : '1.2-2'}}
                             </ng-container>
                             <div *ngIf="!product.reviews">
                                 No reviews

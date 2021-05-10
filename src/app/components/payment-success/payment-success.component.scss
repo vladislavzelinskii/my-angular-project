@@ -12,6 +12,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 1.2rem;
+        margin-bottom: 20px;
     }
 }
 
@@ -40,10 +41,15 @@
     background-color: #fff;
     border-radius: 5px;
 
-    .orderListCaption {
-        font-size: 1.5rem;
+    .orderListCaptionAndTotalPrice {
         margin: 20px;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
+
+    
 
     .productInCart {
         margin: 10px;
@@ -78,4 +84,24 @@
         }
     }
     
+}
+
+.linksToOtherPages {
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff;
+    a {
+        text-decoration: none;
+        background-color: #ff4747;
+        border: 1px solid black;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        color: black;
+        padding: 7px 10px;
+        color: #fff;
+    }
 }

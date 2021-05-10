@@ -13,7 +13,7 @@ import { SignUpLogOutButtonService } from 'src/app/services/sign-up-log-out-butt
 export class HeaderComponent implements OnInit {
 
   itemsLength: number = 0;
-  isSignedIn: boolean = false;
+  isSignedIn!: boolean;
 
   constructor(
     private firebase: AngularFirestore,
@@ -25,11 +25,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     this.signUpLogOutButtonService.subject.subscribe((nextValue: any) => {
-      if (nextValue) {
-        this.isSignedIn = true;
-      } else {
-        this.isSignedIn = false;
-      }
+      nextValue ? this.isSignedIn = true : this.isSignedIn = false
     });
 
 
@@ -70,8 +66,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.isSignedIn = false;
-    this.router.navigateByUrl('');
-    // window.location.reload();
+    window.location.reload();
   }
 
 }

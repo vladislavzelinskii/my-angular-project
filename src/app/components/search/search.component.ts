@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  flagShowSearch: boolean = false;
+  flagShowSearch!: boolean;
   products: Array<string> = [];
   productsList: Array<any> = [];
   currentValueSearch: string = '';

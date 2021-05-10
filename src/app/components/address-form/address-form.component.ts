@@ -13,14 +13,14 @@ export class AddressFormComponent implements OnInit {
 
   @Output() onChanged = new EventEmitter<boolean>();
 
-  name: any = '';
-  phone: any = '';
-  street: any = '';
-  house: any = '';
-  flat: any = '';
-  country: any = '';
-  city: any = '';
-  index: any = '';
+  private name: string = '';
+  private phone: string = '';
+  private street: string = '';
+  private house: string = '';
+  private flat: string = '';
+  private country: string = '';
+  private city: string = '';
+  private index: string = '';
 
   addressForm = new FormGroup({
     name: new FormControl('', [Validators.required, inputLengthValidator(40)]),

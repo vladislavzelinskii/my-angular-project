@@ -1,9 +1,9 @@
 export interface BankCard {
     id: number;
-    cardName: string;
+    cardName?: string;
     cardNumber: number;
     cardYear: number;
     cardMonth: number;
     cardCVV: number;
-    image: string;
+    image?: string;
 }

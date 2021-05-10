@@ -4,7 +4,6 @@
     margin: 0 auto;
     background-color: #f2f2f2;
     box-sizing: border-box;
-    padding-top: 20px;
     padding-bottom: 30px;
     font-family: Open Sans, Arial, Helvetica, sans-serif, Heiti;
 }
@@ -49,9 +48,13 @@
     grid-gap: 20px;
     grid-template-columns: 1fr 280px;
     grid-template-areas:
+        'header header'
         'cartCaptionAndClearCart buy'
         'productsInCart buy'
     ;
+    header {
+        grid-area: header;
+    }
     .cartCaptionAndClearCart {
         grid-area: cartCaptionAndClearCart;
     }
@@ -67,6 +70,7 @@
     .wrapper {
         grid-template-columns: 1fr;
         grid-template-areas:
+            'header'
             'cartCaptionAndClearCart'
             'productsInCart'
             'buy'
@@ -125,22 +129,24 @@
         }
     }
 
-    a {
-        margin-top: 20px;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-
-        width: 100%;
-        max-width: 200px;
-        box-sizing: border-box;
-        height: 40px;
-        line-height: 40px;
-        border-radius: 5px;
-        font-size: 1.2rem;
-        color: #fff;
-        cursor: pointer;
-        background-color: #ff4747;
+    .checkoutButton {
+        a {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+    
+            width: 100%;
+            max-width: 240px;
+            box-sizing: border-box;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            background-color: #ff4747;
+        }
     }
 }
 
@@ -258,51 +264,3 @@
         }
     }
 }
-
-
-
-// .wrapper {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     margin-top: 10px;
-// }
-
-// .productInCart {
-//     border: 1px solid black;
-//     margin: 10px;
-//     padding: 10px;
-//     width: 400px;
-//     height: 100px;
-// }
-
-// a {
-//     color: black;
-//     text-decoration: none;
-// }
-
-// img {
-//     max-height: 100%;
-//     max-width: 100%;
-// }
-
-// .image {
-//     text-align: center;
-//     height: 100px;
-// }
-
-// .productInCart {
-//     display: grid;
-//     grid-template-columns: 100px 150px 50px;
-//     grid-gap: 1rem;
-
-//     margin-bottom: 1rem;
-// }
-
-// .deleteButton {
-//     width: 70px;
-//     height: 30px;
-//     margin-top: 30px;
-// }
-
-

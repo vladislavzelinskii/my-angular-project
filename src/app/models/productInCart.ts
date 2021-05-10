@@ -1,6 +1,7 @@
 export interface ProductInCart {
-    id: number;
-    name: string;
+    productId?: number;
+    name?: string;
     image?: string;
-    price: number;
+    price?: number;
+    quantity?: number;
 }

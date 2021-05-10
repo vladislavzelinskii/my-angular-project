@@ -19,12 +19,12 @@ export class BankCardFormComponent implements OnInit {
 
   cardForm!: FormGroup;
 
-  flagNewCard: boolean = false;
-  flagSaveCard: boolean = false;
+  flagNewCard!: boolean;
+  flagSaveCard!: boolean;
 
   currentBankCard!: BankCard;
   
-  date: any;
+  date!: Date;
   currentMonth: any;
   currentYear: any;
 

@@ -11,16 +11,16 @@ import { emailValidator, passwordValidator, passwordConfirmValidator } from 'src
 })
 export class AuthComponent implements OnInit {
 
-  isSignedIn: boolean = false;
+  isSignedIn!: boolean;
 
   flagForRegisterOfSignIn: boolean = true;
 
   signUpForm!: FormGroup;
   signInForm!: FormGroup;
 
-  flagPasswordOrText: boolean = false;
-  flagPasswordConfirmOrText: boolean = false;
-  flagPasswordSignInOrText: boolean = false;
+  flagPasswordOrText!: boolean;
+  flagPasswordConfirmOrText!: boolean;
+  flagPasswordSignInOrText!: boolean;
 
   constructor(
     private fb: FormBuilder,

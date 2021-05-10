@@ -14,12 +14,14 @@
         <div class="text">
             Congratulations on your purchase!
         </div>
-        <div *ngIf="totalPrice">
-            {{totalPrice}}
-        </div>
         <div class="productsInCart">
-            <div class="orderListCaption">
-                Order Review
+            <div class="orderListCaptionAndTotalPrice">
+                <div class="orderListCaption">
+                    Order Review
+                </div>
+                <div class="totalPrice" *ngIf="totalPrice">
+                    Total price: {{totalPrice | currency}}
+                </div>
             </div>
             <div *ngFor="let productInCart of productsInCart" class="productInCart">
                 <div class="image">
@@ -47,6 +49,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="linksToOtherPages">
+            <a routerLink='' class="mainPage">Go to main page</a>
+            <a routerLink='/products' class="products">Continue shopping</a>
+            <a routerLink='/userDetails' class="profile">Your profile</a>
         </div>
     </div>
 </div>
