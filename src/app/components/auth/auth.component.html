@@ -15,7 +15,7 @@
             <div class="exampleEmail">
                 Example: IvanIvanov1998@gmail.com
             </div>
-            <div class="inputIncorrect" *ngIf="emailSignUp?.invalid && (emailSignUp?.dirty || emailSignUp?.touched)">
+            <div class="inputIncorrect" *ngIf="emailSignUp?.invalid && emailSignUp?.touched">
                 <div *ngIf="emailSignUp?.errors?.emailRequired">
                     Please, enter email
                 </div>
@@ -29,7 +29,7 @@
                     <div class="tooltip">Show password for 1 sec</div>
                 </div>
             </div>
-            <div class="inputIncorrect" *ngIf="passwordSignUp?.invalid && (passwordSignUp?.dirty || passwordSignUp?.touched)">
+            <div class="inputIncorrect" *ngIf="passwordSignUp?.invalid && passwordSignUp?.touched">
                 <div *ngIf="passwordSignUp?.errors?.passwordRequired">
                     Please, enter password
                 </div>
@@ -43,7 +43,7 @@
                     <div class="tooltip">Show password for 1 sec</div>
                 </div>
             </div>
-            <div class="inputIncorrect" *ngIf="passwordConfirm?.invalid && (passwordConfirm?.dirty || passwordConfirm?.touched)">
+            <div class="inputIncorrect" *ngIf="passwordConfirm?.invalid && passwordConfirm?.touched">
                 <div *ngIf="passwordConfirm?.errors?.passwordConfirmRequired">
                     Please, confirm password
                 </div>
@@ -61,7 +61,7 @@
             <div class="exampleEmail">
                 Example: IvanIvanov1998@gmail.com
             </div>
-            <div class="inputIncorrect" *ngIf="emailSignIn?.invalid && (emailSignIn?.dirty || emailSignIn?.touched)">
+            <div class="inputIncorrect" *ngIf="emailSignIn?.invalid && emailSignIn?.touched">
                 <div *ngIf="emailSignIn?.errors?.emailRequired">
                     Please, enter email
                 </div>
@@ -75,7 +75,7 @@
                     <div class="tooltip">Show password for 1 sec</div>
                 </div>
             </div>
-            <div class="inputIncorrect" *ngIf="passwordSignIn?.invalid && (passwordSignIn?.dirty || passwordSignIn?.touched)">
+            <div class="inputIncorrect" *ngIf="passwordSignIn?.invalid && passwordSignIn?.touched">
                 <div *ngIf="passwordSignIn?.errors?.passwordRequired">
                     Please, enter password
                 </div>
@@ -85,11 +85,6 @@
             </div>
             <button type="submit" [disabled]="!this.signInForm.valid">SIGN IN</button>
         </form>
-        <!-- <div *ngIf="!isSignedIn && !flagForRegisterOfSignIn" class="signIn">
-            <input type="text" #email placeholder="Email address">
-            <input type="text" #password placeholder="Password">
-            <button (click)="onSignin(email.value, password.value)">SIGN IN</button>
-        </div> -->
         <div class="quickAccess">
             Quick access with
         </div>

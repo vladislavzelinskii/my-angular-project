@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { CounterCartService } from 'src/app/services/counter-cart.service';
 import { SignUpLogOutButtonService } from 'src/app/services/sign-up-log-out-button.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
     private firebase: AngularFirestore,
     private authService: AuthService,
     private signUpLogOutButtonService: SignUpLogOutButtonService,
+    private counterCartService: CounterCartService,
     private router: Router,
   ) {}
 
@@ -28,18 +30,22 @@ export class HeaderComponent implements OnInit {
       nextValue ? this.isSignedIn = true : this.isSignedIn = false
     });
 
+    this.counterCartService.subject.subscribe((nextValue: any) => {
+      this.itemsLength = nextValue;
+    });
 
-    if (localStorage.cart) {
-      this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
-      .pipe(
-        map((res: any) => {
-            if (res.productsInCart) {
-              this.itemsLength = res.productsInCart.length;
-            }
-          }
-        )
-      ).subscribe();
-    }
+
+    // if (localStorage.cart) {
+    //   this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
+    //   .pipe(
+    //     map((res: any) => {
+    //         if (res.productsInCart) {
+    //           this.itemsLength = res.productsInCart.length;
+    //         }
+    //       }
+    //     )
+    //   ).subscribe();
+    // }
 
   }
 

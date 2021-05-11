@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { emailValidator, passwordValidator, passwordConfirmValidator } from 'src/app/validators/sign-in-sign-up-validators';
 
@@ -47,27 +49,62 @@ export class AuthComponent implements OnInit {
     }
   }
 
-  async onSignup(email: string, password: string) {
-    await this.authService.signup(email, password)
-    if (this.authService.isLoggedIn) {
-      this.isSignedIn = true;
-      this.router.navigateByUrl('');
-    }
+  // async onSignup(email: string, password: string) {
+  //   await this.authService.signup(email, password)
+  //   if (this.authService.isLoggedIn) {
+  //     this.isSignedIn = true;
+  //     this.router.navigateByUrl('');
+  //   }
+  // }
+
+  public onSignup(email: string, password: string) {
+    this.authService.signup(email, password).pipe(
+      tap(() => {
+        if (this.authService.isLoggedIn) {
+          this.isSignedIn = true;
+          this.router.navigateByUrl('');
+        }
+      })
+    ).subscribe();
+    
   }
-  async onSignin(email: string, password: string) {
-    await this.authService.signin(email, password)
-    if (this.authService.isLoggedIn) {
-      this.isSignedIn = true;
-      this.router.navigateByUrl('');
-    }
+
+
+  // async onSignin(email: string, password: string) {
+  //   await this.authService.signin(email, password)
+  //   if (this.authService.isLoggedIn) {
+  //     this.isSignedIn = true;
+  //     this.router.navigateByUrl('');
+  //   }
+  // }
+
+  public onSignin(email: string, password: string) {
+    this.authService.signin(email, password).pipe(
+      tap(() => {
+        if (this.authService.isLoggedIn) {
+          this.isSignedIn = true;
+          this.router.navigateByUrl('');
+        }
+      })
+    ).subscribe();
+    
   }
+
   handleLogout() {
     this.isSignedIn = false;
   }
 
-  async googleSignin() {
-    await this.authService.googleSignin();
-    this.router.navigateByUrl('');
+  // async googleSignin() {
+  //   await this.authService.googleSignin();
+  //   this.router.navigateByUrl('');
+  // }
+
+  public googleSignin() {
+    this.authService.googleSignin().pipe(
+      tap(() => {
+        this.router.navigateByUrl('');
+      })
+    ).subscribe();
   }
 
   changeFlagToSignIn() {

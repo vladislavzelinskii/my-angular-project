@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ProductInCart } from 'src/app/models/productInCart';
+import { CounterCartService } from 'src/app/services/counter-cart.service';
 import firebase from 'firebase/app';
+
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +18,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore,
+    private counterCartService: CounterCartService,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class CartComponent implements OnInit {
         quantity: quantity,
       })
     });
+    this.counterCartService.checkValue();
   }
 
   clearCart() {
@@ -64,6 +68,7 @@ export class CartComponent implements OnInit {
       totalPrice: 0,
       productsInCart: [],
     });
+    this.counterCartService.checkValue();
   }
 
 }

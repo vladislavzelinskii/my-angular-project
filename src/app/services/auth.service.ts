@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -9,8 +8,10 @@ import 'firebase/auth';
 import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { SignUpLogOutButtonService } from './sign-up-log-out-button.service';
+import { from } from 'rxjs';
+import { CounterCartService } from './counter-cart.service';
 
 
 @Injectable({
@@ -23,40 +24,83 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore,
-    private router: Router,
     private signUpLogOutButtonService: SignUpLogOutButtonService,
+    private counterCartService: CounterCartService,
   ) {}
 
-  async signin(email: string, password: string) {
-    await this.afAuth.signInWithEmailAndPassword(email, password)
-    .then(res => {
-      this.updateUserData(res.user);
-    }).catch((err) => {
-      if (err.code === "auth/wrong-password") {
-        alert("Email or password wrong");
-      }
-    })
+  // async signin(email: string, password: string) {
+  //   await this.afAuth.signInWithEmailAndPassword(email, password)
+  //   .then(res => {
+  //     this.updateUserData(res.user);
+  //   }).catch((err) => {
+  //     if (err.code === "auth/wrong-password") {
+  //       alert("Email or password wrong");
+  //     } else if (err.code === "auth/user-not-found") {
+  //       alert("There is no user with such email");
+  //     }
+  //   })
+  // }
+
+  public signin(email: string, password: string): any {
+    return from(this.afAuth.signInWithEmailAndPassword(email, password)).pipe(
+      tap((res: any) => {
+        this.updateUserData(res.user);
+      }),
+      catchError((err: any): any => {
+        if (err.code === "auth/wrong-password") {
+          alert("Email or password wrong");
+        } else if (err.code === "auth/user-not-found") {
+          alert("There is no user with such email");
+        }
+      })
+    )
   }
-  async signup(email: string, password: string) {
-    await this.afAuth.createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      this.updateUserData(res.user);
-    }).catch((err) => {
-      if (err.code === "auth/email-already-in-use") {
-        alert("Email already in use");
-      }
-    })
+
+
+
+  // async signup(email: string, password: string) {
+  //   await this.afAuth.createUserWithEmailAndPassword(email, password)
+  //   .then(res => {
+  //     this.updateUserData(res.user);
+  //   }).catch((err) => {
+  //     if (err.code === "auth/email-already-in-use") {
+  //       alert("Email already in use");
+  //     }
+  //   })
+  // }
+
+  public signup(email: string, password: string): any {
+    return from(this.afAuth.createUserWithEmailAndPassword(email, password)).pipe(
+      tap((res: any) => {
+        this.updateUserData(res.user);
+      }),
+      catchError((err: any): any => {
+        if (err.code === "auth/email-already-in-use") {
+          alert("Email already in use");
+        }
+      })
+    )
   }
+
   logout() {
     this.afAuth.signOut();
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
   }
 
-  async googleSignin() {
+  // async googleSignin() {
+  //   const provider = new auth.GoogleAuthProvider();
+  //   const credential = await this.afAuth.signInWithPopup(provider);
+  //   return this.updateUserData(credential.user);
+  // }
+
+  public googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+    return from(this.afAuth.signInWithPopup(provider)).pipe(
+      tap((userCred: auth.UserCredential) => {
+        this.updateUserData(userCred.user)
+      })
+    )
   }
 
   private updateUserData(user: any) {
@@ -99,6 +143,7 @@ export class AuthService {
 
         if (flagForCurrentCart) {
           localStorage.setItem('cart', idOfCart);
+          this.counterCartService.checkValue();
         } else {
           this.firestore.collection('cart').add({
             totalPrice: 0,
@@ -110,6 +155,7 @@ export class AuthService {
             this.firestore.collection('cart').doc(localStorage.cart).set({
               id: localStorage.cart,
             }, { merge: true } )
+            this.counterCartService.checkValue();
           });
         }
 

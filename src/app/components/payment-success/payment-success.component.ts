@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
+import { CounterCartService } from 'src/app/services/counter-cart.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -22,6 +24,8 @@ export class PaymentSuccessComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private datePipe: DatePipe,
+    private router: Router,
+    private counterCartService: CounterCartService,
   ) { }
 
   ngOnInit(): void {
@@ -41,10 +45,19 @@ export class PaymentSuccessComponent implements OnInit {
           cartDocument.update({
             productsInCart: [],
             totalPrice: 0
-          })
+          });
+
+          this.counterCartService.checkValue();
 
         })
-      ).subscribe(() => this.setOrderToPurchaseHistory());
+      ).subscribe(() => {
+        if (this.productsInCart.length !== 0) {
+          this.setOrderToPurchaseHistory();
+        } else {
+          this.router.navigateByUrl('');
+        }
+      })
+
   }
 
   setOrderToPurchaseHistory() {
@@ -67,7 +80,6 @@ export class PaymentSuccessComponent implements OnInit {
           }
 
           this.purchaseHistory.push(this.currentPurchase)
-          console.log(this.purchaseHistory);
 
           document.update({
             purchaseHistory: this.purchaseHistory

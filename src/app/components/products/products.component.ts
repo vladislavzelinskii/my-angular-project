@@ -173,7 +173,6 @@ export class ProductsComponent implements OnInit {
       if (JSON.parse(localStorage.compare).items.includes(productId)) {
         compareValue.category = JSON.parse(localStorage.compare).category;
         compareValue.items = JSON.parse(localStorage.compare).items.filter((id: number) => id !== productId);
-        // console.log(compareValue.items);
         if (!compareValue.items.length) {
           localStorage.removeItem('compare');
           this.counterService.subject.next(0);

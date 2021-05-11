@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { first, map, take, tap } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
 
 import firebase from 'firebase/app';
+import { CounterCartService } from 'src/app/services/counter-cart.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private firestore: AngularFirestore,
+    private counterCartService: CounterCartService,
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,6 @@ export class ProductDetailComponent implements OnInit {
       map(params => params.getAll('id'))
     ).subscribe(data => {
       this.id = +data;
-      
 
       this.product$ = this.firestore.collection('products', ref => {
         return ref.where('id', '==', this.id)
@@ -44,7 +45,6 @@ export class ProductDetailComponent implements OnInit {
         map((item$: any): any => {
           return item$[0];
         }));
-
 
       this.firestore.collection('cart').doc(localStorage.cart).valueChanges().pipe(
         map((res: any) => {
@@ -63,8 +63,6 @@ export class ProductDetailComponent implements OnInit {
 
     });
 
-    
-
   }
 
   addToCart(productId: number, price: number, name: string, image: string) {
@@ -74,7 +72,6 @@ export class ProductDetailComponent implements OnInit {
       document.valueChanges().pipe(
         first(), tap((res: any) => {
 
-          let quantity!: number;
           let productsInCart: any = res.productsInCart;
           let flagForNoProductInCart: boolean = true;
 
@@ -100,6 +97,8 @@ export class ProductDetailComponent implements OnInit {
             totalPrice: firebase.firestore.FieldValue.increment(price),
             productsInCart: productsInCart
           });
+
+          this.counterCartService.checkValue();
 
         })
       ).subscribe();
@@ -132,6 +131,9 @@ export class ProductDetailComponent implements OnInit {
               quantity: quantity
             })
           });
+
+          this.counterCartService.checkValue();
+
         })
       ).subscribe();
       this.quantityOfItemsInCart = 0;
