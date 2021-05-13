@@ -3,8 +3,6 @@ header {
     background-color: #fff;
 }
 
-
-
 .wrapper {
     max-width: 1400px;
     position: relative;
@@ -44,14 +42,12 @@ header {
             }
         }
     }
-    
 }
 
 .tableWrapper {
     overflow-x: auto;
     margin-left: 240px;
 }
-
 
 table {
     border-collapse: collapse;
@@ -60,8 +56,6 @@ table {
         td {
             min-width: 220px;
         }
-        // display: grid;
-        // grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
     .specsCaption {
         height: 40px;
@@ -105,7 +99,6 @@ table {
     .selected {
         background-color: #ffecc4;
     }
-
     .productsForCompare {
         td {
             vertical-align: top;
@@ -139,7 +132,6 @@ table {
             a {
                 color: black;
                 text-decoration: none;
-
                 -webkit-line-clamp: 2;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
@@ -163,6 +155,5 @@ table {
             padding-bottom: 10px;
             font-weight: bold;
         }
-        
     }
 }

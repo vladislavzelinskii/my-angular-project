@@ -1,7 +1,7 @@
-
 <div class="wrapperBackground">
     <div class="emptyCard" *ngIf="productsInCart.length === 0">
-        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08" alt="">
+        <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08"
+            alt="Empty card">
         <div class="emptyCardText">Your card is currently empty.</div>
         <span>Go to the <a routerLink='/products'>catalog</a> and add products.</span>
     </div>
@@ -10,18 +10,18 @@
             <app-address-form (onChanged)="closeAddressFromChildComponent()"></app-address-form>
         </div>
         <div class="popupBackground" *ngIf="showAddressPopup" (click)="closeAddress()"></div>
-    
+
         <div class="popupCard" *ngIf="showCardPopup">
             <app-bank-card-form (onChanged)="closeCardFromChildComponent()"></app-bank-card-form>
         </div>
         <div class="popupBackground" *ngIf="showCardPopup" (click)="closeCard()"></div>
-        
+
         <div *ngIf="user | async as user" class="wrapper">
 
             <header>
                 <app-header></app-header>
             </header>
-    
+
             <div class="deliveryAddress">
                 <div class="addressDetails">
                     <div class="caption">
@@ -38,14 +38,14 @@
                             {{user.address?.city}}, {{user.address?.country}}, {{user.address?.index}}
                         </div>
                     </ng-container>
-                    
+
                 </div>
                 <div class="addressButtons">
                     <button class="addNewAddress" (click)="changeAddress()" *ngIf="!user.address">+ Add new address</button>
-                    <button class="editAddress"  (click)="changeAddress()" *ngIf="user.address">Change address</button>
+                    <button class="editAddress" (click)="changeAddress()" *ngIf="user.address">Change address</button>
                 </div>
             </div>
-    
+
             <div class="paymentDetails">
                 <div class="cardDetails">
                     <div class="caption">
@@ -65,7 +65,7 @@
                     <button (click)="changeCard()" *ngIf="currentBankCard">Change</button>
                 </div>
             </div>
-    
+
             <div class="buy">
                 <div class="totalPriceCaption">
                     Order Summary
@@ -79,11 +79,11 @@
                     </div>
                 </div>
                 <div class="buyButton">
-                    <button (click)="goToPaymentSuccess()" [ngClass]="{ 'disabled' : (!currentBankCard || !user.address) }">Buy</button>
+                    <button (click)="goToPaymentSuccess()"
+                        [ngClass]="{ 'disabled' : (!currentBankCard || !user.address) }">Buy</button>
                 </div>
             </div>
-    
-    
+
             <div class="productsInCart">
                 <div class="orderListCaption">
                     Order Review
@@ -115,8 +115,8 @@
                     </div>
                 </div>
             </div>
-    
+
         </div>
     </ng-container>
-    
+
 </div>

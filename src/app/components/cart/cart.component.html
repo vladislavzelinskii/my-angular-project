@@ -1,19 +1,20 @@
 <div class="wrapperBackground">
 
-    <ng-container *ngIf="cart | async as cart" >
+    <ng-container *ngIf="cart | async as cart">
 
         <div class="emptyCard" *ngIf="cart.productsInCart.length == 0">
-            <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08" alt="">
+            <img src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FemptyCart.png?alt=media&token=d0c98c3a-ade9-4e5f-b83e-0ec17fd80d08"
+                alt="">
             <div class="emptyCardText">Your card is currently empty.</div>
             <span>Go to the <a routerLink='/products'>catalog</a> and add products.</span>
         </div>
-    
+
         <div *ngIf="cart.productsInCart.length > 0" class="wrapper">
 
             <header>
                 <app-header></app-header>
             </header>
-            
+
             <div class="cartCaptionAndClearCart">
                 <div class="captionAndQuantity">
                     Shopping Cart ({{cart.productsInCart.length}})
@@ -22,8 +23,8 @@
                     <button (click)="clearCart()">Clear cart</button>
                 </div>
             </div>
-    
-    
+
+
             <div class="buy">
                 <div class="totalPriceCaption">
                     Order Summary
@@ -40,14 +41,12 @@
                     <a routerLink='/checkout'>Checkout</a>
                 </div>
             </div>
-    
-    
-    
+
             <div class="productsInCart">
                 <div class="orderListCaption">
                     Order Summary
                 </div>
-    
+
                 <div *ngFor="let productInCart of cart.productsInCart" class="productInCart">
                     <div class="image">
                         <a routerLink='/product/{{productInCart.productId}}'>
@@ -55,7 +54,7 @@
                                 src="{{ (productInCart.image) || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png' }}">
                         </a>
                     </div>
-    
+
                     <div class="nameAndPrice">
                         <div class="name">
                             <a routerLink='/product/{{productInCart.productId}}'>{{productInCart.name}}</a>
@@ -67,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="priceAndQuantityAndDelete">
                         <div class="deleteButton">
                             <button
@@ -92,13 +91,11 @@
                             {{productInCart.price * productInCart.quantity | currency}}
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
         </div>
     </ng-container>
-
-    
 
 </div>

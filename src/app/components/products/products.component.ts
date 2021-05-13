@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
 import { AngularFirestore } from '@angular/fire/firestore';
 import { tap } from 'rxjs/operators';
 import { CompareCounterService } from 'src/app/services/compare-counter.service';
@@ -42,7 +41,7 @@ export class ProductsComponent implements OnInit {
     private firestore: AngularFirestore,
     private router: Router,
     private counterService: CompareCounterService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -206,7 +205,6 @@ export class ProductsComponent implements OnInit {
     } else {
       this.router.navigate(['/products'], { queryParams: { order: value }, queryParamsHandling: 'merge' });
     }
-
   }
 
   goToCompare() {

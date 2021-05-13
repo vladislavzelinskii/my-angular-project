@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/storage'; 
-import 'firebase/auth'; 
+import 'firebase/storage';
+import 'firebase/auth';
 
 import auth = firebase.auth;
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -12,7 +12,6 @@ import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { SignUpLogOutButtonService } from './sign-up-log-out-button.service';
 import { from } from 'rxjs';
 import { CounterCartService } from './counter-cart.service';
-
 
 @Injectable({
   providedIn: 'root'
@@ -26,20 +25,7 @@ export class AuthService {
     private firestore: AngularFirestore,
     private signUpLogOutButtonService: SignUpLogOutButtonService,
     private counterCartService: CounterCartService,
-  ) {}
-
-  // async signin(email: string, password: string) {
-  //   await this.afAuth.signInWithEmailAndPassword(email, password)
-  //   .then(res => {
-  //     this.updateUserData(res.user);
-  //   }).catch((err) => {
-  //     if (err.code === "auth/wrong-password") {
-  //       alert("Email or password wrong");
-  //     } else if (err.code === "auth/user-not-found") {
-  //       alert("There is no user with such email");
-  //     }
-  //   })
-  // }
+  ) { }
 
   public signin(email: string, password: string): any {
     return from(this.afAuth.signInWithEmailAndPassword(email, password)).pipe(
@@ -55,19 +41,6 @@ export class AuthService {
       })
     )
   }
-
-
-
-  // async signup(email: string, password: string) {
-  //   await this.afAuth.createUserWithEmailAndPassword(email, password)
-  //   .then(res => {
-  //     this.updateUserData(res.user);
-  //   }).catch((err) => {
-  //     if (err.code === "auth/email-already-in-use") {
-  //       alert("Email already in use");
-  //     }
-  //   })
-  // }
 
   public signup(email: string, password: string): any {
     return from(this.afAuth.createUserWithEmailAndPassword(email, password)).pipe(
@@ -87,12 +60,6 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
   }
-
-  // async googleSignin() {
-  //   const provider = new auth.GoogleAuthProvider();
-  //   const credential = await this.afAuth.signInWithPopup(provider);
-  //   return this.updateUserData(credential.user);
-  // }
 
   public googleSignin() {
     const provider = new auth.GoogleAuthProvider();
@@ -118,8 +85,6 @@ export class AuthService {
 
     this.signUpLogOutButtonService.subject.next(true);
 
-
-
     this.firestore.collection('cart').valueChanges().pipe(
       take(1),
       map((documents: any) => {
@@ -134,13 +99,6 @@ export class AuthService {
           }
         })
 
-        // if (flagForCurrentCart) {
-        //   localStorage.setItem('cart', idOfCart);
-        //   return '';
-        // }
-        // return idOfCart;
-        
-
         if (flagForCurrentCart) {
           localStorage.setItem('cart', idOfCart);
           this.counterCartService.checkValue();
@@ -150,43 +108,20 @@ export class AuthService {
             userId: user?.uid,
             productsInCart: [],
           })
-          .then((docRef) => {
-            localStorage.setItem('cart', docRef.id);
-            this.firestore.collection('cart').doc(localStorage.cart).set({
-              id: localStorage.cart,
-            }, { merge: true } )
-            this.counterCartService.checkValue();
-          });
+            .then((docRef) => {
+              localStorage.setItem('cart', docRef.id);
+              this.firestore.collection('cart').doc(localStorage.cart).set({
+                id: localStorage.cart,
+              }, { merge: true })
+              this.counterCartService.checkValue();
+            });
         }
 
-        
-
-
-
-      // }),
-      // filter((id: string) => !!id),
-      // switchMap((idOfCart: string) => {
-      //   return this.firestore.collection('cart').add({
-      //     totalPrice: 0,
-      //     userId: user?.uid,
-      //     productsInCart: [],
-      //   })
-      // }),
-      // switchMap((object: any) => {
-      //   localStorage.setItem('cart', object.id)
-      //   return this.firestore.collection('cart').doc(localStorage.cart).set({
-      //           id: localStorage.cart,
-      //         }, { merge: true } )
       })
 
-
     ).subscribe();
-
-    
 
     return userRef.set(data, { merge: true })
   }
 
 }
-
-

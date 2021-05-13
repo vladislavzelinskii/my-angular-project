@@ -1,4 +1,3 @@
-
 <div class="wrapper">
 
     <header>
@@ -40,16 +39,17 @@
                 <button (click)="editAddress()">Edit</button>
             </div>
             <button (click)="editAddress()" *ngIf="!flagForEditAddress && !user.address">+ Add new address</button>
-            <app-address-form (onChanged)="closeAddressFromChildComponent()" *ngIf="flagForEditAddress"></app-address-form>
+            <app-address-form (onChanged)="closeAddressFromChildComponent()" *ngIf="flagForEditAddress">
+            </app-address-form>
         </div>
 
         <div class="paymentMethods" *ngIf="flagContent === 'bankCards'">
-            <div class="caption">
+            <div class="caption" *ngIf="user.bankCards?.length !== 0">
                 Bank cards
             </div>
             <div class="noCards" *ngIf="!user.bankCards || user.bankCards?.length === 0">
                 <div class="captionNoCards">
-                    No cards 
+                    No cards
                 </div>
                 <div>
                     You can add a card on checkout
@@ -73,7 +73,7 @@
         </div>
 
         <div class="myOrders" *ngIf="flagContent === 'myOrders'">
-            <div class="caption">
+            <div class="caption" *ngIf="user.purchaseHistory">
                 My orders
             </div>
             <div class="noOrders" *ngIf="!user.purchaseHistory">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="paymentMethods">
                             <div class="paidThrough">
-                                Paid through {{purchase.bankCard.cardNumber | creditCardMask}} 
+                                Paid through {{purchase.bankCard.cardNumber | creditCardMask}}
                             </div>
                             <div *ngIf="purchase.bankCard.cardName">
                                 {{purchase.bankCard.cardName}}

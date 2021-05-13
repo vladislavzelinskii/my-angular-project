@@ -1,4 +1,3 @@
-
 export interface Specs {
     screenSize?: number;
     screenResolution?: string;

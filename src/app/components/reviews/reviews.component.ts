@@ -19,7 +19,7 @@ export class ReviewsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
@@ -41,10 +41,9 @@ export class ReviewsComponent implements OnInit {
 
   addReview(id: number) {
 
-    let averageRating: any;
-    
-    let a = this.firestore.collection('products').valueChanges().pipe(
-      first(), map((products: any) => {
+    this.firestore.collection('products').valueChanges().pipe(
+      first(),
+      map((products: any) => {
         products.map((element: any) => {
           if (element.id == id) {
             let averageRating = element.averageRating;
@@ -76,9 +75,9 @@ export class ReviewsComponent implements OnInit {
               arrayOfRating.push(review.rating);
             });
             let summRating = arrayOfRating.reduce((currentValue: any, previousValue: any) => {
-                return  previousValue + currentValue;
-              })
-            averageRating = summRating/arrayOfReviews.length;
+              return previousValue + currentValue;
+            })
+            averageRating = summRating / arrayOfReviews.length;
             this.firestore.collection('products').doc(id.toString()).update({
               averageRating: averageRating,
               reviews: arrayOfReviews,
@@ -94,6 +93,5 @@ export class ReviewsComponent implements OnInit {
     ).subscribe();
 
   }
-
 
 }

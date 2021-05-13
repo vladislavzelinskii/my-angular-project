@@ -18,12 +18,13 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  { path: 'checkout', component: CheckoutProcessComponent, canActivate: [AuthGuard]},
+  { path: 'checkout', component: CheckoutProcessComponent, canActivate: [AuthGuard] },
   { path: 'compare', component: CompareComponent },
-  { path: 'search', component: SearchComponent},
+  { path: 'search', component: SearchComponent },
   { path: 'paymentSuccess', component: PaymentSuccessComponent, canActivate: [AuthGuard] },
-  { path: 'auth', component: AuthComponent, canActivate: [AuthBlockGuard]},
-  { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] }
+  { path: 'auth', component: AuthComponent, canActivate: [AuthBlockGuard] },
+  { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CompareCounterService {
-  
+
   subject = new BehaviorSubject(0);
 
-  constructor() { 
+  constructor() {
     if (localStorage.compare) {
       this.subject.next(JSON.parse(localStorage.compare).items.length)
     }

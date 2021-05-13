@@ -1,3 +1,8 @@
+<div class="popupLogin" *ngIf="showLoginPopup">
+    <div class="popupBackground" (click)="closeLogin()"></div>
+    <app-popup-login (onChanged)="closeLoginFromChildComponent()"></app-popup-login>
+</div>
+
 <header>
     <app-header></app-header>
 </header>
@@ -13,10 +18,7 @@
             <h3>{{product.name}}</h3>
         </div>
         <div>
-            {{product.shortDescription || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}}
+            {{product.shortDescription || 'No description'}}
         </div>
     </div>
     <div class="price">
@@ -32,8 +34,7 @@
             <span [ngClass]="{'active' : product.averageRating > 2.5}"></span>
             <span [ngClass]="{'active' : product.averageRating > 3.5}"></span>
             <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
-            <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
-            {{product.averageRating | number : '1.2-2'}}
+            {{product.averageRating | number : '1.1-2'}}
         </ng-container>
         <div *ngIf="!product.reviews">
             No reviews

@@ -1,12 +1,7 @@
-
-
 header {
     background: #fff;
-    // position: fixed;
     width: 100%;
-    // z-index: 1;
 }
-
 
 .wrapper {
     max-width: 1000px;
@@ -31,23 +26,16 @@ header {
     }
 }
 
-
-
-
 aside {
     grid-area: aside;
-    // width: 150px;
     background-color: #fff;
     height: fit-content;
     padding: 10px;
-    // position: fixed;
     top: 70px;
 }
 
 .products {
     grid-area: products;
-    // margin-left: 160px;
-    // margin-top: 70px;
     margin-bottom: 10px;
     background-color: #fff;
     padding: 10px;
@@ -99,8 +87,6 @@ aside {
     }
 }
 
-
-
 .products {
     .productsContent {
         padding-left: 0;
@@ -109,7 +95,6 @@ aside {
             display: grid;
             grid-template-columns: 200px 1fr 100px;
             grid-gap: 1rem;
-        
             margin-bottom: 1rem;
             a {
                 color: black;
@@ -130,7 +115,6 @@ aside {
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
-            
             .addToCart > button {
                 height: 50px;
                 width: 100px;
@@ -138,9 +122,6 @@ aside {
         }
     }
 }
-
-
-
 
 .pagination {
     display: flex;
@@ -169,7 +150,6 @@ aside {
         }
     }
 }
-
 
 .toCompare {
     position: fixed;
@@ -255,7 +235,6 @@ aside {
         float: right;
         margin-right: 50px;
     }
-    
     .buttonCompare {
         background-color: #ccc;
         &:hover {
@@ -265,7 +244,6 @@ aside {
             content: "+ compare";
         }
     }
-    
     .buttonCompareChecked {
         background-color: #fddd3a;
         &::before {
@@ -283,7 +261,6 @@ aside {
                 grid-template-columns: 1fr;
                 grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
                 grid-gap: 1rem;
-
                 .nameAndDescriptionAndCompare {
                     .addToCompare {
                         padding-top: 15px;
@@ -310,40 +287,3 @@ aside {
         right: 38px;
     }
 }
-
-
-
-
-// .custom-checkbox>input {
-//     position: absolute;
-//     z-index: -1;
-//     opacity: 0;
-// }
-
-// .custom-checkbox>span::before {
-//     content: '';
-//     display: inline-block;
-//     width: 15px;
-//     height: 15px;
-//     border: 1px solid #adb5bd;
-//     border-radius: 3px;
-// }
-
-// .custom-checkbox>input:not(:disabled):not(:checked)+span:hover::before {
-//     border-color: #b3d7ff;
-// }
-
-// .custom-checkbox>input:not(:disabled):active+span::before {
-//     background-color: #b3d7ff;
-//     border-color: #b3d7ff;
-// }
-
-// .custom-checkbox>input:checked+span::before {
-//     border-color: #ff4747;
-//     background-color: #ff4747;
-//     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-// }
-
-// .custom-checkbox>input:disabled+span::before {
-//     background-color: #e9ecef;
-// }

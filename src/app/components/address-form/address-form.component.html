@@ -1,4 +1,3 @@
-
 <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
     <div class="changeAddressCaption">
         Change address
@@ -22,8 +21,8 @@
             </div>
         </div>
         <div class="phoneWrapper">
-            <input type="text" placeholder="Phone Number" formControlName="phone" (keypress)="inputOnlyDigitsAndPlus($event)"
-                (keyup)="phoneFormat($event)" maxlength="18">
+            <input type="text" placeholder="Phone Number" formControlName="phone"
+                (keypress)="inputOnlyDigitsAndPlus($event)" (keyup)="phoneFormat($event)" maxlength="18">
             <div class="examplePhone">
                 Example: +375(##) ###-##-##
             </div>
@@ -64,7 +63,7 @@
         <div class="flatWrapper">
             <input type="text" placeholder="Flat" formControlName="flat" (keypress)="inputOnlyDigits($event)">
             <div *ngIf="flatInput?.invalid && flatInput?.touched">
-                <div class="inputError" *ngIf="flatInput?.errors?.inputLength">
+                <div class="inputError" *ngIf="flatInput?.errors?.required">
                     Please enter number of flat
                 </div>
                 <div class="inputError" *ngIf="flatInput?.errors?.inputLength">
@@ -98,10 +97,14 @@
             </div>
         </div>
         <div class="indexWrapper">
-            <input type="text" placeholder="Index" formControlName="index" (keypress)="inputOnlyDigits($event)" maxlength="6">
+            <input type="text" placeholder="Index" formControlName="index" (keypress)="inputOnlyDigits($event)"
+                maxlength="6">
             <div *ngIf="indexInput?.invalid && indexInput?.touched">
                 <div class="inputError" *ngIf="indexInput?.errors?.required">
                     Please enter index
+                </div>
+                <div class="inputError" *ngIf="indexInput?.errors?.inputMinLength">
+                    Too short number of index
                 </div>
                 <div class="inputError" *ngIf="indexInput?.errors?.inputLength">
                     Too long number of index

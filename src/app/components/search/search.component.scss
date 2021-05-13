@@ -1,7 +1,5 @@
-
-
 .wrapperBackgroud {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -10,7 +8,6 @@
     z-index: 2;
     box-sizing: border-box;
 }
-
 
 .wrapper {
     position: absolute;
@@ -21,20 +18,18 @@
     justify-content: center;
 }
 
-
-
 input {
     position: relative;
     height: 30px;
     box-sizing: border-box;
     width: 100%;
-    z-index: 10;
+    z-index: 7;
     padding-left: 10px;
 }
 
 .list {
     position: absolute;
-    z-index: 10;
+    z-index: 7;
     border: 1px solid black;
     top: 65px;
     margin: 0 20px;
@@ -66,7 +61,6 @@ ul {
             max-width: 90px;
         }
     }
-    
     .name {
         padding-top: 5px;
         line-height: 20px;
@@ -110,4 +104,3 @@ ul {
     width: 80vw;
     max-width: 400px;
 }
-

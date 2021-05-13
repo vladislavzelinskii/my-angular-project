@@ -29,7 +29,7 @@ export class CheckoutProcessComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.user = this.firestore.collection('users', ref => {
@@ -67,7 +67,7 @@ export class CheckoutProcessComponent implements OnInit {
   closeAddress() {
     this.showAddressPopup = false;
   }
-  closeAddressFromChildComponent(){
+  closeAddressFromChildComponent() {
     this.showAddressPopup = false;
   }
 
@@ -77,7 +77,7 @@ export class CheckoutProcessComponent implements OnInit {
   closeCard() {
     this.showCardPopup = false;
   }
-  closeCardFromChildComponent(){
+  closeCardFromChildComponent() {
     this.showCardPopup = false;
   }
 

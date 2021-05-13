@@ -1,8 +1,4 @@
-
-
-<div class="wrapperBackgroud" (click)="closeSearch($event)" *ngIf="flagShowSearch">
-
-</div>
+<div class="wrapperBackgroud" (click)="closeSearch()" *ngIf="flagShowSearch"></div>
 
 <input type="text" placeholder="I'm shopping for..." (keyup)="search($event)" (focus)="search($event)">
 
@@ -35,25 +31,7 @@
             <li class="noResults" *ngIf="productsList.length === 0 && currentValueSearch !== ''">
                 No results
             </li>
-            <!-- <li *ngIf="productsList.length === 0" (click)="notClose($event)">No results</li> -->
         </ul>
     </div>
-    
+
 </div>
-
-<!-- <button (click)="search()">search</button> -->
-
-
-
-
-<!-- <input type="text" (keydown)="search($event)" placeholder="search product">
-
-
-
-<div *ngFor="let product of products">
-    <div>{{product?.name}}</div>
-</div>
-
-<div *ngIf="products?.length == 0">
-    no products found
-</div> -->

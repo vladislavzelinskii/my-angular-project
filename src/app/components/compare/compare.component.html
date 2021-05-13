@@ -9,17 +9,14 @@
         </div>
         <div class="backToProductsAndClearComparison">
             <a routerLink="/products">Back to products</a>
-            <button (click)="clearComparison()" >Clear comparison</button>
+            <button (click)="clearComparison()">Clear comparison</button>
         </div>
     </div>
-    
-    <div class="tableWrapper">
 
+    <div class="tableWrapper">
         <table>
             <tr class="productsForCompare">
-                <td>
-
-                </td>
+                <td></td>
                 <ng-container *ngFor="let product of products">
                     <td class="firstRow">
                         <div class="imageAndDelete">
@@ -43,7 +40,6 @@
                                 <span [ngClass]="{'active' : product.averageRating > 2.5}"></span>
                                 <span [ngClass]="{'active' : product.averageRating > 3.5}"></span>
                                 <span [ngClass]="{'active' : product.averageRating > 4.5}"></span>
-                                <!-- <div class="Stars" style="--rating: 2.3;" aria-label="Rating of this product is 2.3 out of 5.">11111111</div> -->
                                 {{product.averageRating | number : '1.2-2'}}
                             </ng-container>
                             <div *ngIf="!product.reviews">

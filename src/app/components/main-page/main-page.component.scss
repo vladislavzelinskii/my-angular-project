@@ -1,8 +1,6 @@
-
 .wrapper {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 10px;
     display: grid;
     grid-gap: 20px;
     grid-template-areas: 
@@ -85,10 +83,6 @@ aside {
     position: relative;
 }
 
-
-
-
-
 li:hover {
     background-color: #bec7c7;
 }
@@ -109,4 +103,3 @@ li:hover {
 .products {
     background-color: #fff;
 }
-

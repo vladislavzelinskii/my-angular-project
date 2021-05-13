@@ -1,17 +1,14 @@
-
 .review {
     display: grid;
     grid-template-columns: 150px 1fr;
     border-bottom: 1px solid rgb(223, 220, 220);
     min-height: 70px;
     padding: 10px;
-
     .userName {
         text-overflow: ellipsis;
         overflow: hidden;
         padding: 10px;
     }
-
     .ratingAndText {
         .rating {
             span {
@@ -26,13 +23,20 @@
             }
         }
     }
-
-
 }
 
-.signupForLeaveReview {
+.loginToLeaveReview {
     text-align: center;
     margin-top: 20px;
+    font-size: 22px;
+    a {
+        font-size: 22px;
+        color: #2e9cc3;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .addReview {
@@ -85,7 +89,6 @@
         }
     }
 }
-
 
 .rating-area {
 	overflow: hidden;

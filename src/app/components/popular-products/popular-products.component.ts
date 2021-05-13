@@ -14,7 +14,7 @@ export class PopularProductsComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.products = this.firestore.collection('products', ref => {

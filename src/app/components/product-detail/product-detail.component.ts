@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { first, map, tap } from 'rxjs/operators';
-
 import { Product } from '../../models/product';
-
 import firebase from 'firebase/app';
 import { CounterCartService } from 'src/app/services/counter-cart.service';
 
@@ -25,9 +21,10 @@ export class ProductDetailComponent implements OnInit {
   flagProductInCart!: boolean;
   quantityOfItemsInCart: number = 0;
 
+  showLoginPopup!: boolean;
+
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
     private firestore: AngularFirestore,
     private counterCartService: CounterCartService,
   ) { }
@@ -67,7 +64,7 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(productId: number, price: number, name: string, image: string) {
     if (localStorage.cart) {
-      
+
       const document: any = this.firestore.collection('cart').doc(localStorage.cart);
       document.valueChanges().pipe(
         first(), tap((res: any) => {
@@ -103,7 +100,7 @@ export class ProductDetailComponent implements OnInit {
         })
       ).subscribe();
     } else {
-      alert('Please sign up')
+      this.showLogin();
     }
   }
 
@@ -137,13 +134,17 @@ export class ProductDetailComponent implements OnInit {
         })
       ).subscribe();
       this.quantityOfItemsInCart = 0;
-    } else {
-      alert('Please sign up')
     }
   }
 
-  goBack(): void {
-    this.location.back();
+  showLogin() {
+    this.showLoginPopup = true;
+  }
+  closeLogin() {
+    this.showLoginPopup = false;
+  }
+  closeLoginFromChildComponent() {
+    this.showLoginPopup = false;
   }
 
 }

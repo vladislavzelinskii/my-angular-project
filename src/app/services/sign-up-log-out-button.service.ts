@@ -8,7 +8,7 @@ export class SignUpLogOutButtonService {
 
   subject = new BehaviorSubject(false);
 
-  constructor() { 
+  constructor() {
     localStorage.user ? this.subject.next(true) : this.subject.next(false);
   }
 }

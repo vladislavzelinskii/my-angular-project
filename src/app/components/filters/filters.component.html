@@ -1,26 +1,9 @@
 <ng-container *ngIf="filtersForm">
     <div [formGroup]="filtersForm" class="wrapper">
         <div class="control" *ngFor="let control of categoriesArray.controls; let i = index" formArrayName='categories'>
-            <input [formControlName]="i" type="checkbox" id="checkbox{{i}}" 
-            (change)="getSelectedCategoriesValue()"
-            value="123">
-            <label for="checkbox{{i}}">{{filters[i]}}</label>
+            <input [formControlName]="i" type="checkbox" id="checkbox{{i}}" (change)="getSelectedCategoriesValue()"
+                value="123">
+            <label for="checkbox{{i}}">{{filters[i] | format}}</label>
         </div>
-        
-        <!-- <div class="prices">
-            <label>
-                <input type="text" [formControlName]="priceMin">
-                Price min
-            </label>
-            <label>
-                <input type="text" [formControlName]="priceMax">
-                Price max
-            </label>
-        </div>
-
-        <button (click)="applyPrice()">Apply price filter</button> -->
-        
-        
     </div>
 </ng-container>
-

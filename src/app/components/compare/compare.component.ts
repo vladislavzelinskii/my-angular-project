@@ -27,7 +27,7 @@ export class CompareComponent implements OnInit {
     private firestore: AngularFirestore,
     private router: Router,
     private counterService: CompareCounterService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.arrayComparison();

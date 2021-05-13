@@ -30,8 +30,9 @@
             <div class="cardFront">
                 <div class="cardNumber">
                     <p>CARD NUMBER</p>
-                    <input type="text" placeholder="0000 0000 0000 0000" formControlName="cardNumber" (keypress)="cardInputsOnlyDigits($event)"
-                        (keyup)="cardNumberFormat($event)" (paste)="$event.preventDefault()" minlength="19" maxlength="19">
+                    <input type="text" placeholder="0000 0000 0000 0000" formControlName="cardNumber"
+                        (keypress)="cardInputsOnlyDigits($event)" (keyup)="cardNumberFormat($event)"
+                        (paste)="$event.preventDefault()" minlength="19" maxlength="19">
                 </div>
                 <div class="cardHolder">
                     <p>CARD HOLDER</p>
@@ -39,14 +40,16 @@
                 </div>
                 <div class="expires">
                     <p>EXPIRES</p>
-                    <input type="text" placeholder="MM/YY" formControlName="cardExpires" (keypress)="cardInputsOnlyDigits($event)"
-                        minlength="5" maxlength="5" (keyup)="cardExpiresFormat($event)">
+                    <input type="text" placeholder="MM/YY" formControlName="cardExpires"
+                        (keypress)="cardInputsOnlyDigits($event)" minlength="5" maxlength="5"
+                        (keyup)="cardExpiresFormat($event)">
                 </div>
             </div>
             <div class="cardBack">
                 <div class="cardCVV">
                     <p>CARD CVV</p>
-                    <input type="password" placeholder="000" formControlName="cardCVV" maxlength="3" (keypress)="cardInputsOnlyDigits($event)">
+                    <input type="password" placeholder="000" formControlName="cardCVV" maxlength="3"
+                        (keypress)="cardInputsOnlyDigits($event)">
                 </div>
             </div>
         </div>
@@ -118,11 +121,9 @@
         </div>
     </div>
 
-
     <button class="addNewCardButton" (click)="addNewCard($event)" *ngIf="!flagNewCard">+ Add new card</button>
 
     <div class="buttons">
-        <!-- <button (click)="changeCard()" *ngIf="!flagNewCard" class="submit">Change card</button> -->
         <button class="submit" (click)="submit()" [disabled]="!cardForm.valid">Continue</button>
         <button class="cancel" (click)="cancelAddNewCart($event)" *ngIf="flagNewCard">Cancel</button>
     </div>

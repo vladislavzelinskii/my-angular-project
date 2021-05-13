@@ -5,7 +5,6 @@ import { ProductInCart } from 'src/app/models/productInCart';
 import { CounterCartService } from 'src/app/services/counter-cart.service';
 import firebase from 'firebase/app';
 
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -19,12 +18,12 @@ export class CartComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private counterCartService: CounterCartService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cart = this.firestore.collection('cart').doc(localStorage.cart).valueChanges();
   }
-  
+
   quantityMinus(productId: number, quantity: number, productsInCart: ProductInCart[], price: number) {
     this.firestore.collection('cart').doc(localStorage.cart).update({
       totalPrice: firebase.firestore.FieldValue.increment(-price),
@@ -51,7 +50,7 @@ export class CartComponent implements OnInit {
 
   deleteProduct(productId: number, price: number, name: string, image: string, quantity: number) {
     this.firestore.collection('cart').doc(localStorage.cart).update({
-      totalPrice: firebase.firestore.FieldValue.increment( -(price * quantity)),
+      totalPrice: firebase.firestore.FieldValue.increment(-(price * quantity)),
       productsInCart: firebase.firestore.FieldValue.arrayRemove({
         productId: productId,
         price: price,

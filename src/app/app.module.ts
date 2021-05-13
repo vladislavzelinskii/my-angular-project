@@ -28,6 +28,7 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
 import { AuthComponent } from './components/auth/auth.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { DatePipe } from '@angular/common';
+import { PopupLoginComponent } from './components/popup-login/popup-login.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DatePipe } from '@angular/common';
     PaymentSuccessComponent,
     AuthComponent,
     UserDetailsComponent,
+    PopupLoginComponent,
   ],
   imports: [
     BrowserModule,

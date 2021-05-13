@@ -1,4 +1,3 @@
-
 form {
     padding: 20px 30px;
 }
@@ -33,7 +32,6 @@ form {
         }
     }
 }
-
 
 .bankCardsRadioButtons {
     display: flex;
@@ -76,7 +74,6 @@ form {
                 color: #e62e04;
                 border-bottom: 1px solid #e62e04;
             }
-
         }
     }
     .cardFront {
@@ -188,14 +185,12 @@ form {
 }
 
 @media (max-width: 900px) {
-
     .newCard {
         flex-direction: column;
         .cardFront {
             margin-bottom: 20px;
         }
     }
-
     .buttons {
         display: flex;
         flex-direction: column;
@@ -207,7 +202,6 @@ form {
 }
 
 @media (max-width: 500px) {
-
     .newCard {
         width: 100%;
         height: 100%;
@@ -253,5 +247,4 @@ form {
             }
         }
     }
-
 }

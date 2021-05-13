@@ -30,12 +30,11 @@ export class SearchComponent implements OnInit {
     ).subscribe();
   }
 
-  search($event : any) {
+  search($event: any) {
     this.flagShowSearch = true;
 
     this.productsList = [];
     this.currentValueSearch = $event.target.value.toLowerCase();
-
 
     if (this.currentValueSearch !== '') {
       this.products.map((element: any) => {
@@ -45,13 +44,13 @@ export class SearchComponent implements OnInit {
       })
     }
   }
-  
+
   goToProduct(productId: number) {
     this.flagShowSearch = false;
     this.router.navigate(['/product/' + productId]);
   }
 
-  closeSearch($event: any) {
+  closeSearch() {
     this.flagShowSearch = false;
   }
 

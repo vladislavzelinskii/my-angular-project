@@ -12,22 +12,22 @@ export class CounterCartService {
 
   constructor(
     private firebase: AngularFirestore,
-  ) { 
+  ) {
     this.checkValue();
   }
 
   checkValue() {
     if (localStorage.cart) {
       this.firebase.collection('cart').doc(localStorage.cart).valueChanges()
-      .pipe(
-        take(1),
-        map((res: any) => {
+        .pipe(
+          take(1),
+          map((res: any) => {
             if (res.productsInCart) {
               this.subject.next(res.productsInCart.length);
             }
           }
-        )
-      ).subscribe();
+          )
+        ).subscribe();
     }
   }
 

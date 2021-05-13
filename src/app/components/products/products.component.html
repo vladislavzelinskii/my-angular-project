@@ -3,7 +3,6 @@
         <app-header></app-header>
     </header>
 
-
     <div class="wrapper">
 
         <aside>
@@ -12,11 +11,15 @@
 
         <div class="products" *ngIf="flagForLoader">
             <div class="customSelect">
-                <div class="currentOrder" (click)="openList($event)"><span *ngIf="currentOrder!=='Default'">First </span>{{currentOrder}} &#9660;</div>
+                <div class="currentOrder" (click)="openList($event)"><span *ngIf="currentOrder!=='Default'">First
+                    </span>{{currentOrder}} &#9660;</div>
                 <ul *ngIf="showListOfSort">
-                    <li (click)="changeUrlToOrderBy('id')"><span *ngIf="currentOrder === 'Default'">&#10003;</span>Default</li>
-                    <li (click)="changeUrlToOrderBy('price')"><span *ngIf="currentOrder === 'cheap'">&#10003;</span>Cheap</li>
-                    <li (click)="changeUrlToOrderBy('price', true)"><span *ngIf="currentOrder === 'expensive'">&#10003;</span>Expensive</li>
+                    <li (click)="changeUrlToOrderBy('id')"><span
+                            *ngIf="currentOrder === 'Default'">&#10003;</span>Default</li>
+                    <li (click)="changeUrlToOrderBy('price')"><span
+                            *ngIf="currentOrder === 'cheap'">&#10003;</span>Cheap</li>
+                    <li (click)="changeUrlToOrderBy('price', true)"><span
+                            *ngIf="currentOrder === 'expensive'">&#10003;</span>Expensive</li>
                 </ul>
             </div>
             <ul class="productsContent">
@@ -36,7 +39,8 @@
                                 {{product.shortDescription || 'no description'}}
                             </div>
                             <div class="addToCompare">
-                                <button [className]="checkValue(product.id) ? 'buttonCompareChecked' : 'buttonCompare'" (click)="addToCompare(product.id, product.category)"></button>
+                                <button [className]="checkValue(product.id) ? 'buttonCompareChecked' : 'buttonCompare'"
+                                    (click)="addToCompare(product.id, product.category)"></button>
                             </div>
                         </div>
                         <div class="price">
@@ -48,7 +52,8 @@
 
             <div class="pagination">
                 <button class="prevPage" (click)="prevPage()" [disabled]="currentPage===1">PREV</button>
-                <button class="nextPage" (click)="nextPage()" [disabled]="currentPage>=(productsAfterFilter.length/itemsPerPage)">NEXT</button>
+                <button class="nextPage" (click)="nextPage()"
+                    [disabled]="currentPage>=(productsAfterFilter.length/itemsPerPage)">NEXT</button>
             </div>
 
         </div>
@@ -62,7 +67,9 @@
             <div [className]="flagForClearComparison ? 'clearCompareConfirm' : 'clearCompare'">
                 <button (click)="clearCompare()">
                     <p *ngIf="flagForClearComparison">Clear comparison list</p>
-                    <img *ngIf="!flagForClearComparison" src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7" alt="">
+                    <img *ngIf="!flagForClearComparison"
+                        src="https://firebasestorage.googleapis.com/v0/b/my-angular-project9465.appspot.com/o/assets%2FtrashIcon.png?alt=media&token=fa5823ea-4346-45f4-babf-c400e35b0cc7"
+                        alt="">
                 </button>
             </div>
         </div>

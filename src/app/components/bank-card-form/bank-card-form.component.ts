@@ -23,7 +23,7 @@ export class BankCardFormComponent implements OnInit {
   flagSaveCard!: boolean;
 
   currentBankCard!: BankCard;
-  
+
   date!: Date;
   currentMonth: any;
   currentYear: any;
@@ -32,11 +32,11 @@ export class BankCardFormComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     private datepipe: DatePipe,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cardForm = this.fb.group({
-      card: [ , [cardRadioButtonValidator()]],
+      card: [, [cardRadioButtonValidator()]],
     });
 
     this.date = new Date();
@@ -85,10 +85,10 @@ export class BankCardFormComponent implements OnInit {
     event.preventDefault();
     this.flagNewCard = !this.flagNewCard;
     this.cardForm = this.fb.group({
-      cardNumber: [ , [cardNumberValidator()]],
-      cardHolder: [ , [cardHolderValidator()]],
-      cardExpires: [ , [cardExpiresValidator(this.currentMonth, this.currentYear)]],
-      cardCVV: [ , [cardCVVValidator()]],
+      cardNumber: [, [cardNumberValidator()]],
+      cardHolder: [, [cardHolderValidator()]],
+      cardExpires: [, [cardExpiresValidator(this.currentMonth, this.currentYear)]],
+      cardCVV: [, [cardCVVValidator()]],
       saveCard: [],
       cardName: [],
     }, { validator: formValidator("cardName", "saveCard") });
@@ -98,7 +98,7 @@ export class BankCardFormComponent implements OnInit {
     event.preventDefault();
     this.flagNewCard = !this.flagNewCard;
     this.cardForm = this.fb.group({
-      card: [ , [cardRadioButtonValidator()]],
+      card: [, [cardRadioButtonValidator()]],
     });
     this.setValueToChangeCard();
   }
@@ -117,7 +117,7 @@ export class BankCardFormComponent implements OnInit {
       let cardName = formValue.cardName;
 
       if (saveNewCard) {
-        
+
         this.firestore.collection('users').valueChanges().pipe(
           first(), map((details: any) => {
             details.map((element: any) => {
@@ -129,7 +129,7 @@ export class BankCardFormComponent implements OnInit {
                   lastId = arrayOfBankCards[arrayOfBankCards.length - 1].id;
                   lastId++;
                 }
-                  
+
                 arrayOfBankCards.push({
                   image: 'no image',
                   id: lastId,
@@ -176,14 +176,14 @@ export class BankCardFormComponent implements OnInit {
           }
         });
       }
-      
+
     } else {
       let card = this.bankCards.filter((element: any) => element.id === this.cardForm.value.card)[0];
       this.firestore.collection('cart').doc(localStorage.cart).update({
         currentCard: card
       });
     }
-    
+
     this.onChanged.emit();
 
   }

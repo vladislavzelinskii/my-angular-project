@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { inputLengthValidator } from 'src/app/validators/address-validators';
+import { indexMinLengthValidator, inputLengthValidator } from 'src/app/validators/address-validators';
 
 @Component({
   selector: 'app-address-form',
@@ -30,12 +30,12 @@ export class AddressFormComponent implements OnInit {
     flat: new FormControl('', [Validators.required, inputLengthValidator(4)]),
     country: new FormControl('', [Validators.required, inputLengthValidator(40)]),
     city: new FormControl('', [Validators.required, inputLengthValidator(40)]),
-    index: new FormControl('', [Validators.required, inputLengthValidator(6)]),
+    index: new FormControl('', [Validators.required, inputLengthValidator(6), indexMinLengthValidator(6)]),
   });
 
   constructor(
     private firestore: AngularFirestore,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.firestore.collection('users').valueChanges().pipe(
@@ -92,7 +92,7 @@ export class AddressFormComponent implements OnInit {
     let value = event.target.value;
 
     if (value.length > 0) {
-      value = value.replace(/\D+/g,"");
+      value = value.replace(/\D+/g, "");
       value = '+' + value.substr(0, value.length);
     }
     if (value.length > 4) {
@@ -110,14 +110,14 @@ export class AddressFormComponent implements OnInit {
     if (value.length > 18) {
       value = value.substr(0, 18);
     }
-    
+
     event.target.value = value;
   }
 
   onSubmit() {
     this.firestore.collection('users').doc(JSON.parse(localStorage.user).uid).update({
-      displayName: this.addressForm.value.name, 
-      phone: this.addressForm.value.phone, 
+      displayName: this.addressForm.value.name,
+      phone: this.addressForm.value.phone,
       address: {
         street: this.addressForm.value.street,
         house: this.addressForm.value.house,

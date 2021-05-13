@@ -47,16 +47,9 @@ export class UserDetailsComponent implements OnInit {
   editAddress() {
     this.flagForEditAddress = true;
   }
-  closeAddressFromChildComponent(){
+  closeAddressFromChildComponent() {
     this.flagForEditAddress = false;
   }
-
-  // addCard() {
-  //   this.flagForEditCard = true;
-  // }
-  // closeCardFromChildComponent(){
-  //   this.flagForEditCard = false;
-  // }
 
   removeCard(cardId: number) {
     this.firestore.collection('users').valueChanges().pipe(
